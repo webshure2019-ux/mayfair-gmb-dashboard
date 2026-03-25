@@ -950,6 +950,20 @@ code {
     align-items: start;
   }
 
+  .brand-cluster {
+    gap: 12px;
+  }
+
+  .brand-divider {
+    display: none;
+  }
+
+  .logo-frame {
+    min-width: 148px;
+    min-height: 52px;
+    padding: 10px 14px;
+  }
+
   .summary-grid,
   .branch-grid,
   .focus-grid {
@@ -966,6 +980,117 @@ code {
   .section-block,
   .chart-card {
     padding: 20px;
+  }
+
+  .hero-copy h1 {
+    max-width: none;
+  }
+
+  .bars-panel {
+    overflow-x: auto;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .bar-group {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 58px;
+    width: max-content;
+    min-width: 100%;
+  }
+
+  .bar-column {
+    min-height: 200px;
+  }
+
+  .bar-rail {
+    flex-basis: 170px;
+    height: 170px;
+  }
+
+  .table-shell {
+    overflow: visible;
+  }
+
+  .data-table {
+    min-width: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .data-table thead {
+    display: none;
+  }
+
+  .data-table tbody {
+    display: grid;
+    gap: 14px;
+  }
+
+  .data-table tr {
+    display: block;
+    padding: 16px;
+    border: 1px solid rgba(24, 34, 46, 0.08);
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .data-table td {
+    display: grid;
+    grid-template-columns: minmax(96px, 116px) 1fr;
+    gap: 10px 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(24, 34, 46, 0.08);
+    align-items: start;
+  }
+
+  .data-table td::before {
+    content: attr(data-label);
+    color: var(--accent-strong);
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    grid-column: 1;
+    grid-row: 1 / span 3;
+    align-self: start;
+  }
+
+  .data-table td > * {
+    grid-column: 2;
+  }
+
+  .data-table td:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .data-table td.mobile-heading-cell,
+  .data-table td[colspan] {
+    display: block;
+    padding-top: 0;
+    padding-bottom: 14px;
+  }
+
+  .data-table td.mobile-heading-cell::before,
+  .data-table td[colspan]::before {
+    display: none;
+  }
+
+  .data-table td.mobile-heading-cell > *,
+  .data-table td[colspan] > * {
+    grid-column: auto;
+  }
+
+  .data-table td.mobile-heading-cell {
+    border-bottom: 1px solid rgba(24, 34, 46, 0.08);
+    margin-bottom: 2px;
+  }
+
+  .table-row-label {
+    min-width: 0;
   }
 }
 

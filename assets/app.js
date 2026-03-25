@@ -692,36 +692,36 @@ function renderLeaderboard(model) {
     .map(
       (branch, index) => `
         <tr>
-          <td><strong>${index + 1}</strong></td>
-          <td class="table-row-label">
+          <td data-label="Rank"><strong>${index + 1}</strong></td>
+          <td class="table-row-label mobile-heading-cell" data-label="Branch">
             <span class="branch-pill">${escapeHtml(branch.shortName || branch.name)}</span>
             <span class="sub-value">${escapeHtml(branch.location || "")}</span>
           </td>
-          <td>
+          <td data-label="Rating">
             <strong>${escapeHtml(formatRating(branch.currentRating))}</strong>
             <span class="sub-value">${escapeHtml(renderTextStars(branch.currentRating))}</span>
           </td>
-          <td>
+          <td data-label="Total reviews">
             <strong>${formatInteger(branch.currentReviewsCount)}</strong>
             <span class="sub-value">${formatInteger(branch.trackedReviewCount)} tracked</span>
           </td>
-          <td>
+          <td data-label="Portfolio share">
             <strong>${escapeHtml(formatPercent(branch.shareOfPortfolio))}</strong>
             <span class="sub-value">Of all branch reviews</span>
           </td>
-          <td>
+          <td data-label="Last 30 days">
             <strong>${formatInteger(branch.last30Stats.count)}</strong>
             <span class="sub-value">${formatSignedInteger(branch.volumeDelta30)} vs previous</span>
           </td>
-          <td>
+          <td data-label="30-day rating">
             <strong>${escapeHtml(formatRating(branch.last30Stats.averageRating))}</strong>
             <span class="sub-value">${formatSignedDecimal(branch.ratingDelta30)} vs previous</span>
           </td>
-          <td>
+          <td data-label="Response rate">
             <strong>${escapeHtml(formatPercent(branch.ownerResponseRate))}</strong>
             <span class="sub-value">${formatInteger(branch.ownerResponseCount)} responded</span>
           </td>
-          <td>
+          <td data-label="Low-rating share">
             <strong>${escapeHtml(formatPercent(branch.lowStarShare))}</strong>
             <span class="sub-value">${formatInteger(branch.lowStarCount)} low-star</span>
           </td>
@@ -760,20 +760,22 @@ function renderDistributionTable(model) {
     .map(
       (row) => `
         <tr>
-          <td class="table-row-label">${escapeHtml(row.label)}</td>
+          <td class="table-row-label mobile-heading-cell" data-label="Branch">
+            <span class="branch-pill">${escapeHtml(row.label)}</span>
+          </td>
           ${STAR_LEVELS.map(
             (level) => `
-              <td>
+              <td data-label="${escapeHtml(`${level} stars`)}">
                 <strong>${formatInteger(row.starCounts[level])}</strong>
                 <span class="sub-value">${escapeHtml(level.toString())}★ reviews</span>
               </td>
             `
           ).join("")}
-          <td>
+          <td data-label="Average rating">
             <strong>${escapeHtml(formatRating(row.rating))}</strong>
             <span class="sub-value">Average score</span>
           </td>
-          <td>
+          <td data-label="Total reviews">
             <strong>${formatInteger(row.reviewsCount)}</strong>
             <span class="sub-value">Published reviews</span>
           </td>
@@ -805,24 +807,24 @@ function renderCalendarTable(type, columns, branches) {
 
       return `
         <tr>
-          <td class="table-row-label">
+          <td class="table-row-label mobile-heading-cell" data-label="Branch">
             <span class="branch-pill">${escapeHtml(branch.shortName || branch.name)}</span>
           </td>
           ${buckets
             .map((bucket) => {
               if (!bucket.count) {
-                return `<td><span class="cell-empty">-</span></td>`;
+                return `<td data-label="${escapeHtml(bucket.label)}"><span class="cell-empty">-</span></td>`;
               }
 
               return `
-                <td>
+                <td data-label="${escapeHtml(bucket.label)}">
                   <strong>${formatInteger(bucket.count)}</strong>
                   <span class="sub-value">${escapeHtml(formatRating(bucket.averageRating))} avg</span>
                 </td>
               `;
             })
             .join("")}
-          <td>
+          <td data-label="Total">
             <strong>${formatInteger(totalCount)}</strong>
             <span class="sub-value">${escapeHtml(formatRating(weightedAverage))} avg</span>
           </td>
