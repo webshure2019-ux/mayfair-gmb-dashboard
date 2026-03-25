@@ -1,0 +1,91 @@
+name: Update and Deploy Dashboard
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_mode:
+        description: "Choose whether to fetch live Apify data"
+        required: true
+        default: deploy_only
+        type: choice
+        options:
+          - deploy_only
+          - preview
+          - full
+      branch_ids:
+        description: "Optional comma-separated branch IDs"
+        required: false
+        default: ""
+      max_reviews:
+        description: "Optional max reviews per selected branch"
+        required: false
+        default: ""
+  push:
+    branches:
+      - main
+      - master
+  schedule:
+    - cron: "0 22 * * *"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: mayfair-gmb-dashboard
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Refresh review data from Apify
+        if: ${{ secrets.APIFY_API_TOKEN != '' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'full')) }}
+        env:
+          APIFY_API_TOKEN: ${{ secrets.APIFY_API_TOKEN }}
+          APIFY_LANGUAGE: en
+          APIFY_BRANCH_IDS: ${{ github.event.inputs.branch_ids }}
+          APIFY_MAX_REVIEWS: ${{ github.event.inputs.max_reviews }}
+        run: python3 scripts/fetch_reviews.py
+
+      - name: Preview Apify fetch without replacing live data
+        if: ${{ secrets.APIFY_API_TOKEN != '' && github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'preview' }}
+        env:
+          APIFY_API_TOKEN: ${{ secrets.APIFY_API_TOKEN }}
+          APIFY_LANGUAGE: en
+          APIFY_BRANCH_IDS: ${{ github.event.inputs.branch_ids }}
+          APIFY_MAX_REVIEWS: ${{ github.event.inputs.max_reviews || '1' }}
+          APIFY_SKIP_WRITE: 1
+        run: python3 scripts/fetch_reviews.py
+
+      - name: Note demo mode
+        if: ${{ secrets.APIFY_API_TOKEN == '' || github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode != 'full') }}
+        run: echo "No live dataset replacement happened in this run. The current bundled dataset will be deployed."
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

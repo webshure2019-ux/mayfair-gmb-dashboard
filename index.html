@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mayfair Gearbox Review Dashboard</title>
+  <meta
+    name="description"
+    content="Live Google Business Profile review dashboard for Mayfair Gearbox, built by Webshure."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <div class="brand-cluster">
+        <div class="logo-frame" data-logo-frame>
+          <img
+            data-logo
+            src="./assets/brand/mayfair-gearbox-logo.png"
+            alt="Mayfair Gearbox logo"
+          >
+          <span class="brand-fallback">Mayfair Gearbox</span>
+        </div>
+        <div class="brand-divider"></div>
+        <div class="logo-frame webshure" data-logo-frame>
+          <img
+            data-logo
+            src="./assets/brand/webshure-logo.svg"
+            alt="Webshure logo"
+          >
+          <span class="brand-fallback">Webshure</span>
+        </div>
+      </div>
+      <a class="topbar-link" href="#reviewsExplorer">Jump to reviews</a>
+    </header>
+
+    <main class="dashboard">
+      <section class="hero-panel">
+        <div class="hero-copy">
+          <p class="eyebrow">Google Business Profile Review Command Centre</p>
+          <h1>Mayfair Gearbox live reputation dashboard</h1>
+          <p class="hero-text">
+            A branch-by-branch view of review volume, current ratings, star mix,
+            weekly and monthly trends, and the exact comments customers are leaving.
+          </p>
+        </div>
+        <div class="hero-meta">
+          <div class="meta-card">
+            <span class="meta-label">Dashboard status</span>
+            <strong id="dataMode">Loading</strong>
+          </div>
+          <div class="meta-card">
+            <span class="meta-label">Last refresh</span>
+            <strong id="generatedAt">Loading</strong>
+          </div>
+          <div class="meta-card">
+            <span class="meta-label">Timezone</span>
+            <strong id="dashboardTimezone">Africa/Johannesburg</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="summary-grid" id="summaryCards" aria-label="Summary metrics"></section>
+
+      <section class="section-block insights-grid">
+        <article class="chart-card">
+          <div class="section-heading compact">
+            <div>
+              <p class="section-kicker">Insights</p>
+              <h2>Performance highlights</h2>
+            </div>
+            <p class="section-note">Quick wins and watchouts pulled from the latest review set.</p>
+          </div>
+          <div class="insight-grid" id="insightCards"></div>
+        </article>
+
+        <article class="chart-card">
+          <div class="section-heading compact">
+            <div>
+              <p class="section-kicker">Themes</p>
+              <h2>Top review topics</h2>
+            </div>
+            <p class="section-note">Most repeated terms in customer feedback comments.</p>
+          </div>
+          <div class="keyword-cloud" id="keywordCloud"></div>
+        </article>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Branches</p>
+            <h2>Current branch performance</h2>
+          </div>
+          <p class="section-note">Each card reflects the latest review count, current rating, and rating mix for that branch.</p>
+        </div>
+        <div class="branch-grid" id="branchCards"></div>
+      </section>
+
+      <section class="section-block analytics-grid">
+        <article class="chart-card">
+          <div class="section-heading compact">
+            <div>
+              <p class="section-kicker">Trend</p>
+              <h2>Reviews received per week</h2>
+            </div>
+            <p class="section-note">Last 8 weeks across all branches</p>
+          </div>
+          <div id="weeklyTrend" class="bars-panel"></div>
+        </article>
+
+        <article class="chart-card">
+          <div class="section-heading compact">
+            <div>
+              <p class="section-kicker">Trend</p>
+              <h2>Reviews received per month</h2>
+            </div>
+            <p class="section-note">Last 6 months across all branches</p>
+          </div>
+          <div id="monthlyTrend" class="bars-panel"></div>
+        </article>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Leaderboard</p>
+            <h2>Branch ranking and review health</h2>
+          </div>
+          <p class="section-note">Compare rating, share of reviews, momentum, response rate, and low-star exposure by branch.</p>
+        </div>
+        <div class="table-shell">
+          <table class="data-table leaderboard-table">
+            <thead id="leaderboardHead"></thead>
+            <tbody id="leaderboardBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Ratings</p>
+            <h2>Star distribution breakdown</h2>
+          </div>
+          <p class="section-note">How many 5-star through 1-star reviews each branch currently has.</p>
+        </div>
+        <div class="table-shell">
+          <table class="data-table distribution-table">
+            <thead id="distributionHead"></thead>
+            <tbody id="distributionBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Weekly</p>
+            <h2>Weekly reviews and average rating per branch</h2>
+          </div>
+          <p class="section-note">Each cell shows review count and average rating for that week.</p>
+        </div>
+        <div class="table-shell">
+          <table class="data-table calendar-table">
+            <thead id="weeklyTableHead"></thead>
+            <tbody id="weeklyTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Monthly</p>
+            <h2>Monthly reviews and average rating per branch</h2>
+          </div>
+          <p class="section-note">A month-by-month view of volume and quality trends for each location.</p>
+        </div>
+        <div class="table-shell">
+          <table class="data-table calendar-table">
+            <thead id="monthlyTableHead"></thead>
+            <tbody id="monthlyTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Follow-up</p>
+            <h2>Reviews needing attention</h2>
+          </div>
+          <p class="section-note">Recent lower-rated reviews that do not yet show an owner response.</p>
+        </div>
+        <div class="attention-grid" id="attentionList"></div>
+      </section>
+
+      <section class="section-block" id="reviewsExplorer">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Comments</p>
+            <h2>Reviewer comments explorer</h2>
+          </div>
+          <p class="section-note">Filter by branch, rating, or keyword to inspect the exact feedback customers left.</p>
+        </div>
+
+        <div class="filters-panel">
+          <label class="field">
+            <span>Branch</span>
+            <select id="branchFilter"></select>
+          </label>
+          <label class="field">
+            <span>Rating</span>
+            <select id="ratingFilter">
+              <option value="all">All ratings</option>
+              <option value="5">5 stars</option>
+              <option value="4">4 stars</option>
+              <option value="3">3 stars</option>
+              <option value="2">2 stars</option>
+              <option value="1">1 star</option>
+            </select>
+          </label>
+          <label class="field search-field">
+            <span>Keyword</span>
+            <input id="searchFilter" type="search" placeholder="Search reviewer comments">
+          </label>
+        </div>
+
+        <div class="reviews-summary" id="reviewsSummary"></div>
+        <div class="reviews-grid" id="reviewList"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Built for Mayfair Gearbox by Webshure. The dashboard reads from <code>data/reviews.json</code> and is ready for GitHub Pages deployment.</p>
+    </footer>
+  </div>
+
+  <template id="emptyStateTemplate">
+    <div class="empty-state">
+      <h3>No review data is available yet</h3>
+      <p>Run the Apify fetch pipeline or open the bundled demo dataset to populate this section.</p>
+    </div>
+  </template>
+
+  <script src="./assets/app.js" defer></script>
+</body>
+</html>
