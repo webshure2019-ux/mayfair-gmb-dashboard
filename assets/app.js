@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       throw new Error(`Failed to load dashboard data (${response.status})`);
     }
 
-    state.data = await response.json();
+    state.data = repairDashboardData(await response.json());
     renderDashboard();
   } catch (error) {
     renderFailure(error);
@@ -87,6 +87,82 @@ function renderDashboard() {
   renderReviews();
 }
 
+function repairDashboardData(data) {
+  const branches = (data.branches || []).map((branch) => ({ ...branch }));
+  const repairedReviews = repairReviewAssignments(data.reviews || [], branches);
+
+  return {
+    ...data,
+    branches,
+    reviews: repairedReviews,
+    meta: {
+      ...data.meta,
+      repairedAtRender: repairedReviews.length !== (data.reviews || []).length,
+    },
+  };
+}
+
+function repairReviewAssignments(reviews, branches) {
+  const deduped = new Map();
+
+  reviews.forEach((review) => {
+    const branch = resolveReviewBranch(review, branches);
+
+    if (!branch) {
+      return;
+    }
+
+    const repairedReview = {
+      ...review,
+      branchId: branch.id,
+      branchName: branch.name,
+    };
+
+    deduped.set(`${repairedReview.branchId}::${repairedReview.id}`, repairedReview);
+  });
+
+  return [...deduped.values()].sort(
+    (left, right) => new Date(right.publishedAt || right.scrapedAt) - new Date(left.publishedAt || left.scrapedAt)
+  );
+}
+
+function resolveReviewBranch(review, branches) {
+  const reviewCid = normalizeMatchToken(review.cid);
+
+  if (reviewCid) {
+    const cidMatch = branches.find((branch) => normalizeMatchToken(branch.cid) === reviewCid);
+    if (cidMatch) {
+      return cidMatch;
+    }
+  }
+
+  const reviewTitle = normalizeMatchText(review.title);
+
+  if (!reviewTitle) {
+    return null;
+  }
+
+  return (
+    branches.find((branch) => getBranchMatchCandidates(branch).some((candidate) => candidate === reviewTitle)) ||
+    branches.find((branch) => getBranchMatchCandidates(branch).some((candidate) => (
+      candidate &&
+      (reviewTitle.startsWith(candidate) || candidate.startsWith(reviewTitle))
+    ))) ||
+    null
+  );
+}
+
+function getBranchMatchCandidates(branch) {
+  return [
+    branch.name,
+    branch.shortName,
+    branch.searchQuery,
+    ...(branch.aliases || []),
+  ]
+    .map(normalizeMatchText)
+    .filter(Boolean);
+}
+
 function buildComputedModel(data, timezone) {
   const branches = (data.branches || []).map((branch) => ({
     ...branch,
@@ -111,10 +187,10 @@ function buildComputedModel(data, timezone) {
     const fallbackCount = branch.reviews.length;
     const fallbackRating = average(branch.reviews.map((review) => review.rating));
 
-    branch.currentReviewsCount = isFiniteNumber(branch.currentReviewsCount)
+    branch.currentReviewsCount = isFiniteNumber(branch.currentReviewsCount) && Number(branch.currentReviewsCount) > 0
       ? Number(branch.currentReviewsCount)
       : fallbackCount;
-    branch.currentRating = isFiniteNumber(branch.currentRating)
+    branch.currentRating = isFiniteNumber(branch.currentRating) && Number(branch.currentRating) > 0
       ? Number(branch.currentRating)
       : fallbackRating;
     branch.starCounts = computeStarCounts(branch.reviews);
@@ -1074,6 +1150,20 @@ function clamp(value, min, max) {
 
 function isFiniteNumber(value) {
   return Number.isFinite(Number(value));
+}
+
+function normalizeMatchText(value) {
+  return String(value ?? "")
+    .toLowerCase()
+    .replaceAll("&", "and")
+    .replace(/[^a-z0-9\s-]/g, " ")
+    .replaceAll("-", " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function normalizeMatchToken(value) {
+  return String(value ?? "").trim();
 }
 
 function percentage(part, total) {

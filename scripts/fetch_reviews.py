@@ -287,27 +287,43 @@ def match_branch(
 ) -> Optional[Dict[str, Any]]:
     cid = str(item.get("cid") or "").strip()
     title = normalize_text(item.get("title"))
-    search_string = normalize_text(item.get("searchString"))
-    url = normalize_text(item.get("url"))
+    branch_list = list(branches)
 
-    for branch in branches:
+    for branch in branch_list:
         if cid and cid == str(branch.get("cid")):
             return branch
 
-        branch_aliases = [normalize_text(alias) for alias in branch.get("aliases", [])]
-        branch_name = normalize_text(branch.get("name"))
-        branch_query = normalize_text(branch.get("searchQuery"))
+    if not title:
+        return None
 
-        candidates = branch_aliases + [branch_name, branch_query]
+    for branch in branch_list:
+        candidates = branch_candidates(branch)
+        if any(candidate and candidate == title for candidate in candidates):
+            return branch
 
-        if any(candidate and candidate in title for candidate in candidates):
-            return branch
-        if any(candidate and candidate in search_string for candidate in candidates):
-            return branch
-        if any(candidate and candidate in url for candidate in candidates):
+    for branch in branch_list:
+        candidates = branch_candidates(branch)
+        if any(
+            candidate
+            and (title.startswith(candidate) or candidate.startswith(title))
+            for candidate in candidates
+        ):
             return branch
 
     return None
+
+
+def branch_candidates(branch: Dict[str, Any]) -> List[str]:
+    return [
+        normalize_text(alias)
+        for alias in [
+            *(branch.get("aliases", []) or []),
+            branch.get("name"),
+            branch.get("shortName"),
+            branch.get("searchQuery"),
+        ]
+        if alias
+    ]
 
 
 def deduplicate_reviews(reviews: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
