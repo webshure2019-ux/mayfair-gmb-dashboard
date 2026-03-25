@@ -38,26 +38,26 @@
           <span class="brand-fallback">Webshure</span>
         </div>
       </div>
-      <a class="topbar-link" href="#reviewsExplorer">Jump to reviews</a>
+      <a class="topbar-link" href="#reviewsExplorer">View comments</a>
     </header>
 
     <main class="dashboard">
       <section class="hero-panel">
         <div class="hero-copy">
-          <p class="eyebrow">Google Business Profile Review Command Centre</p>
-          <h1>Mayfair Gearbox live reputation dashboard</h1>
+          <p class="eyebrow">Google Business Profile Review Performance</p>
+          <h1>Mayfair Gearbox review performance dashboard</h1>
           <p class="hero-text">
-            A branch-by-branch view of review volume, current ratings, star mix,
-            weekly and monthly trends, and the exact comments customers are leaving.
+            A live, branch-by-branch view of customer sentiment, review growth,
+            ratings mix, and the exact feedback customers are leaving across all locations.
           </p>
         </div>
         <div class="hero-meta">
           <div class="meta-card">
-            <span class="meta-label">Dashboard status</span>
+            <span class="meta-label">Data status</span>
             <strong id="dataMode">Loading</strong>
           </div>
           <div class="meta-card">
-            <span class="meta-label">Last refresh</span>
+            <span class="meta-label">Last updated</span>
             <strong id="generatedAt">Loading</strong>
           </div>
           <div class="meta-card">
@@ -74,9 +74,9 @@
           <div class="section-heading compact">
             <div>
               <p class="section-kicker">Insights</p>
-              <h2>Performance highlights</h2>
+              <h2>Key takeaways</h2>
             </div>
-            <p class="section-note">Quick wins and watchouts pulled from the latest review set.</p>
+            <p class="section-note">An executive summary of what stands out in the latest review data.</p>
           </div>
           <div class="insight-grid" id="insightCards"></div>
         </article>
@@ -85,9 +85,9 @@
           <div class="section-heading compact">
             <div>
               <p class="section-kicker">Themes</p>
-              <h2>Top review topics</h2>
+              <h2>What customers mention most</h2>
             </div>
-            <p class="section-note">Most repeated terms in customer feedback comments.</p>
+            <p class="section-note">Common themes appearing most often in written customer feedback.</p>
           </div>
           <div class="keyword-cloud" id="keywordCloud"></div>
         </article>
@@ -97,9 +97,9 @@
         <div class="section-heading">
           <div>
             <p class="section-kicker">Branches</p>
-            <h2>Current branch performance</h2>
+            <h2>Branch performance snapshot</h2>
           </div>
-          <p class="section-note">Each card reflects the latest review count, current rating, and rating mix for that branch.</p>
+          <p class="section-note">Each card shows the latest review count, average rating, and ratings mix for that branch.</p>
         </div>
         <div class="branch-grid" id="branchCards"></div>
       </section>
@@ -109,9 +109,9 @@
           <div class="section-heading compact">
             <div>
               <p class="section-kicker">Trend</p>
-              <h2>Reviews received per week</h2>
+              <h2>Weekly review trend</h2>
             </div>
-            <p class="section-note">Last 8 weeks across all branches</p>
+            <p class="section-note">Last 8 weeks across all locations</p>
           </div>
           <div id="weeklyTrend" class="bars-panel"></div>
         </article>
@@ -120,9 +120,9 @@
           <div class="section-heading compact">
             <div>
               <p class="section-kicker">Trend</p>
-              <h2>Reviews received per month</h2>
+              <h2>Monthly review trend</h2>
             </div>
-            <p class="section-note">Last 6 months across all branches</p>
+            <p class="section-note">Last 6 months across all locations</p>
           </div>
           <div id="monthlyTrend" class="bars-panel"></div>
         </article>
@@ -132,9 +132,9 @@
         <div class="section-heading">
           <div>
             <p class="section-kicker">Leaderboard</p>
-            <h2>Branch ranking and review health</h2>
+            <h2>Branch comparison</h2>
           </div>
-          <p class="section-note">Compare rating, share of reviews, momentum, response rate, and low-star exposure by branch.</p>
+          <p class="section-note">Compare rating, review share, recent momentum, response rate, and low-rating exposure by branch.</p>
         </div>
         <div class="table-shell">
           <table class="data-table leaderboard-table">
@@ -148,9 +148,9 @@
         <div class="section-heading">
           <div>
             <p class="section-kicker">Ratings</p>
-            <h2>Star distribution breakdown</h2>
+            <h2>Ratings mix by branch</h2>
           </div>
-          <p class="section-note">How many 5-star through 1-star reviews each branch currently has.</p>
+          <p class="section-note">A full breakdown of how many 5-star through 1-star reviews each branch currently has.</p>
         </div>
         <div class="table-shell">
           <table class="data-table distribution-table">
@@ -164,7 +164,7 @@
         <div class="section-heading">
           <div>
             <p class="section-kicker">Weekly</p>
-            <h2>Weekly reviews and average rating per branch</h2>
+            <h2>Weekly performance table</h2>
           </div>
           <p class="section-note">Each cell shows review count and average rating for that week.</p>
         </div>
@@ -180,9 +180,9 @@
         <div class="section-heading">
           <div>
             <p class="section-kicker">Monthly</p>
-            <h2>Monthly reviews and average rating per branch</h2>
+            <h2>Monthly performance table</h2>
           </div>
-          <p class="section-note">A month-by-month view of volume and quality trends for each location.</p>
+          <p class="section-note">A month-by-month view of review volume and rating quality for each location.</p>
         </div>
         <div class="table-shell">
           <table class="data-table calendar-table">
@@ -196,7 +196,7 @@
         <div class="section-heading">
           <div>
             <p class="section-kicker">Follow-up</p>
-            <h2>Reviews needing attention</h2>
+            <h2>Reviews to follow up</h2>
           </div>
           <p class="section-note">Recent lower-rated reviews that do not yet show an owner response.</p>
         </div>
@@ -207,7 +207,7 @@
         <div class="section-heading">
           <div>
             <p class="section-kicker">Comments</p>
-            <h2>Reviewer comments explorer</h2>
+            <h2>Review comments</h2>
           </div>
           <p class="section-note">Filter by branch, rating, or keyword to inspect the exact feedback customers left.</p>
         </div>
@@ -240,14 +240,14 @@
     </main>
 
     <footer class="footer">
-      <p>Built for Mayfair Gearbox by Webshure. This live dashboard refreshes daily from the published review dataset.</p>
+      <p>Prepared for Mayfair Gearbox by Webshure. This dashboard refreshes daily with the latest published review data.</p>
     </footer>
   </div>
 
   <template id="emptyStateTemplate">
     <div class="empty-state">
-      <h3>No review data is available yet</h3>
-      <p>Run the Apify fetch pipeline or open the bundled demo dataset to populate this section.</p>
+      <h3>Review data is not available yet</h3>
+      <p>This section will populate once the latest review dataset is available.</p>
     </div>
   </template>
 

@@ -323,35 +323,35 @@ function populateBranchFilter(branches) {
 function renderSummaryCards(model) {
   const cards = [
     {
-      label: "Total reviews",
+      label: "Total GBP reviews",
       value: formatInteger(model.overall.totalReviews),
     },
     {
-      label: "Current rating",
+      label: "Average rating",
       value: formatRating(model.overall.currentRating),
     },
     {
-      label: "Reviews in last 30 days",
+      label: "Reviews in past 30 days",
       value: formatInteger(model.overall.reviewsLast30Days),
     },
     {
-      label: "30-day rating",
+      label: "Past 30-day rating",
       value: formatRating(model.overall.last30Stats.averageRating),
     },
     {
-      label: "Owner response rate",
+      label: "Response rate",
       value: formatPercent(model.overall.ownerResponseRate),
     },
     {
-      label: "Written comment rate",
+      label: "Comment rate",
       value: formatPercent(model.overall.commentRate),
     },
     {
-      label: "Local guide share",
+      label: "Local Guide share",
       value: formatPercent(model.overall.localGuideShare),
     },
     {
-      label: "1-2 star share",
+      label: "Low-rating share",
       value: formatPercent(model.overall.lowStarShare),
     },
   ];
@@ -372,28 +372,28 @@ function renderInsightCards(model) {
   const highlights = model.highlights;
   const cards = [
     {
-      title: "Best rated branch",
+      title: "Top-rated branch",
       value: highlights.bestRated?.shortName || "N/A",
       detail: highlights.bestRated
         ? `${formatRating(highlights.bestRated.currentRating)} rating across ${formatInteger(highlights.bestRated.currentReviewsCount)} reviews`
         : "No branch data yet",
     },
     {
-      title: "Most review volume",
+      title: "Highest review volume",
       value: highlights.mostReviewed?.shortName || "N/A",
       detail: highlights.mostReviewed
         ? `${formatInteger(highlights.mostReviewed.currentReviewsCount)} total reviews`
         : "No branch data yet",
     },
     {
-      title: "Fastest 30-day momentum",
+      title: "Strongest 30-day growth",
       value: highlights.fastestMomentum?.shortName || "N/A",
       detail: highlights.fastestMomentum
         ? `${formatSignedInteger(highlights.fastestMomentum.volumeDelta30)} reviews vs previous 30 days`
         : "No branch data yet",
     },
     {
-      title: "Needs attention most",
+      title: "Greatest attention need",
       value: highlights.needsAttention?.shortName || "N/A",
       detail: highlights.needsAttention
         ? `${formatPercent(highlights.needsAttention.lowStarShare)} of tracked reviews are 1-2 stars`
@@ -455,7 +455,7 @@ function renderBranchCards(branches) {
           <p class="branch-subtitle">${escapeHtml(branch.name)}</p>
 
           <div class="metric-row">
-            <span>Current rating</span>
+            <span>Average rating</span>
             <strong>${renderStars(branch.currentRating)} ${escapeHtml(formatRating(branch.currentRating))}</strong>
           </div>
           <div class="metric-row">
@@ -471,15 +471,15 @@ function renderBranchCards(branches) {
             <strong>${formatInteger(branch.thisMonthCount)}</strong>
           </div>
           <div class="metric-row">
-            <span>Owner response rate</span>
+            <span>Response rate</span>
             <strong>${escapeHtml(formatPercent(branch.ownerResponseRate))}</strong>
           </div>
           <div class="metric-row">
-            <span>1-2 star share</span>
+            <span>Low-rating share</span>
             <strong>${escapeHtml(formatPercent(branch.lowStarShare))}</strong>
           </div>
           <div class="metric-row">
-            <span>Star mix</span>
+            <span>Ratings mix</span>
             <strong>${escapeHtml(stars)}</strong>
           </div>
         </article>
@@ -531,7 +531,7 @@ function renderLeaderboard(model) {
       <th>Last 30 days</th>
       <th>30-day rating</th>
       <th>Response rate</th>
-      <th>1-2 star share</th>
+      <th>Low-rating share</th>
     </tr>
   `;
 
@@ -581,7 +581,7 @@ function renderLeaderboard(model) {
 function renderDistributionTable(model) {
   const rows = [
     {
-      label: "All branches",
+      label: "All locations",
       starCounts: model.overall.starCounts,
       rating: model.overall.currentRating,
       reviewsCount: model.overall.totalReviews,
@@ -598,7 +598,7 @@ function renderDistributionTable(model) {
     <tr>
       <th class="table-row-label">Branch</th>
       ${STAR_LEVELS.map((level) => `<th>${level} stars</th>`).join("")}
-      <th>Current rating</th>
+      <th>Average rating</th>
       <th>Total reviews</th>
     </tr>
   `;
@@ -685,8 +685,8 @@ function renderAttentionList(model) {
   if (!model.attentionReviews.length) {
     container.innerHTML = `
       <div class="empty-state">
-        <h3>No unanswered low-rated reviews found</h3>
-        <p>Every 1 to 3 star tracked review currently shows an owner response.</p>
+        <h3>No open follow-up items found</h3>
+        <p>Every tracked 1 to 3 star review currently shows an owner response.</p>
       </div>
     `;
     return;
@@ -817,7 +817,7 @@ function renderReviews() {
 function renderFailure(error) {
   document.getElementById("summaryCards").innerHTML = `
     <article class="summary-card">
-      <span>Dashboard status</span>
+      <span>Data status</span>
       <strong>Data unavailable</strong>
     </article>
   `;
