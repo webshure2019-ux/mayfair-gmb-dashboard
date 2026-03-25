@@ -67,6 +67,21 @@
         </div>
       </section>
 
+      <section class="section-block focus-panel" id="branchSpotlight">
+        <div class="focus-toolbar">
+          <div>
+            <p class="section-kicker">Branch spotlight</p>
+            <h2 id="focusBranchTitle">Loading branch</h2>
+            <p class="section-note" id="focusBranchNote">Select a branch to see its latest review performance first. You can also click any branch card below.</p>
+          </div>
+          <label class="field focus-select-field">
+            <span>Branch</span>
+            <select id="focusBranchFilter"></select>
+          </label>
+        </div>
+        <div class="focus-grid" id="focusCards"></div>
+      </section>
+
       <section class="summary-grid" id="summaryCards" aria-label="Summary metrics"></section>
 
       <section class="section-block insights-grid">
@@ -99,7 +114,7 @@
             <p class="section-kicker">Branches</p>
             <h2>Branch performance snapshot</h2>
           </div>
-          <p class="section-note">Each card shows the latest review count, average rating, and ratings mix for that branch.</p>
+          <p class="section-note">Each card shows the latest review count, average rating, and ratings mix for that branch. Click a card to update the spotlight and trend views.</p>
         </div>
         <div class="branch-grid" id="branchCards"></div>
       </section>
@@ -111,7 +126,7 @@
               <p class="section-kicker">Trend</p>
               <h2>Weekly review trend</h2>
             </div>
-            <p class="section-note">Last 8 weeks across all locations</p>
+            <p class="section-note" id="weeklyTrendNote">Last 8 weeks for the selected branch</p>
           </div>
           <div id="weeklyTrend" class="bars-panel"></div>
         </article>
@@ -122,7 +137,7 @@
               <p class="section-kicker">Trend</p>
               <h2>Monthly review trend</h2>
             </div>
-            <p class="section-note">Last 6 months across all locations</p>
+            <p class="section-note" id="monthlyTrendNote">Last 6 months for the selected branch</p>
           </div>
           <div id="monthlyTrend" class="bars-panel"></div>
         </article>

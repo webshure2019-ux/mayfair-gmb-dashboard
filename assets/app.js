@@ -5,6 +5,7 @@ const MONTH_COLUMNS = 6;
 
 const state = {
   data: null,
+  focusBranchId: "",
   filters: {
     branchId: "all",
     rating: "all",
@@ -49,6 +50,12 @@ function hydrateBrandImages() {
 }
 
 function wireFilters() {
+  document.getElementById("focusBranchFilter").addEventListener("change", (event) => {
+    state.focusBranchId = event.target.value;
+    state.filters.branchId = event.target.value;
+    renderDashboard();
+  });
+
   document.getElementById("branchFilter").addEventListener("change", (event) => {
     state.filters.branchId = event.target.value;
     renderReviews();
@@ -70,15 +77,28 @@ function renderDashboard() {
   const timezone = data.meta?.timezone || FALLBACK_TIMEZONE;
   const computed = buildComputedModel(data, timezone);
 
+  if (!computed.branches.length) {
+    renderFailure(new Error("No branch data is available."));
+    return;
+  }
+
+  if (!computed.branches.some((branch) => branch.id === state.focusBranchId)) {
+    state.focusBranchId = computed.branches[0].id;
+  }
+
+  if (state.filters.branchId === "all") {
+    state.filters.branchId = state.focusBranchId;
+  }
+
   state.computed = computed;
   populateHeader(data, timezone);
-  populateBranchFilter(computed.branches);
+  populateBranchControls(computed.branches);
+  renderFocusSection(computed);
   renderSummaryCards(computed);
   renderInsightCards(computed);
   renderKeywordCloud(computed.keywordThemes);
   renderBranchCards(computed.branches);
-  renderTrendChart(document.getElementById("weeklyTrend"), computed.weeklyTotals);
-  renderTrendChart(document.getElementById("monthlyTrend"), computed.monthlyTotals);
+  renderTrendPanels(computed);
   renderLeaderboard(computed);
   renderDistributionTable(computed);
   renderCalendarTable("week", computed.weeklyColumns, computed.branches);
@@ -206,6 +226,7 @@ function buildComputedModel(data, timezone) {
     branch.latestReview = branch.reviews[0] || null;
     branch.thisMonthCount = countSince(branch.reviews, 30);
     branch.thisWeekCount = countSince(branch.reviews, 7);
+    branch.currentMonthCount = countCurrentMonth(branch.reviews, timezone);
     branch.trackedReviewCount = branch.reviews.length;
     branch.ownerResponseCount = branch.reviews.filter(hasOwnerResponse).length;
     branch.ownerResponseRate = percentage(branch.ownerResponseCount, branch.trackedReviewCount);
@@ -217,10 +238,21 @@ function buildComputedModel(data, timezone) {
     branch.lowStarShare = percentage(branch.lowStarCount, branch.trackedReviewCount);
     branch.positiveCount = branch.reviews.filter((review) => review.rating >= 4).length;
     branch.positiveShare = percentage(branch.positiveCount, branch.trackedReviewCount);
+    branch.last7Stats = periodStats(branch.reviews, 0, 7);
     branch.last30Stats = periodStats(branch.reviews, 0, 30);
     branch.previous30Stats = periodStats(branch.reviews, 30, 30);
     branch.ratingDelta30 = branch.last30Stats.averageRating - branch.previous30Stats.averageRating;
     branch.volumeDelta30 = branch.last30Stats.count - branch.previous30Stats.count;
+    branch.lastWeekOneStarCount = countMatchingSince(branch.reviews, 7, (review) => review.rating === 1);
+    branch.lastWeekOneStarEffect = estimateOneStarImpact(
+      branch.currentRating,
+      branch.currentReviewsCount,
+      branch.lastWeekOneStarCount
+    );
+    branch.fiveStarReviewsForPointOne = estimateFiveStarReviewsForLift(
+      branch.currentRating,
+      branch.currentReviewsCount
+    );
     branch.shareOfPortfolio = percentage(branch.currentReviewsCount, 0);
   });
 
@@ -308,8 +340,16 @@ function populateHeader(data, timezone) {
   document.getElementById("dashboardTimezone").textContent = timezone;
 }
 
-function populateBranchFilter(branches) {
+function populateBranchControls(branches) {
+  const focusBranchFilter = document.getElementById("focusBranchFilter");
   const branchFilter = document.getElementById("branchFilter");
+
+  focusBranchFilter.innerHTML = branches
+    .map(
+      (branch) =>
+        `<option value="${escapeHtml(branch.id)}">${escapeHtml(branch.shortName || branch.name)}</option>`
+    )
+    .join("");
 
   branchFilter.innerHTML = [
     `<option value="all">All branches</option>`,
@@ -318,6 +358,91 @@ function populateBranchFilter(branches) {
         `<option value="${escapeHtml(branch.id)}">${escapeHtml(branch.shortName || branch.name)}</option>`
     ),
   ].join("");
+
+  focusBranchFilter.value = state.focusBranchId;
+  branchFilter.value = state.filters.branchId;
+}
+
+function renderFocusSection(model) {
+  const branch = getFocusBranch(model);
+  const lastReviewText = branch.latestReview
+    ? `Latest review on ${formatDate(branch.latestReview.publishedAt, model.timezone)}`
+    : "No recent review date available";
+
+  document.getElementById("focusBranchTitle").textContent = branch.shortName || branch.name;
+  document.getElementById("focusBranchNote").textContent = (
+    `${branch.name} currently holds a ${formatRating(branch.currentRating)} rating across ` +
+    `${formatInteger(branch.currentReviewsCount)} published reviews. ${lastReviewText}.`
+  );
+
+  const targetRating = Math.min(5, roundToOneDecimal(branch.currentRating + 0.1));
+  const oneStarEffectDetail = branch.lastWeekOneStarCount
+    ? `${formatInteger(branch.lastWeekOneStarCount)} one-star review${branch.lastWeekOneStarCount === 1 ? "" : "s"} in the past 7 days`
+    : "No one-star reviews in the past 7 days";
+
+  const cards = [
+    {
+      label: "Reviews in last 7 days",
+      value: formatInteger(branch.thisWeekCount),
+      detail: "Published in the past 7 days",
+      tone: "accent",
+    },
+    {
+      label: "Reviews this month",
+      value: formatInteger(branch.currentMonthCount),
+      detail: "Month to date",
+      tone: "neutral",
+    },
+    {
+      label: "Last 7-day review rating",
+      value: branch.last7Stats.count ? formatRating(branch.last7Stats.averageRating) : "N/A",
+      detail: `${formatInteger(branch.last7Stats.count)} recent reviews`,
+      tone: "neutral",
+    },
+    {
+      label: "Current GBP rating",
+      value: formatRating(branch.currentRating),
+      detail: `${formatInteger(branch.currentReviewsCount)} total published reviews`,
+      tone: "success",
+    },
+    {
+      label: "5-star reviews needed for +0.1",
+      value: branch.currentRating >= 4.95 ? "0" : formatInteger(branch.fiveStarReviewsForPointOne),
+      detail: branch.currentRating >= 4.95
+        ? "Already very close to a 5.0 rating"
+        : `Estimated lift from ${formatRating(branch.currentRating)} to ${formatRating(targetRating)}`,
+      tone: "accent",
+    },
+    {
+      label: "Last week 1-star impact",
+      value: formatSignedDecimal(branch.lastWeekOneStarEffect),
+      detail: oneStarEffectDetail,
+      tone: branch.lastWeekOneStarCount ? "danger" : "neutral",
+    },
+  ];
+
+  document.getElementById("focusCards").innerHTML = cards
+    .map(
+      (card) => `
+        <article class="focus-card ${escapeHtml(card.tone)}">
+          <span>${escapeHtml(card.label)}</span>
+          <strong>${escapeHtml(card.value)}</strong>
+          <p>${escapeHtml(card.detail)}</p>
+        </article>
+      `
+    )
+    .join("");
+}
+
+function renderTrendPanels(model) {
+  const branch = getFocusBranch(model);
+  const branchLabel = branch.shortName || branch.name;
+
+  document.getElementById("weeklyTrendNote").textContent = `Last 8 weeks for ${branchLabel}`;
+  document.getElementById("monthlyTrendNote").textContent = `Last 6 months for ${branchLabel}`;
+
+  renderTrendChart(document.getElementById("weeklyTrend"), branch.weeklyBuckets);
+  renderTrendChart(document.getElementById("monthlyTrend"), branch.monthlyBuckets);
 }
 
 function renderSummaryCards(model) {
@@ -447,7 +572,14 @@ function renderBranchCards(branches) {
       ).join(" · ");
 
       return `
-        <article class="branch-card" style="--branch-color: ${escapeHtml(branch.color || "#ff8f3d")}">
+        <article
+          class="branch-card${branch.id === state.focusBranchId ? " is-active" : ""}"
+          style="--branch-color: ${escapeHtml(branch.color || "#ff8f3d")}"
+          data-branch-card="${escapeHtml(branch.id)}"
+          tabindex="0"
+          role="button"
+          aria-label="Show ${escapeHtml(branch.shortName || branch.name)} spotlight"
+        >
           <div class="review-topline">
             <h3 class="branch-title">${escapeHtml(branch.shortName || branch.name)}</h3>
             <span class="badge">${escapeHtml(branch.location || "")}</span>
@@ -486,6 +618,23 @@ function renderBranchCards(branches) {
       `;
     })
     .join("");
+
+  container.querySelectorAll("[data-branch-card]").forEach((card) => {
+    const branchId = card.getAttribute("data-branch-card");
+    const activate = () => {
+      state.focusBranchId = branchId;
+      state.filters.branchId = branchId;
+      renderDashboard();
+    };
+
+    card.addEventListener("click", activate);
+    card.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        activate();
+      }
+    });
+  });
 }
 
 function renderTrendChart(container, buckets) {
@@ -518,6 +667,10 @@ function renderTrendChart(container, buckets) {
         .join("")}
     </div>
   `;
+}
+
+function getFocusBranch(model) {
+  return model.branches.find((item) => item.id === state.focusBranchId) || model.branches[0];
 }
 
 function renderLeaderboard(model) {
@@ -1026,6 +1179,56 @@ function countSince(reviews, days) {
   return reviews.filter((review) => new Date(review.publishedAt).getTime() >= threshold).length;
 }
 
+function countMatchingSince(reviews, days, predicate) {
+  const threshold = Date.now() - days * 24 * 60 * 60 * 1000;
+  return reviews.filter((review) => (
+    new Date(review.publishedAt).getTime() >= threshold && predicate(review)
+  )).length;
+}
+
+function countCurrentMonth(reviews, timezone) {
+  const now = zonedDateOnly(new Date(), timezone);
+  return reviews.filter((review) => {
+    const reviewDate = zonedDateOnly(new Date(review.publishedAt), timezone);
+    return (
+      reviewDate.getUTCFullYear() === now.getUTCFullYear() &&
+      reviewDate.getUTCMonth() === now.getUTCMonth()
+    );
+  }).length;
+}
+
+function estimateFiveStarReviewsForLift(currentRating, reviewCount, increase = 0.1) {
+  const rating = Number(currentRating) || 0;
+  const count = Number(reviewCount) || 0;
+
+  if (!rating || !count || rating >= 4.95) {
+    return 0;
+  }
+
+  const target = Math.min(5, roundToOneDecimal(rating + increase));
+  const numerator = count * (target - rating);
+  const denominator = 5 - target;
+
+  if (denominator <= 0) {
+    return 0;
+  }
+
+  return Math.max(0, Math.ceil(numerator / denominator));
+}
+
+function estimateOneStarImpact(currentRating, reviewCount, oneStarCount) {
+  const rating = Number(currentRating) || 0;
+  const count = Number(reviewCount) || 0;
+  const oneStars = Number(oneStarCount) || 0;
+
+  if (!rating || !count || !oneStars || count <= oneStars) {
+    return 0;
+  }
+
+  const ratingWithoutRecentOneStars = ((rating * count) - oneStars) / (count - oneStars);
+  return rating - ratingWithoutRecentOneStars;
+}
+
 function average(values) {
   const validValues = values.filter((value) => Number(value) > 0);
 
@@ -1155,6 +1358,10 @@ function shortDate(date) {
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
+}
+
+function roundToOneDecimal(value) {
+  return Math.round(Number(value) * 10) / 10;
 }
 
 function isFiniteNumber(value) {
