@@ -32,10 +32,6 @@ def main() -> int:
     skip_write = env_flag("APIFY_SKIP_WRITE")
     preview_mode = env_flag("APIFY_PREVIEW_MODE")
 
-    if not token:
-        print("APIFY_API_TOKEN is required to fetch live review data.", file=sys.stderr)
-        return 1
-
     branches = filter_branches(read_json(BRANCHES_PATH))
     run_input = build_actor_input(branches)
 
@@ -46,6 +42,10 @@ def main() -> int:
             "runInput": run_input,
         }, indent=2))
         return 0
+
+    if not token:
+        print("APIFY_API_TOKEN is required to fetch live review data.", file=sys.stderr)
+        return 1
 
     run = start_run(actor_id, token, run_input)
     run_id = run["id"]
@@ -63,6 +63,15 @@ def main() -> int:
 
     normalized = normalize_dataset(branches, items, actor_id, run_id)
     output_path, raw_output_path = choose_output_paths(preview_mode)
+
+    if normalized["meta"].get("reviewCount", 0) == 0:
+        print(
+            "Apify returned no matched reviews for the configured branches. "
+            "The dataset was not written to avoid publishing an empty dashboard.",
+            file=sys.stderr,
+        )
+        print_debug_summary(normalized)
+        return 1
 
     if skip_write:
         print_run_summary(normalized, output_path, skipped=True)
@@ -139,6 +148,27 @@ def print_run_summary(
             f"{int(branch.get('currentReviewsCount', 0))} total reviews"
         )
 
+    print_debug_summary(normalized)
+
+
+def print_debug_summary(normalized: Dict[str, Any]) -> None:
+    meta = normalized.get("meta", {})
+    print(
+        f"Raw items fetched: {int(meta.get('rawItemCount', 0))} | "
+        f"Matched reviews: {int(meta.get('reviewCount', 0))} | "
+        f"Unmatched items: {int(meta.get('unmatchedItemCount', 0))}"
+    )
+    unmatched_samples = meta.get("unmatchedSamples") or []
+    if unmatched_samples:
+        print("Unmatched sample items:")
+        for sample in unmatched_samples:
+            print(
+                "- "
+                f"title={sample.get('title')!r}, "
+                f"cid={sample.get('cid')!r}, "
+                f"placeId={sample.get('placeId')!r}"
+            )
+
 
 def start_run(actor_id: str, token: str, run_input: Dict[str, Any]) -> Dict[str, Any]:
     actor_ref = actor_id.replace("/", "~")
@@ -189,8 +219,10 @@ def normalize_dataset(
     actor_id: str,
     run_id: str,
 ) -> Dict[str, Any]:
+    items = list(items)
     branch_lookup = {branch["id"]: {**branch} for branch in branches}
     normalized_reviews: List[Dict[str, Any]] = []
+    unmatched_items: List[Dict[str, Any]] = []
 
     for branch in branch_lookup.values():
         branch["currentReviewsCount"] = 0
@@ -203,6 +235,7 @@ def normalize_dataset(
     for item in items:
         branch = match_branch(item, branch_lookup.values())
         if not branch:
+            unmatched_items.append(item)
             continue
 
         branch["currentReviewsCount"] = first_number(
@@ -239,6 +272,16 @@ def normalize_dataset(
             "actorId": actor_id,
             "actorRunId": run_id,
             "reviewCount": len(deduped_reviews),
+            "rawItemCount": len(items),
+            "unmatchedItemCount": len(unmatched_items),
+            "unmatchedSamples": [
+                {
+                    "title": item.get("title"),
+                    "cid": item.get("cid"),
+                    "placeId": item.get("placeId"),
+                }
+                for item in unmatched_items[:5]
+            ],
         },
         "branches": list(branch_lookup.values()),
         "reviews": deduped_reviews,
@@ -285,9 +328,14 @@ def normalize_review(item: Dict[str, Any], branch: Dict[str, Any]) -> Optional[D
 def match_branch(
     item: Dict[str, Any], branches: Iterable[Dict[str, Any]]
 ) -> Optional[Dict[str, Any]]:
+    place_id = str(item.get("placeId") or "").strip()
     cid = str(item.get("cid") or "").strip()
     title = normalize_text(item.get("title"))
     branch_list = list(branches)
+
+    for branch in branch_list:
+        if place_id and place_id == str(branch.get("placeId") or "").strip():
+            return branch
 
     for branch in branch_list:
         if cid and cid == str(branch.get("cid")):

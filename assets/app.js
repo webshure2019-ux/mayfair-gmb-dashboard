@@ -127,6 +127,15 @@ function repairReviewAssignments(reviews, branches) {
 }
 
 function resolveReviewBranch(review, branches) {
+  const reviewPlaceId = normalizeMatchToken(review.placeId);
+
+  if (reviewPlaceId) {
+    const placeMatch = branches.find((branch) => normalizeMatchToken(branch.placeId) === reviewPlaceId);
+    if (placeMatch) {
+      return placeMatch;
+    }
+  }
+
   const reviewCid = normalizeMatchToken(review.cid);
 
   if (reviewCid) {
