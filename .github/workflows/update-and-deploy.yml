@@ -67,16 +67,29 @@ jobs:
           APIFY_SKIP_WRITE: 1
         run: python3 scripts/fetch_reviews.py
 
+      - name: Preserve currently published dataset
+        if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'deploy_only') }}
+        env:
+          PAGES_DATA_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/data/reviews.json
+        run: |
+          if curl -fsSL "$PAGES_DATA_URL" -o data/reviews.json; then
+            echo "Reused the currently published dataset for this deploy."
+          else
+            echo "No published dataset was available. Keeping the repository copy."
+          fi
+
       - name: Note demo mode
         if: ${{ env.APIFY_API_TOKEN == '' || github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode != 'full') }}
-        run: echo "No live dataset replacement happened in this run. The current bundled dataset will be deployed."
+        run: echo "No fresh live dataset replacement happened in this run. The latest available dataset will be deployed."
 
       - name: Upload Pages artifact
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.run_mode != 'preview' }}
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
 
   deploy:
+    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.run_mode != 'preview' }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
