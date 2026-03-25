@@ -39,6 +39,11 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      APIFY_API_TOKEN: ${{ secrets.APIFY_API_TOKEN }}
+      APIFY_LANGUAGE: en
+      APIFY_BRANCH_IDS: ${{ github.event.inputs.branch_ids || '' }}
+      APIFY_MAX_REVIEWS: ${{ github.event.inputs.max_reviews || '' }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -52,26 +57,18 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Refresh review data from Apify
-        if: ${{ secrets.APIFY_API_TOKEN != '' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'full')) }}
-        env:
-          APIFY_API_TOKEN: ${{ secrets.APIFY_API_TOKEN }}
-          APIFY_LANGUAGE: en
-          APIFY_BRANCH_IDS: ${{ github.event.inputs.branch_ids }}
-          APIFY_MAX_REVIEWS: ${{ github.event.inputs.max_reviews }}
+        if: ${{ env.APIFY_API_TOKEN != '' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'full')) }}
         run: python3 scripts/fetch_reviews.py
 
       - name: Preview Apify fetch without replacing live data
-        if: ${{ secrets.APIFY_API_TOKEN != '' && github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'preview' }}
+        if: ${{ env.APIFY_API_TOKEN != '' && github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'preview' }}
         env:
-          APIFY_API_TOKEN: ${{ secrets.APIFY_API_TOKEN }}
-          APIFY_LANGUAGE: en
-          APIFY_BRANCH_IDS: ${{ github.event.inputs.branch_ids }}
           APIFY_MAX_REVIEWS: ${{ github.event.inputs.max_reviews || '1' }}
           APIFY_SKIP_WRITE: 1
         run: python3 scripts/fetch_reviews.py
 
       - name: Note demo mode
-        if: ${{ secrets.APIFY_API_TOKEN == '' || github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode != 'full') }}
+        if: ${{ env.APIFY_API_TOKEN == '' || github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode != 'full') }}
         run: echo "No live dataset replacement happened in this run. The current bundled dataset will be deployed."
 
       - name: Upload Pages artifact
