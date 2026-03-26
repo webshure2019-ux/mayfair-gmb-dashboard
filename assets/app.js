@@ -36,16 +36,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 function hydrateBrandImages() {
   document.querySelectorAll("[data-logo-frame]").forEach((frame) => {
     const img = frame.querySelector("[data-logo]");
+    const syncState = () => {
+      if (img.complete && img.naturalWidth > 0) {
+        frame.classList.add("has-image");
+      } else if (img.complete) {
+        frame.classList.remove("has-image");
+      }
+    };
 
     img.addEventListener("load", () => {
-      if (img.naturalWidth > 0) {
-        frame.classList.add("has-image");
-      }
+      syncState();
     });
 
     img.addEventListener("error", () => {
       frame.classList.remove("has-image");
     });
+
+    syncState();
   });
 }
 
@@ -580,8 +587,15 @@ function renderBranchCards(branches) {
           role="button"
           aria-label="Show ${escapeHtml(branch.shortName || branch.name)} spotlight"
         >
-          <div class="review-topline">
-            <h3 class="branch-title">${escapeHtml(branch.shortName || branch.name)}</h3>
+          <div class="review-topline branch-card-head">
+            <div class="branch-heading">
+              <h3 class="branch-title">${escapeHtml(branch.shortName || branch.name)}</h3>
+              ${
+                branch.id === state.focusBranchId
+                  ? `<span class="active-pill">Selected</span>`
+                  : ""
+              }
+            </div>
             <span class="badge">${escapeHtml(branch.location || "")}</span>
           </div>
           <p class="branch-subtitle">${escapeHtml(branch.name)}</p>

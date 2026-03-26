@@ -120,6 +120,7 @@ code {
   display: none;
   position: relative;
   z-index: 1;
+  object-fit: contain;
 }
 
 .logo-frame.has-image img {
@@ -477,28 +478,42 @@ code {
     linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(255, 250, 244, 0.96));
 }
 
-.branch-card.is-active::after {
-  content: "Selected";
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  padding: 5px 10px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--branch-color, var(--accent)) 15%, white);
-  color: var(--accent-strong);
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-}
-
 .branch-card:focus-visible {
   border-color: color-mix(in srgb, var(--branch-color, var(--accent)) 38%, white);
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--branch-color, var(--accent)) 15%, white), var(--shadow);
 }
 
+.branch-card-head {
+  align-items: start;
+}
+
+.branch-heading {
+  display: flex;
+  flex: 1 1 220px;
+  min-width: 0;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+}
+
 .branch-title {
   margin: 0 0 4px;
   font-size: 1.15rem;
+  line-height: 1.18;
+  overflow-wrap: anywhere;
+}
+
+.active-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 5px 10px;
+  background: color-mix(in srgb, var(--branch-color, var(--accent)) 15%, white);
+  color: var(--accent-strong);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .branch-subtitle {
@@ -962,6 +977,14 @@ code {
     min-width: 148px;
     min-height: 52px;
     padding: 10px 14px;
+  }
+
+  .branch-card-head {
+    gap: 10px;
+  }
+
+  .branch-heading {
+    flex-basis: 100%;
   }
 
   .summary-grid,
