@@ -39,16 +39,18 @@
     "shortName": "Pretoria Manual & Auto",
     "location": "Pretoria",
     "color": "#8cd3a8",
-    "cid": "18054099684911667396",
-    "placeId": "ChIJpXD-s37fvx4RFidZJuAh_GM",
+    "cid": null,
+    "placeId": null,
     "profileUrl": "https://business.google.com/n/3744862638621212617/profile?fid=18054099684911667396",
     "searchQuery": "Mayfair Gearbox Manual and Automatic Gearbox Repair Centre Pretoria",
-    "mapsSearchUrl": "https://www.google.com/maps/search/?api=1&query=Auto%20Box&query_place_id=ChIJpXD-s37fvx4RFidZJuAh_GM",
+    "mapsSearchUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20%26%20Automatic%20Gearbox%20Repair%20Centre%20Pretoria%20119%20Foundry%20St%20Silvertondale%20Pretoria",
+    "blockedTitles": [
+      "Auto Box"
+    ],
     "aliases": [
       "Mayfair Gearbox - Manual & Automatic Gearbox Repair Centre Pretoria",
       "Mayfair Gearbox Manual and Automatic Gearbox Repair Centre Pretoria",
-      "Manual & Automatic Gearbox Repair Centre Pretoria",
-      "Auto Box"
+      "Manual & Automatic Gearbox Repair Centre Pretoria"
     ]
   },
   {

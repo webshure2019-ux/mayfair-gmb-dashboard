@@ -11,6 +11,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
 from urllib import error, parse, request
+from collections import Counter
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -68,6 +69,16 @@ def main() -> int:
         print(
             "Apify returned no matched reviews for the configured branches. "
             "The dataset was not written to avoid publishing an empty dashboard.",
+            file=sys.stderr,
+        )
+        print_debug_summary(normalized)
+        return 1
+
+    missing_branches = normalized["meta"].get("missingBranchIds") or []
+    if missing_branches:
+        print(
+            "Apify did not return matched reviews for all configured branches. "
+            "The dataset was not written to avoid publishing incomplete branch data.",
             file=sys.stderr,
         )
         print_debug_summary(normalized)
@@ -158,6 +169,16 @@ def print_debug_summary(normalized: Dict[str, Any]) -> None:
         f"Matched reviews: {int(meta.get('reviewCount', 0))} | "
         f"Unmatched items: {int(meta.get('unmatchedItemCount', 0))}"
     )
+    branch_summaries = meta.get("branchMatchSummary") or []
+    if branch_summaries:
+        print("Matched review count by branch:")
+        for summary in branch_summaries:
+            print(
+                f"- {summary['id']}: {int(summary.get('matchedReviews', 0))} matched reviews"
+            )
+    missing_branches = meta.get("missingBranchIds") or []
+    if missing_branches:
+        print(f"Missing branches: {', '.join(missing_branches)}")
     unmatched_samples = meta.get("unmatchedSamples") or []
     if unmatched_samples:
         print("Unmatched sample items:")
@@ -260,6 +281,19 @@ def normalize_dataset(
         key=lambda review: review.get("publishedAt") or review.get("scrapedAt") or "",
         reverse=True,
     )
+    matched_review_counts = Counter(review["branchId"] for review in deduped_reviews)
+    branch_match_summary = [
+        {
+            "id": branch["id"],
+            "matchedReviews": int(matched_review_counts.get(branch["id"], 0)),
+        }
+        for branch in branch_lookup.values()
+    ]
+    missing_branch_ids = [
+        summary["id"]
+        for summary in branch_match_summary
+        if summary["matchedReviews"] == 0
+    ]
 
     generated_at = datetime.now(timezone.utc).isoformat()
 
@@ -274,6 +308,8 @@ def normalize_dataset(
             "reviewCount": len(deduped_reviews),
             "rawItemCount": len(items),
             "unmatchedItemCount": len(unmatched_items),
+            "branchMatchSummary": branch_match_summary,
+            "missingBranchIds": missing_branch_ids,
             "unmatchedSamples": [
                 {
                     "title": item.get("title"),
@@ -334,10 +370,14 @@ def match_branch(
     branch_list = list(branches)
 
     for branch in branch_list:
+        if blocked_title(item, branch):
+            continue
         if place_id and place_id == str(branch.get("placeId") or "").strip():
             return branch
 
     for branch in branch_list:
+        if blocked_title(item, branch):
+            continue
         if cid and cid == str(branch.get("cid")):
             return branch
 
@@ -345,11 +385,15 @@ def match_branch(
         return None
 
     for branch in branch_list:
+        if blocked_title(item, branch):
+            continue
         candidates = branch_candidates(branch)
         if any(candidate and candidate == title for candidate in candidates):
             return branch
 
     for branch in branch_list:
+        if blocked_title(item, branch):
+            continue
         candidates = branch_candidates(branch)
         if any(
             candidate
@@ -359,6 +403,16 @@ def match_branch(
             return branch
 
     return None
+
+
+def blocked_title(item: Dict[str, Any], branch: Dict[str, Any]) -> bool:
+    title = normalize_text(item.get("title"))
+    blocked_titles = [
+        normalize_text(value)
+        for value in (branch.get("blockedTitles") or [])
+        if value
+    ]
+    return bool(title and title in blocked_titles)
 
 
 def branch_candidates(branch: Dict[str, Any]) -> List[str]:
