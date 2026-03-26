@@ -663,17 +663,19 @@ function renderTrendChart(container, buckets) {
     <div class="bar-group">
       ${buckets
         .map((bucket) => {
-          const height = Math.max(10, (bucket.count / maxCount) * 100);
+          const height = bucket.count ? (bucket.count / maxCount) * 100 : 0;
+          const averageLabel = bucket.count ? `${formatRating(bucket.averageRating)} avg` : "No reviews";
           return `
             <div class="bar-column" title="${escapeHtml(
               `${bucket.label}: ${bucket.count} reviews, avg ${formatRating(bucket.averageRating)}`
             )}">
               <div class="bar-rail">
-                <div class="bar-fill" data-value="${bucket.count}" style="height: ${height}%"></div>
+                <div class="bar-fill${bucket.count ? "" : " is-empty"}" style="height: ${height}%"></div>
               </div>
               <div class="bar-meta">
-                <strong>${escapeHtml(bucket.shortLabel)}</strong>
-                <span>${escapeHtml(formatRating(bucket.averageRating))} avg</span>
+                <strong class="bar-count">${formatInteger(bucket.count)}</strong>
+                <span class="bar-label">${escapeHtml(bucket.shortLabel)}</span>
+                <span>${escapeHtml(averageLabel)}</span>
               </div>
             </div>
           `;
@@ -1284,9 +1286,9 @@ function formatSignedInteger(value) {
 function formatSignedDecimal(value) {
   const number = Number(value) || 0;
   if (number > 0) {
-    return `+${formatRating(number)}`;
+    return `+${formatPreciseDecimal(number)}`;
   }
-  return number < 0 ? `-${formatRating(Math.abs(number))}` : "0.0";
+  return number < 0 ? `-${formatPreciseDecimal(Math.abs(number))}` : "0.00";
 }
 
 function formatDate(value, timezone) {
@@ -1315,6 +1317,14 @@ function formatDateTime(value, timezone) {
     minute: "2-digit",
     timeZone: timezone,
   }).format(new Date(value));
+}
+
+function formatPreciseDecimal(value) {
+  if (!Number.isFinite(Number(value))) {
+    return "0.00";
+  }
+
+  return Number(value).toFixed(2);
 }
 
 function renderStars(value) {

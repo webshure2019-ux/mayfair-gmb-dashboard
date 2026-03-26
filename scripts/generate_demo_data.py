@@ -39,7 +39,7 @@ def main() -> None:
     for branch in branches_by_id.values():
         branch_reviews = [item for item in sample_reviews if item["branchId"] == branch["id"]]
         branch["currentReviewsCount"] = len(branch_reviews)
-        branch["currentRating"] = round(
+        branch["currentRating"] = round_one_decimal(
             sum(item["rating"] for item in branch_reviews) / len(branch_reviews), 1
         )
         branch["placeUrl"] = branch["mapsSearchUrl"]
@@ -104,6 +104,11 @@ def review(
         "placeUrl": None,
         "title": None,
     }
+
+
+def round_one_decimal(value: float, places: int = 1) -> float:
+    factor = 10**places
+    return int((value * factor) + 0.5) / factor
 
 
 if __name__ == "__main__":

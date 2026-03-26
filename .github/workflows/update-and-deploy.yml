@@ -82,6 +82,14 @@ jobs:
         if: ${{ env.APIFY_API_TOKEN == '' || github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode != 'full') }}
         run: echo "No fresh live dataset replacement happened in this run. The latest available dataset will be deployed."
 
+      - name: Validate preview dataset
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'preview' }}
+        run: python3 scripts/validate_dashboard_data.py data/preview/reviews-preview.json
+
+      - name: Validate deploy dataset
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.run_mode != 'preview' }}
+        run: python3 scripts/validate_dashboard_data.py data/reviews.json
+
       - name: Upload Pages artifact
         if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.run_mode != 'preview' }}
         uses: actions/upload-pages-artifact@v3

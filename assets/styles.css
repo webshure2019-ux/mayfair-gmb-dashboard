@@ -677,15 +677,9 @@ code {
   transition: filter var(--transition-base), opacity var(--transition-base);
 }
 
-.bar-fill::after {
-  content: attr(data-value);
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #1a2027;
-  font-size: 0.8rem;
-  font-weight: 700;
+.bar-fill.is-empty {
+  opacity: 0;
+  box-shadow: none;
 }
 
 .bar-column:hover .bar-fill {
@@ -704,6 +698,16 @@ code {
 
 .bar-meta strong {
   font-size: 0.88rem;
+}
+
+.bar-count {
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.bar-label {
+  color: var(--text);
+  font-weight: 700;
 }
 
 .bar-meta span {
