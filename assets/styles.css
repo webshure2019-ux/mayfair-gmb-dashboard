@@ -43,10 +43,33 @@ body {
 body::before {
   content: "";
   position: fixed;
+  inset: -12%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(13, 61, 124, 0.1), transparent 20%),
+    radial-gradient(circle at 82% 22%, rgba(31, 93, 168, 0.07), transparent 18%),
+    radial-gradient(circle at 72% 78%, rgba(118, 167, 220, 0.09), transparent 22%),
+    radial-gradient(circle at 22% 82%, rgba(13, 61, 124, 0.05), transparent 18%);
+  filter: blur(10px);
+  opacity: 0.8;
+  animation: ambient-drift 28s ease-in-out infinite alternate;
+}
+
+body::after {
+  content: "";
+  position: fixed;
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(243, 245, 248, 0.75));
+    linear-gradient(rgba(13, 61, 124, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(13, 61, 124, 0.022) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(243, 245, 248, 0.72));
+  background-size: 120px 120px, 120px 120px, auto;
+  background-position: 0 0, 0 0, 0 0;
+  -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.9), transparent 88%);
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.9), transparent 88%);
+  opacity: 0.46;
+  animation: ambient-grid 34s linear infinite;
 }
 
 a {
@@ -243,6 +266,30 @@ code {
   to {
     transform: scaleY(1);
     opacity: 1;
+  }
+}
+
+@keyframes ambient-drift {
+  0% {
+    transform: translate3d(-1.5%, -1%, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(1%, 1.5%, 0) scale(1.04);
+  }
+
+  100% {
+    transform: translate3d(2%, -1%, 0) scale(1.02);
+  }
+}
+
+@keyframes ambient-grid {
+  0% {
+    background-position: 0 0, 0 0, 0 0;
+  }
+
+  100% {
+    background-position: 120px 64px, -120px -64px, 0 0;
   }
 }
 
