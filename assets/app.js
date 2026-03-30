@@ -102,8 +102,6 @@ function renderDashboard() {
   populateBranchControls(computed.branches);
   renderFocusSection(computed);
   renderSummaryCards(computed);
-  renderInsightCards(computed);
-  renderKeywordCloud(computed.keywordThemes);
   renderBranchCards(computed.branches);
   renderTrendPanels(computed);
   renderLeaderboard(computed);
@@ -313,7 +311,6 @@ function buildComputedModel(data, timezone) {
   const weeklyTotals = bucketReviews(reviews, weeklyColumns, "week", timezone);
   const monthlyTotals = bucketReviews(reviews, monthlyColumns, "month", timezone);
   const rankedBranches = [...branches].sort(compareBranchPerformance);
-  const keywordThemes = extractKeywordThemes(reviews);
   const attentionReviews = reviews
     .filter((review) => review.rating <= 3 && !hasOwnerResponse(review))
     .slice(0, 6);
@@ -328,9 +325,7 @@ function buildComputedModel(data, timezone) {
     weeklyTotals,
     monthlyTotals,
     rankedBranches,
-    keywordThemes,
     attentionReviews,
-    highlights: buildHighlights(branches),
   };
 }
 
@@ -497,70 +492,6 @@ function renderSummaryCards(model) {
         </article>
       `
     )
-    .join("");
-}
-
-function renderInsightCards(model) {
-  const highlights = model.highlights;
-  const cards = [
-    {
-      title: "Top-rated branch",
-      value: highlights.bestRated?.shortName || "N/A",
-      detail: highlights.bestRated
-        ? `${formatRating(highlights.bestRated.currentRating)} rating across ${formatInteger(highlights.bestRated.currentReviewsCount)} reviews`
-        : "No branch data yet",
-    },
-    {
-      title: "Highest review volume",
-      value: highlights.mostReviewed?.shortName || "N/A",
-      detail: highlights.mostReviewed
-        ? `${formatInteger(highlights.mostReviewed.currentReviewsCount)} total reviews`
-        : "No branch data yet",
-    },
-    {
-      title: "Strongest 30-day growth",
-      value: highlights.fastestMomentum?.shortName || "N/A",
-      detail: highlights.fastestMomentum
-        ? `${formatSignedInteger(highlights.fastestMomentum.volumeDelta30)} reviews vs previous 30 days`
-        : "No branch data yet",
-    },
-    {
-      title: "Greatest attention need",
-      value: highlights.needsAttention?.shortName || "N/A",
-      detail: highlights.needsAttention
-        ? `${formatPercent(highlights.needsAttention.lowStarShare)} of tracked reviews are 1-2 stars`
-        : "No branch data yet",
-    },
-  ];
-
-  document.getElementById("insightCards").innerHTML = cards
-    .map(
-      (card) => `
-        <article class="insight-card">
-          <span>${escapeHtml(card.title)}</span>
-          <strong>${escapeHtml(card.value)}</strong>
-          <p>${escapeHtml(card.detail)}</p>
-        </article>
-      `
-    )
-    .join("");
-}
-
-function renderKeywordCloud(keywords) {
-  const container = document.getElementById("keywordCloud");
-
-  if (!keywords.length) {
-    container.innerHTML = getEmptyState();
-    return;
-  }
-
-  container.innerHTML = keywords
-    .map((keyword) => `
-      <div class="keyword-chip">
-        <strong>${escapeHtml(keyword.term)}</strong>
-        <span>${formatInteger(keyword.count)} mentions</span>
-      </div>
-    `)
     .join("");
 }
 
@@ -994,8 +925,6 @@ function renderFailure(error) {
   `;
 
   [
-    "insightCards",
-    "keywordCloud",
     "branchCards",
     "weeklyTrend",
     "monthlyTrend",
@@ -1119,71 +1048,12 @@ function periodStats(reviews, offsetDays, durationDays) {
   };
 }
 
-function buildHighlights(branches) {
-  if (!branches.length) {
-    return {};
-  }
-
-  return {
-    bestRated: [...branches].sort((left, right) => (
-      right.currentRating - left.currentRating ||
-      right.currentReviewsCount - left.currentReviewsCount
-    ))[0],
-    mostReviewed: [...branches].sort((left, right) => right.currentReviewsCount - left.currentReviewsCount)[0],
-    fastestMomentum: [...branches].sort((left, right) => (
-      right.volumeDelta30 - left.volumeDelta30 ||
-      right.last30Stats.count - left.last30Stats.count
-    ))[0],
-    needsAttention: [...branches].sort((left, right) => (
-      right.lowStarShare - left.lowStarShare ||
-      right.lowStarCount - left.lowStarCount
-    ))[0],
-  };
-}
-
 function compareBranchPerformance(left, right) {
   return (
     right.currentRating - left.currentRating ||
     right.last30Stats.count - left.last30Stats.count ||
     right.currentReviewsCount - left.currentReviewsCount
   );
-}
-
-function extractKeywordThemes(reviews) {
-  const stopwords = new Set([
-    "about", "again", "after", "all", "also", "and", "are", "back", "because", "been",
-    "before", "but", "can", "car", "centre", "communication", "did", "done", "drives",
-    "even", "excellent", "fair", "for", "from", "gearbox", "good", "great", "had",
-    "has", "have", "helpful", "honest", "issue", "its", "job", "just", "like", "manual",
-    "more", "much", "need", "not", "now", "our", "overall", "really", "repair", "repaired",
-    "service", "sorted", "staff", "team", "than", "that", "the", "their", "them", "they",
-    "this", "throughout", "truck", "very", "vehicle", "was", "were", "what", "with", "work",
-    "workshop", "would", "you", "your",
-  ]);
-
-  const counts = new Map();
-
-  reviews.forEach((review) => {
-    const text = (review.comment || review.commentTranslated || "")
-      .toLowerCase()
-      .replace(/[^a-z0-9\s]/g, " ");
-
-    const uniqueTerms = new Set(
-      text
-        .split(/\s+/)
-        .map((term) => term.trim())
-        .filter((term) => term.length >= 4 && !stopwords.has(term))
-    );
-
-    uniqueTerms.forEach((term) => {
-      counts.set(term, (counts.get(term) || 0) + 1);
-    });
-  });
-
-  return [...counts.entries()]
-    .map(([term, count]) => ({ term, count }))
-    .sort((left, right) => right.count - left.count || left.term.localeCompare(right.term))
-    .slice(0, 12);
 }
 
 function weightedAverageFromBuckets(buckets) {
