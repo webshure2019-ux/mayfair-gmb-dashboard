@@ -65,10 +65,14 @@ function hydrateBrandImages() {
 }
 
 function wireFilters() {
-  document.getElementById("focusBranchFilter").addEventListener("change", (event) => {
-    state.focusBranchId = event.target.value;
-    state.filters.branchId = event.target.value;
-    renderDashboard();
+  document.getElementById("focusBranchButtons").addEventListener("click", (event) => {
+    const button = event.target.closest("[data-focus-branch]");
+
+    if (!button) {
+      return;
+    }
+
+    activateFocusBranch(button.getAttribute("data-focus-branch"));
   });
 
   document.getElementById("branchFilter").addEventListener("change", (event) => {
@@ -112,6 +116,16 @@ function wireBackToTop() {
 
   window.addEventListener("scroll", syncVisibility, { passive: true });
   syncVisibility();
+}
+
+function activateFocusBranch(branchId) {
+  if (!branchId) {
+    return;
+  }
+
+  state.focusBranchId = branchId;
+  state.filters.branchId = branchId;
+  renderDashboard();
 }
 
 function renderDashboard() {
@@ -385,14 +399,22 @@ function populateHeader(data, timezone) {
 }
 
 function populateBranchControls(branches) {
-  const focusBranchFilter = document.getElementById("focusBranchFilter");
+  const focusBranchButtons = document.getElementById("focusBranchButtons");
   const branchFilter = document.getElementById("branchFilter");
   const dateFilter = document.getElementById("dateFilter");
 
-  focusBranchFilter.innerHTML = branches
+  focusBranchButtons.innerHTML = branches
     .map(
       (branch) =>
-        `<option value="${escapeHtml(branch.id)}">${escapeHtml(branch.shortName || branch.name)}</option>`
+        `<button
+          type="button"
+          class="focus-branch-button${branch.id === state.focusBranchId ? " is-active" : ""}"
+          data-focus-branch="${escapeHtml(branch.id)}"
+          style="--branch-color: ${escapeHtml(branch.color || "#0d3d7c")}"
+          aria-pressed="${branch.id === state.focusBranchId ? "true" : "false"}"
+        >
+          ${escapeHtml(branch.shortName || branch.name)}
+        </button>`
     )
     .join("");
 
@@ -404,7 +426,6 @@ function populateBranchControls(branches) {
     ),
   ].join("");
 
-  focusBranchFilter.value = state.focusBranchId;
   branchFilter.value = state.filters.branchId;
   dateFilter.value = state.filters.dateRange;
 }
@@ -667,11 +688,7 @@ function renderBranchCards(branches) {
 
   container.querySelectorAll("[data-branch-card]").forEach((card) => {
     const branchId = card.getAttribute("data-branch-card");
-    const activate = () => {
-      state.focusBranchId = branchId;
-      state.filters.branchId = branchId;
-      renderDashboard();
-    };
+    const activate = () => activateFocusBranch(branchId);
 
     card.addEventListener("click", activate);
     card.addEventListener("keydown", (event) => {

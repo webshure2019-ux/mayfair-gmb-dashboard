@@ -94,10 +94,13 @@
           </div>
           <div class="focus-select-panel">
             <p class="focus-select-kicker">Choose a branch</p>
-            <label class="field focus-select-field">
-              <span>Use this dropdown to switch the branch spotlight</span>
-              <select id="focusBranchFilter" class="focus-select-input"></select>
-            </label>
+            <p class="focus-select-copy">Use these buttons to switch the branch spotlight.</p>
+            <div
+              id="focusBranchButtons"
+              class="focus-branch-buttons"
+              role="group"
+              aria-label="Choose a branch for the spotlight"
+            ></div>
           </div>
         </div>
         <div class="focus-grid" id="focusCards"></div>

@@ -713,29 +713,62 @@ code {
   text-transform: uppercase;
 }
 
-.focus-select-field {
-  min-width: 0;
-}
-
-.focus-select-field span {
+.focus-select-copy {
+  margin: 0 0 14px;
   color: var(--text);
   font-size: 0.92rem;
   font-weight: 600;
 }
 
-.focus-select-input {
-  border-width: 2px;
-  border-color: rgba(13, 61, 124, 0.24);
-  border-radius: 16px;
-  padding: 16px 18px;
-  font-size: 1.08rem;
-  font-weight: 700;
-  box-shadow: 0 8px 22px rgba(13, 61, 124, 0.08);
+.focus-branch-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.focus-select-input:focus {
+.focus-branch-button {
+  appearance: none;
+  border: 1px solid rgba(13, 61, 124, 0.14);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(245, 249, 255, 0.98));
+  color: var(--text);
+  border-radius: 999px;
+  padding: 11px 16px;
+  font: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(17, 32, 49, 0.06);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base),
+    background-color var(--transition-base),
+    color var(--transition-base);
+}
+
+.focus-branch-button:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--branch-color, var(--accent)) 30%, white);
+  box-shadow: 0 12px 24px rgba(17, 32, 49, 0.1);
+}
+
+.focus-branch-button:focus-visible {
   outline: 3px solid rgba(13, 61, 124, 0.18);
-  border-color: rgba(13, 61, 124, 0.52);
+  outline-offset: 2px;
+}
+
+.focus-branch-button.is-active {
+  border-color: color-mix(in srgb, var(--branch-color, var(--accent)) 38%, white);
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--branch-color, var(--accent)) 14%, white),
+      color-mix(in srgb, var(--branch-color, var(--accent)) 6%, white)
+    );
+  color: var(--accent-strong);
+  box-shadow: 0 14px 28px rgba(13, 61, 124, 0.12);
 }
 
 .focus-grid {
@@ -1283,7 +1316,6 @@ code {
 }
 
 .field select,
-.focus-select-input,
 .field input {
   appearance: none;
   width: 100%;
@@ -1295,8 +1327,7 @@ code {
   font: inherit;
 }
 
-.field select,
-.focus-select-input {
+.field select {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3.5 6.25L8 10.75L12.5 6.25' stroke='%230d3d7c' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 16px center;
@@ -1305,7 +1336,6 @@ code {
 }
 
 .field select:focus,
-.focus-select-input:focus,
 .field input:focus {
   outline: 2px solid rgba(13, 61, 124, 0.22);
   border-color: rgba(13, 61, 124, 0.48);
@@ -1437,14 +1467,13 @@ code {
     align-items: start;
   }
 
-  .focus-select-field {
+  .focus-select-panel {
     width: 100%;
     min-width: 0;
   }
 
-  .focus-select-panel {
+  .focus-branch-buttons {
     width: 100%;
-    min-width: 0;
   }
 }
 
