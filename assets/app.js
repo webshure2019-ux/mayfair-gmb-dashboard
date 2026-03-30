@@ -505,9 +505,76 @@ function renderBranchCards(branches) {
 
   container.innerHTML = branches
     .map((branch) => {
-      const stars = STAR_LEVELS.map(
-        (level) => `${level}★ ${formatInteger(branch.starCounts[level])}`
-      ).join(" · ");
+      const targetRating = Math.min(5, roundToOneDecimal(branch.currentRating + 0.1));
+      const lastWeekOneStarDetail = branch.lastWeekOneStarCount
+        ? `${formatInteger(branch.lastWeekOneStarCount)} one-star in last 7 days`
+        : "No one-star reviews in last 7 days";
+      const last7RatingValue = branch.last7Stats.count ? formatRating(branch.last7Stats.averageRating) : "N/A";
+      const last7RatingDetail = branch.last7Stats.count
+        ? `${formatInteger(branch.last7Stats.count)} recent reviews`
+        : "No recent reviews";
+
+      const primaryStats = [
+        {
+          label: "Current GBP rating",
+          value: formatRating(branch.currentRating),
+          detail: `${renderTextStars(branch.currentRating)} live rating`,
+          tone: "success",
+        },
+        {
+          label: "Total reviews",
+          value: formatInteger(branch.currentReviewsCount),
+          detail: "Published reviews",
+          tone: "neutral",
+        },
+      ];
+
+      const comparisonStats = [
+        {
+          label: "Reviews in last 7 days",
+          value: formatInteger(branch.thisWeekCount),
+          detail: "Published in the past 7 days",
+          tone: "accent",
+        },
+        {
+          label: "Reviews this month",
+          value: formatInteger(branch.currentMonthCount),
+          detail: "Month to date",
+          tone: "neutral",
+        },
+        {
+          label: "Last 7-day review rating",
+          value: last7RatingValue,
+          detail: last7RatingDetail,
+          tone: "neutral",
+        },
+        {
+          label: "5-star reviews needed for +0.1",
+          value: branch.currentRating >= 4.95 ? "0" : formatInteger(branch.fiveStarReviewsForPointOne),
+          detail: branch.currentRating >= 4.95
+            ? "Already very close to 5.0"
+            : `Estimated lift from ${formatRating(branch.currentRating)} to ${formatRating(targetRating)}`,
+          tone: "accent",
+        },
+        {
+          label: "Last week 1-star impact",
+          value: formatSignedDecimal(branch.lastWeekOneStarEffect),
+          detail: lastWeekOneStarDetail,
+          tone: branch.lastWeekOneStarCount ? "danger" : "neutral",
+        },
+        {
+          label: "Response rate",
+          value: formatPercent(branch.ownerResponseRate),
+          detail: `${formatInteger(branch.ownerResponseCount)} responses captured`,
+          tone: "neutral",
+        },
+        {
+          label: "Low-rating share",
+          value: formatPercent(branch.lowStarShare),
+          detail: `${formatInteger(branch.lowStarCount)} low-star reviews`,
+          tone: "neutral",
+        },
+      ];
 
       return `
         <article
@@ -531,33 +598,33 @@ function renderBranchCards(branches) {
           </div>
           <p class="branch-subtitle">${escapeHtml(branch.name)}</p>
 
-          <div class="metric-row">
-            <span>Average rating</span>
-            <strong>${renderStars(branch.currentRating)} ${escapeHtml(formatRating(branch.currentRating))}</strong>
+          <div class="branch-primary-grid">
+            ${primaryStats.map((stat) => `
+              <div class="branch-stat-card primary ${escapeHtml(stat.tone)}">
+                <span class="branch-stat-label">${escapeHtml(stat.label)}</span>
+                <strong class="branch-stat-value">${escapeHtml(stat.value)}</strong>
+                <span class="branch-stat-detail">${escapeHtml(stat.detail)}</span>
+              </div>
+            `).join("")}
           </div>
-          <div class="metric-row">
-            <span>Total reviews</span>
-            <strong>${formatInteger(branch.currentReviewsCount)}</strong>
+
+          <div class="branch-stats-grid">
+            ${comparisonStats.map((stat) => `
+              <div class="branch-stat-card ${escapeHtml(stat.tone)}">
+                <span class="branch-stat-label">${escapeHtml(stat.label)}</span>
+                <strong class="branch-stat-value">${escapeHtml(stat.value)}</strong>
+                <span class="branch-stat-detail">${escapeHtml(stat.detail)}</span>
+              </div>
+            `).join("")}
           </div>
-          <div class="metric-row">
-            <span>Last 7 days</span>
-            <strong>${formatInteger(branch.thisWeekCount)}</strong>
-          </div>
-          <div class="metric-row">
-            <span>Last 30 days</span>
-            <strong>${formatInteger(branch.thisMonthCount)}</strong>
-          </div>
-          <div class="metric-row">
-            <span>Response rate</span>
-            <strong>${escapeHtml(formatPercent(branch.ownerResponseRate))}</strong>
-          </div>
-          <div class="metric-row">
-            <span>Low-rating share</span>
-            <strong>${escapeHtml(formatPercent(branch.lowStarShare))}</strong>
-          </div>
-          <div class="metric-row">
-            <span>Ratings mix</span>
-            <strong>${escapeHtml(stars)}</strong>
+
+          <div class="branch-rating-mix-block">
+            <span class="branch-rating-mix-label">Ratings mix</span>
+            <div class="branch-rating-mix">
+              ${STAR_LEVELS.map((level) => `
+                <span class="rating-mix-chip">${level}★ ${formatInteger(branch.starCounts[level])}</span>
+              `).join("")}
+            </div>
           </div>
         </article>
       `;
