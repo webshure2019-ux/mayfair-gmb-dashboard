@@ -212,7 +212,7 @@
             <p class="section-kicker">Comments</p>
             <h2>Review comments</h2>
           </div>
-          <p class="section-note">Filter by branch, rating, or keyword to inspect the exact feedback customers left.</p>
+          <p class="section-note">Filter by branch, rating, date, or keyword to inspect the exact feedback customers left.</p>
         </div>
 
         <div class="filters-panel">
@@ -229,6 +229,16 @@
               <option value="3">3 stars</option>
               <option value="2">2 stars</option>
               <option value="1">1 star</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Date range</span>
+            <select id="dateFilter">
+              <option value="all">All time</option>
+              <option value="yesterday">Yesterday</option>
+              <option value="last_7_days">Last 7 days</option>
+              <option value="last_30_days">Last 30 days</option>
+              <option value="this_month">This month</option>
             </select>
           </label>
           <label class="field search-field">

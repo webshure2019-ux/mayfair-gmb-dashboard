@@ -2,6 +2,12 @@ const FALLBACK_TIMEZONE = "Africa/Johannesburg";
 const STAR_LEVELS = [5, 4, 3, 2, 1];
 const WEEK_COLUMNS = 8;
 const MONTH_COLUMNS = 6;
+const BRANCH_THEME_COLORS = {
+  "jhb-auto": "#0d3d7c",
+  "germiston-commercial": "#1f5da8",
+  "pretoria-manual-auto": "#3c79c3",
+  "jhb-manual": "#76a7dc",
+};
 
 const state = {
   data: null,
@@ -9,6 +15,7 @@ const state = {
   filters: {
     branchId: "all",
     rating: "all",
+    dateRange: "all",
     search: "",
   },
 };
@@ -73,6 +80,11 @@ function wireFilters() {
     renderReviews();
   });
 
+  document.getElementById("dateFilter").addEventListener("change", (event) => {
+    state.filters.dateRange = event.target.value;
+    renderReviews();
+  });
+
   document.getElementById("searchFilter").addEventListener("input", (event) => {
     state.filters.search = event.target.value.trim().toLowerCase();
     renderReviews();
@@ -113,7 +125,7 @@ function renderDashboard() {
 }
 
 function repairDashboardData(data) {
-  const branches = (data.branches || []).map((branch) => ({ ...branch }));
+  const branches = (data.branches || []).map((branch) => applyBranchTheme(branch));
   const repairedReviews = repairReviewAssignments(data.reviews || [], branches);
 
   return {
@@ -124,6 +136,13 @@ function repairDashboardData(data) {
       ...data.meta,
       repairedAtRender: repairedReviews.length !== (data.reviews || []).length,
     },
+  };
+}
+
+function applyBranchTheme(branch) {
+  return {
+    ...branch,
+    color: BRANCH_THEME_COLORS[branch.id] || branch.color || "#0d3d7c",
   };
 }
 
@@ -345,6 +364,7 @@ function populateHeader(data, timezone) {
 function populateBranchControls(branches) {
   const focusBranchFilter = document.getElementById("focusBranchFilter");
   const branchFilter = document.getElementById("branchFilter");
+  const dateFilter = document.getElementById("dateFilter");
 
   focusBranchFilter.innerHTML = branches
     .map(
@@ -363,6 +383,7 @@ function populateBranchControls(branches) {
 
   focusBranchFilter.value = state.focusBranchId;
   branchFilter.value = state.filters.branchId;
+  dateFilter.value = state.filters.dateRange;
 }
 
 function renderFocusSection(model) {
@@ -579,7 +600,7 @@ function renderBranchCards(branches) {
       return `
         <article
           class="branch-card${branch.id === state.focusBranchId ? " is-active" : ""}"
-          style="--branch-color: ${escapeHtml(branch.color || "#ff8f3d")}"
+          style="--branch-color: ${escapeHtml(branch.color || "#0d3d7c")}"
           data-branch-card="${escapeHtml(branch.id)}"
           tabindex="0"
           role="button"
@@ -910,6 +931,10 @@ function renderReviews() {
         return false;
       }
 
+      if (!matchesReviewDateRange(review, state.filters.dateRange, timezone)) {
+        return false;
+      }
+
       if (!state.filters.search) {
         return true;
       }
@@ -951,7 +976,7 @@ function renderReviews() {
           <div class="review-topline">
             <h3>${escapeHtml(review.reviewerName || "Anonymous reviewer")}</h3>
             <span class="branch-pill" style="border: 1px solid ${escapeHtml(
-              branch?.color || "#ff8f3d"
+              branch?.color || "#0d3d7c"
             )}55">${escapeHtml(branch?.shortName || review.branchName || "Unknown branch")}</span>
           </div>
           <div class="review-meta">
@@ -981,6 +1006,37 @@ function renderReviews() {
       `;
     })
     .join("");
+}
+
+function matchesReviewDateRange(review, dateRange, timezone) {
+  if (dateRange === "all") {
+    return true;
+  }
+
+  const reviewDate = zonedDateOnly(new Date(review.publishedAt), timezone);
+  const today = zonedDateOnly(new Date(), timezone);
+
+  if (dateRange === "yesterday") {
+    const yesterday = addDays(today, -1);
+    return isoDate(reviewDate) === isoDate(yesterday);
+  }
+
+  if (dateRange === "last_7_days") {
+    return reviewDate >= addDays(today, -6);
+  }
+
+  if (dateRange === "last_30_days") {
+    return reviewDate >= addDays(today, -29);
+  }
+
+  if (dateRange === "this_month") {
+    return (
+      reviewDate.getUTCFullYear() === today.getUTCFullYear() &&
+      reviewDate.getUTCMonth() === today.getUTCMonth()
+    );
+  }
+
+  return true;
 }
 
 function renderFailure(error) {
