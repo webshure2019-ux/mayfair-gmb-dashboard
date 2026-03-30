@@ -8,6 +8,29 @@ const BRANCH_THEME_COLORS = {
   "pretoria-manual-auto": "#3c79c3",
   "jhb-manual": "#76a7dc",
 };
+const METRIC_HELP = {
+  "Data status": "Shows whether the dashboard is using live synced review data or fallback demo data.",
+  "Last updated": "The timestamp of the most recent successful dashboard refresh.",
+  Timezone: "The timezone used for dates, weekly buckets, and monthly totals.",
+  "Total GBP reviews": "The total number of published Google Business Profile reviews across all tracked branches.",
+  "Average rating": "The current average star rating across all published reviews in scope.",
+  "Reviews in past 30 days": "How many new reviews were published in the last 30 days.",
+  "Past 30-day rating": "The average star rating of reviews published in the last 30 days.",
+  "Response rate": "The share of published reviews that currently show an owner response from the business.",
+  "Comment rate": "The share of reviews that include written feedback instead of only a star rating.",
+  "Local Guide share": "The share of reviews written by Google accounts marked as Local Guides.",
+  "Reviews in last 7 days": "How many reviews were published in the last 7 days.",
+  "Reviews this month": "How many reviews were published since the start of the current month.",
+  "Last 7-day review rating": "The average star rating of reviews published in the last 7 days.",
+  "Current GBP rating": "The current Google Business Profile star rating for this branch or view.",
+  "5-star reviews needed for +0.1": "An estimate of how many additional 5-star reviews are needed to raise the displayed rating by 0.1.",
+  "Last week 1-star impact": "The estimated rating effect caused by one-star reviews published in the last 7 days.",
+  "Total reviews": "The current total published review count for this branch.",
+  "Portfolio share": "This branch's share of the full published review portfolio.",
+  Rating: "The current average star rating.",
+  "30-day rating": "The average star rating of reviews published in the last 30 days.",
+  "Ratings mix": "The current count of 5-star through 1-star reviews for this branch.",
+};
 
 const state = {
   data: null,
@@ -126,6 +149,28 @@ function activateFocusBranch(branchId) {
   state.focusBranchId = branchId;
   state.filters.branchId = branchId;
   renderDashboard();
+}
+
+function renderMetricLabel(label, className = "") {
+  const description = METRIC_HELP[label];
+  const classes = ["metric-label", className, description ? "has-help" : ""]
+    .filter(Boolean)
+    .join(" ");
+
+  if (!description) {
+    return `<span class="${classes}">${escapeHtml(label)}</span>`;
+  }
+
+  return `
+    <span
+      class="${classes}"
+      data-tooltip="${escapeAttribute(description)}"
+      title="${escapeAttribute(description)}"
+    >
+      ${escapeHtml(label)}
+      <span class="metric-help-dot" aria-hidden="true">?</span>
+    </span>
+  `;
 }
 
 function renderDashboard() {
@@ -492,7 +537,7 @@ function renderFocusSection(model) {
     .map(
       (card) => `
         <article class="focus-card ${escapeHtml(card.tone)}">
-          <span>${escapeHtml(card.label)}</span>
+          ${renderMetricLabel(card.label, "focus-card-label")}
           <strong>${escapeHtml(card.value)}</strong>
           <p>${escapeHtml(card.detail)}</p>
         </article>
@@ -548,7 +593,7 @@ function renderSummaryCards(model) {
     .map(
       (card) => `
         <article class="summary-card">
-          <span>${escapeHtml(card.label)}</span>
+          ${renderMetricLabel(card.label, "summary-card-label")}
           <strong>${escapeHtml(card.value)}</strong>
         </article>
       `
@@ -656,7 +701,7 @@ function renderBranchCards(branches) {
           <div class="branch-primary-grid">
             ${primaryStats.map((stat) => `
               <div class="branch-stat-card primary ${escapeHtml(stat.tone)}">
-                <span class="branch-stat-label">${escapeHtml(stat.label)}</span>
+                ${renderMetricLabel(stat.label, "branch-stat-label")}
                 <strong class="branch-stat-value">${escapeHtml(stat.value)}</strong>
                 <span class="branch-stat-detail">${escapeHtml(stat.detail)}</span>
               </div>
@@ -666,7 +711,7 @@ function renderBranchCards(branches) {
           <div class="branch-stats-grid">
             ${comparisonStats.map((stat) => `
               <div class="branch-stat-card ${escapeHtml(stat.tone)}">
-                <span class="branch-stat-label">${escapeHtml(stat.label)}</span>
+                ${renderMetricLabel(stat.label, "branch-stat-label")}
                 <strong class="branch-stat-value">${escapeHtml(stat.value)}</strong>
                 <span class="branch-stat-detail">${escapeHtml(stat.detail)}</span>
               </div>
@@ -674,7 +719,7 @@ function renderBranchCards(branches) {
           </div>
 
           <div class="branch-rating-mix-block">
-            <span class="branch-rating-mix-label">Ratings mix</span>
+            ${renderMetricLabel("Ratings mix", "branch-rating-mix-label")}
             <div class="branch-rating-mix">
               ${STAR_LEVELS.map((level) => `
                 <span class="rating-mix-chip">${level}★ ${formatInteger(branch.starCounts[level])}</span>
@@ -743,12 +788,12 @@ function renderLeaderboard(model) {
     <tr>
       <th>Rank</th>
       <th class="table-row-label">Branch</th>
-      <th>Rating</th>
-      <th>Total reviews</th>
-      <th>Portfolio share</th>
+      <th>${renderMetricLabel("Rating", "table-metric-label")}</th>
+      <th>${renderMetricLabel("Total reviews", "table-metric-label")}</th>
+      <th>${renderMetricLabel("Portfolio share", "table-metric-label")}</th>
       <th>Last 30 days</th>
-      <th>30-day rating</th>
-      <th>Response rate</th>
+      <th>${renderMetricLabel("30-day rating", "table-metric-label")}</th>
+      <th>${renderMetricLabel("Response rate", "table-metric-label")}</th>
     </tr>
   `;
 
@@ -811,8 +856,8 @@ function renderDistributionTable(model) {
     <tr>
       <th class="table-row-label">Branch</th>
       ${STAR_LEVELS.map((level) => `<th>${level} stars</th>`).join("")}
-      <th>Average rating</th>
-      <th>Total reviews</th>
+      <th>${renderMetricLabel("Average rating", "table-metric-label")}</th>
+      <th>${renderMetricLabel("Total reviews", "table-metric-label")}</th>
     </tr>
   `;
 

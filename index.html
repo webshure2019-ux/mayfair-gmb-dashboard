@@ -60,15 +60,36 @@
         </div>
         <div class="hero-meta">
           <div class="meta-card">
-            <span class="meta-label">Data status</span>
+            <span
+              class="meta-label metric-label has-help"
+              data-tooltip="Shows whether the dashboard is using live synced review data or fallback demo data."
+              title="Shows whether the dashboard is using live synced review data or fallback demo data."
+            >
+              Data status
+              <span class="metric-help-dot" aria-hidden="true">?</span>
+            </span>
             <strong id="dataMode">Loading</strong>
           </div>
           <div class="meta-card">
-            <span class="meta-label">Last updated</span>
+            <span
+              class="meta-label metric-label has-help"
+              data-tooltip="The timestamp of the most recent successful dashboard refresh."
+              title="The timestamp of the most recent successful dashboard refresh."
+            >
+              Last updated
+              <span class="metric-help-dot" aria-hidden="true">?</span>
+            </span>
             <strong id="generatedAt">Loading</strong>
           </div>
           <div class="meta-card">
-            <span class="meta-label">Timezone</span>
+            <span
+              class="meta-label metric-label has-help"
+              data-tooltip="The timezone used for dates, weekly buckets, and monthly totals."
+              title="The timezone used for dates, weekly buckets, and monthly totals."
+            >
+              Timezone
+              <span class="metric-help-dot" aria-hidden="true">?</span>
+            </span>
             <strong id="dashboardTimezone">Africa/Johannesburg</strong>
           </div>
         </div>

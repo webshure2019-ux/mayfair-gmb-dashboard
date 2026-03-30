@@ -629,6 +629,86 @@ code {
   border: 1px solid var(--panel-border);
 }
 
+.metric-label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  max-width: 100%;
+}
+
+.metric-label.has-help {
+  cursor: help;
+}
+
+.metric-help-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  border-radius: 999px;
+  background: rgba(13, 61, 124, 0.1);
+  color: var(--accent-strong);
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.metric-label.has-help::before,
+.metric-label.has-help::after {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--transition-base),
+    transform var(--transition-base);
+  z-index: 30;
+}
+
+.metric-label.has-help::before {
+  content: "";
+  top: calc(100% + 4px);
+  left: 18px;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 8px solid rgba(17, 32, 49, 0.96);
+  transform: translateY(4px);
+}
+
+.metric-label.has-help::after {
+  content: attr(data-tooltip);
+  top: calc(100% + 12px);
+  left: 0;
+  width: min(250px, calc(100vw - 48px));
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(17, 32, 49, 0.96);
+  color: #ffffff;
+  box-shadow: 0 16px 32px rgba(17, 32, 49, 0.18);
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: normal;
+  transform: translateY(6px);
+}
+
+.metric-label.has-help:hover::before,
+.metric-label.has-help:hover::after,
+.metric-label.has-help:active::before,
+.metric-label.has-help:active::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.metric-label.has-help:hover .metric-help-dot,
+.metric-label.has-help:active .metric-help-dot {
+  background: rgba(13, 61, 124, 0.16);
+}
+
 .meta-card strong {
   display: block;
   margin-top: 6px;
@@ -647,8 +727,7 @@ code {
   animation: rise-in 0.6s ease both;
 }
 
-.summary-card span {
-  display: block;
+.summary-card > .metric-label {
   color: var(--muted);
   font-size: 0.95rem;
 }
@@ -796,8 +875,7 @@ code {
   background: rgba(24, 34, 46, 0.08);
 }
 
-.focus-card span {
-  display: block;
+.focus-card > .metric-label {
   color: var(--muted);
   font-size: 0.92rem;
 }
@@ -983,7 +1061,6 @@ code {
 }
 
 .branch-stat-label {
-  display: block;
   color: var(--muted);
   font-size: 0.72rem;
   line-height: 1.25;
@@ -1014,7 +1091,6 @@ code {
 }
 
 .branch-rating-mix-label {
-  display: block;
   margin-bottom: 8px;
   color: var(--muted);
   font-size: 0.78rem;
@@ -1240,6 +1316,10 @@ code {
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.14em;
+}
+
+.table-metric-label {
+  color: inherit;
 }
 
 .data-table td {
