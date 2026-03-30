@@ -30,11 +30,13 @@ html {
 }
 
 body {
+  position: relative;
   margin: 0;
   color: var(--text);
   font-family: "IBM Plex Sans", sans-serif;
   background:
-    radial-gradient(circle at top left, rgba(13, 61, 124, 0.08), transparent 24%),
+    radial-gradient(circle at top left, rgba(13, 61, 124, 0.12), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(118, 167, 220, 0.08), transparent 26%),
     linear-gradient(180deg, #ffffff 0%, #f8fbff 54%, #eef3f9 100%);
   min-height: 100vh;
   overflow-x: hidden;
@@ -43,15 +45,17 @@ body {
 body::before {
   content: "";
   position: fixed;
-  inset: -12%;
+  inset: -18%;
+  z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at 18% 18%, rgba(13, 61, 124, 0.1), transparent 20%),
-    radial-gradient(circle at 82% 22%, rgba(31, 93, 168, 0.07), transparent 18%),
-    radial-gradient(circle at 72% 78%, rgba(118, 167, 220, 0.09), transparent 22%),
-    radial-gradient(circle at 22% 82%, rgba(13, 61, 124, 0.05), transparent 18%);
-  filter: blur(10px);
-  opacity: 0.8;
+    radial-gradient(circle at 16% 18%, rgba(13, 61, 124, 0.16), transparent 26%),
+    radial-gradient(circle at 84% 20%, rgba(31, 93, 168, 0.12), transparent 24%),
+    radial-gradient(circle at 72% 76%, rgba(118, 167, 220, 0.14), transparent 28%),
+    radial-gradient(circle at 18% 82%, rgba(13, 61, 124, 0.1), transparent 24%);
+  filter: blur(18px);
+  opacity: 0.92;
+  will-change: transform;
   animation: ambient-drift 28s ease-in-out infinite alternate;
 }
 
@@ -59,16 +63,18 @@ body::after {
   content: "";
   position: fixed;
   inset: 0;
+  z-index: 0;
   pointer-events: none;
   background:
-    linear-gradient(rgba(13, 61, 124, 0.022) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(13, 61, 124, 0.022) 1px, transparent 1px),
+    linear-gradient(rgba(13, 61, 124, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(13, 61, 124, 0.03) 1px, transparent 1px),
     linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(243, 245, 248, 0.72));
-  background-size: 120px 120px, 120px 120px, auto;
+  background-size: 96px 96px, 96px 96px, auto;
   background-position: 0 0, 0 0, 0 0;
   -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.9), transparent 88%);
   mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.9), transparent 88%);
-  opacity: 0.46;
+  opacity: 0.58;
+  will-change: background-position;
   animation: ambient-grid 34s linear infinite;
 }
 
