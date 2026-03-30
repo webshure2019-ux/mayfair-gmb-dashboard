@@ -300,7 +300,7 @@ code {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
-  margin-top: 22px;
+  margin-top: 18px;
 }
 
 .summary-card {
@@ -324,6 +324,10 @@ code {
   margin-top: 22px;
   padding: 24px;
   animation: rise-in 0.7s ease both;
+}
+
+.summary-section {
+  padding-top: 22px;
 }
 
 .focus-panel {
