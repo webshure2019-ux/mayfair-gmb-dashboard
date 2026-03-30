@@ -656,32 +656,21 @@ code {
   line-height: 1;
 }
 
-.metric-label.has-help::before,
-.metric-label.has-help::after {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-  transition:
-    opacity var(--transition-base),
-    transform var(--transition-base);
-  z-index: 30;
+.metric-label.has-help:hover .metric-help-dot,
+.metric-label.has-help:focus-visible .metric-help-dot {
+  background: rgba(13, 61, 124, 0.16);
 }
 
-.metric-label.has-help::before {
-  content: "";
-  top: calc(100% + 4px);
-  left: 18px;
-  border-left: 7px solid transparent;
-  border-right: 7px solid transparent;
-  border-bottom: 8px solid rgba(17, 32, 49, 0.96);
-  transform: translateY(4px);
+.metric-label.has-help:focus-visible {
+  outline: none;
 }
 
-.metric-label.has-help::after {
-  content: attr(data-tooltip);
-  top: calc(100% + 12px);
+.metric-tooltip {
+  position: fixed;
   left: 0;
-  width: min(250px, calc(100vw - 48px));
+  top: 0;
+  width: max-content;
+  max-width: min(280px, calc(100vw - 24px));
   padding: 10px 12px;
   border-radius: 12px;
   background: rgba(17, 32, 49, 0.96);
@@ -693,20 +682,36 @@ code {
   letter-spacing: normal;
   text-transform: none;
   white-space: normal;
+  z-index: 80;
+  opacity: 0;
+  pointer-events: none;
   transform: translateY(6px);
+  transition:
+    opacity var(--transition-base),
+    transform var(--transition-base);
 }
 
-.metric-label.has-help:hover::before,
-.metric-label.has-help:hover::after,
-.metric-label.has-help:active::before,
-.metric-label.has-help:active::after {
+.metric-tooltip::after {
+  content: "";
+  position: absolute;
+  left: 24px;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+}
+
+.metric-tooltip[data-placement="bottom"]::after {
+  top: -8px;
+  border-bottom: 8px solid rgba(17, 32, 49, 0.96);
+}
+
+.metric-tooltip[data-placement="top"]::after {
+  bottom: -8px;
+  border-top: 8px solid rgba(17, 32, 49, 0.96);
+}
+
+.metric-tooltip.is-visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-.metric-label.has-help:hover .metric-help-dot,
-.metric-label.has-help:active .metric-help-dot {
-  background: rgba(13, 61, 124, 0.16);
 }
 
 .meta-card strong {

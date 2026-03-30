@@ -35,6 +35,8 @@ const METRIC_HELP = {
 const state = {
   data: null,
   focusBranchId: "",
+  activeMetricTooltipTarget: null,
+  metricTooltipElement: null,
   filters: {
     branchId: "all",
     rating: "all",
@@ -47,6 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   hydrateBrandImages();
   wireFilters();
   wireBackToTop();
+  wireMetricTooltips();
 
   try {
     const response = await fetch(`./data/reviews.json?v=${Date.now()}`, {
@@ -141,6 +144,126 @@ function wireBackToTop() {
   syncVisibility();
 }
 
+function wireMetricTooltips() {
+  const tooltip = document.createElement("div");
+  tooltip.className = "metric-tooltip";
+  tooltip.hidden = true;
+  document.body.appendChild(tooltip);
+  state.metricTooltipElement = tooltip;
+
+  document.addEventListener("mouseover", (event) => {
+    const label = event.target.closest(".metric-label.has-help");
+
+    if (!label || !label.dataset.tooltip) {
+      return;
+    }
+
+    showMetricTooltip(label);
+  });
+
+  document.addEventListener("mouseout", (event) => {
+    const label = event.target.closest(".metric-label.has-help");
+
+    if (!label || state.activeMetricTooltipTarget !== label) {
+      return;
+    }
+
+    if (event.relatedTarget && label.contains(event.relatedTarget)) {
+      return;
+    }
+
+    hideMetricTooltip();
+  });
+
+  document.addEventListener("focusin", (event) => {
+    const label = event.target.closest(".metric-label.has-help");
+
+    if (!label || !label.dataset.tooltip) {
+      return;
+    }
+
+    showMetricTooltip(label);
+  });
+
+  document.addEventListener("focusout", (event) => {
+    const label = event.target.closest(".metric-label.has-help");
+
+    if (!label || state.activeMetricTooltipTarget !== label) {
+      return;
+    }
+
+    hideMetricTooltip();
+  });
+
+  window.addEventListener("scroll", syncMetricTooltipPosition, { passive: true });
+  window.addEventListener("resize", syncMetricTooltipPosition);
+}
+
+function showMetricTooltip(label) {
+  const tooltip = state.metricTooltipElement;
+
+  if (!tooltip) {
+    return;
+  }
+
+  state.activeMetricTooltipTarget = label;
+  tooltip.textContent = label.dataset.tooltip || "";
+  tooltip.hidden = false;
+  tooltip.classList.add("is-visible");
+  positionMetricTooltip(label);
+}
+
+function hideMetricTooltip() {
+  const tooltip = state.metricTooltipElement;
+
+  if (!tooltip) {
+    return;
+  }
+
+  state.activeMetricTooltipTarget = null;
+  tooltip.classList.remove("is-visible");
+  tooltip.hidden = true;
+  tooltip.removeAttribute("data-placement");
+}
+
+function syncMetricTooltipPosition() {
+  if (!state.activeMetricTooltipTarget || !state.metricTooltipElement) {
+    return;
+  }
+
+  positionMetricTooltip(state.activeMetricTooltipTarget);
+}
+
+function positionMetricTooltip(label) {
+  const tooltip = state.metricTooltipElement;
+
+  if (!tooltip) {
+    return;
+  }
+
+  const maxWidth = Math.min(280, window.innerWidth - 24);
+  tooltip.style.maxWidth = `${maxWidth}px`;
+
+  const rect = label.getBoundingClientRect();
+  const tooltipRect = tooltip.getBoundingClientRect();
+  let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+  left = clamp(left, 12, window.innerWidth - tooltipRect.width - 12);
+
+  let top = rect.bottom + 12;
+  let placement = "bottom";
+
+  if (top + tooltipRect.height > window.innerHeight - 12) {
+    top = rect.top - tooltipRect.height - 12;
+    placement = "top";
+  }
+
+  top = Math.max(12, top);
+
+  tooltip.style.left = `${left}px`;
+  tooltip.style.top = `${top}px`;
+  tooltip.setAttribute("data-placement", placement);
+}
+
 function activateFocusBranch(branchId) {
   if (!branchId) {
     return;
@@ -165,6 +288,7 @@ function renderMetricLabel(label, className = "") {
     <span
       class="${classes}"
       data-tooltip="${escapeAttribute(description)}"
+      tabindex="0"
     >
       ${escapeHtml(label)}
       <span class="metric-help-dot" aria-hidden="true">?</span>
@@ -176,6 +300,7 @@ function renderDashboard() {
   const data = state.data;
   const timezone = data.meta?.timezone || FALLBACK_TIMEZONE;
   const computed = buildComputedModel(data, timezone);
+  hideMetricTooltip();
 
   if (!computed.branches.length) {
     renderFailure(new Error("No branch data is available."));
