@@ -165,7 +165,6 @@ function renderMetricLabel(label, className = "") {
     <span
       class="${classes}"
       data-tooltip="${escapeAttribute(description)}"
-      title="${escapeAttribute(description)}"
     >
       ${escapeHtml(label)}
       <span class="metric-help-dot" aria-hidden="true">?</span>
