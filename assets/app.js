@@ -23,6 +23,7 @@ const state = {
 document.addEventListener("DOMContentLoaded", async () => {
   hydrateBrandImages();
   wireFilters();
+  wireBackToTop();
 
   try {
     const response = await fetch(`./data/reviews.json?v=${Date.now()}`, {
@@ -89,6 +90,28 @@ function wireFilters() {
     state.filters.search = event.target.value.trim().toLowerCase();
     renderReviews();
   });
+}
+
+function wireBackToTop() {
+  const button = document.getElementById("backToTop");
+
+  if (!button) {
+    return;
+  }
+
+  const syncVisibility = () => {
+    button.classList.toggle("is-visible", window.scrollY > 360);
+  };
+
+  button.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+
+  window.addEventListener("scroll", syncVisibility, { passive: true });
+  syncVisibility();
 }
 
 function renderDashboard() {
@@ -498,10 +521,6 @@ function renderSummaryCards(model) {
       label: "Local Guide share",
       value: formatPercent(model.overall.localGuideShare),
     },
-    {
-      label: "Low-rating share",
-      value: formatPercent(model.overall.lowStarShare),
-    },
   ];
 
   document.getElementById("summaryCards").innerHTML = cards
@@ -587,12 +606,6 @@ function renderBranchCards(branches) {
           label: "Response rate",
           value: formatPercent(branch.ownerResponseRate),
           detail: `${formatInteger(branch.ownerResponseCount)} responses captured`,
-          tone: "neutral",
-        },
-        {
-          label: "Low-rating share",
-          value: formatPercent(branch.lowStarShare),
-          detail: `${formatInteger(branch.lowStarCount)} low-star reviews`,
           tone: "neutral",
         },
       ];
@@ -719,7 +732,6 @@ function renderLeaderboard(model) {
       <th>Last 30 days</th>
       <th>30-day rating</th>
       <th>Response rate</th>
-      <th>Low-rating share</th>
     </tr>
   `;
 
@@ -755,10 +767,6 @@ function renderLeaderboard(model) {
           <td data-label="Response rate">
             <strong>${escapeHtml(formatPercent(branch.ownerResponseRate))}</strong>
             <span class="sub-value">${formatInteger(branch.ownerResponseCount)} responded</span>
-          </td>
-          <td data-label="Low-rating share">
-            <strong>${escapeHtml(formatPercent(branch.lowStarShare))}</strong>
-            <span class="sub-value">${formatInteger(branch.lowStarCount)} low-star</span>
           </td>
         </tr>
       `
@@ -1062,7 +1070,7 @@ function renderFailure(error) {
     `;
   });
 
-  document.getElementById("leaderboardBody").innerHTML = tableMessageRow(error.message, 9);
+  document.getElementById("leaderboardBody").innerHTML = tableMessageRow(error.message, 8);
   document.getElementById("distributionBody").innerHTML = tableMessageRow(error.message, 8);
   document.getElementById("weeklyTableBody").innerHTML = tableMessageRow(error.message, 10);
   document.getElementById("monthlyTableBody").innerHTML = tableMessageRow(error.message, 8);
