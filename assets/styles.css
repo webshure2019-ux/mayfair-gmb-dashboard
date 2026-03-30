@@ -34,8 +34,8 @@ body {
   color: var(--text);
   font-family: "IBM Plex Sans", sans-serif;
   background:
-    radial-gradient(circle at top left, rgba(13, 61, 124, 0.12), transparent 28%),
-    radial-gradient(circle at bottom right, rgba(118, 167, 220, 0.08), transparent 26%),
+    radial-gradient(circle at top left, rgba(13, 61, 124, 0.18), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(118, 167, 220, 0.14), transparent 28%),
     linear-gradient(180deg, #ffffff 0%, #f8fbff 54%, #eef3f9 100%);
   min-height: 100vh;
   overflow-x: hidden;
@@ -52,43 +52,43 @@ body {
 .ambient-scene::before {
   content: "";
   position: absolute;
-  inset: -16% -12% auto -24%;
-  height: 58%;
+  inset: -10% -6% auto -16%;
+  height: 56%;
   background: linear-gradient(
     118deg,
-    transparent 10%,
-    rgba(13, 61, 124, 0.18) 34%,
-    rgba(118, 167, 220, 0.14) 52%,
+    transparent 6%,
+    rgba(13, 61, 124, 0.24) 30%,
+    rgba(118, 167, 220, 0.2) 50%,
     transparent 74%
   );
-  filter: blur(20px);
-  opacity: 0.8;
-  transform: translate3d(-8%, 0, 0) rotate(-6deg);
-  animation: ambient-sweep 14s ease-in-out infinite alternate;
+  filter: blur(18px);
+  opacity: 0.94;
+  transform: translate3d(-10%, -2%, 0) rotate(-5deg);
+  animation: ambient-sweep 11s ease-in-out infinite alternate;
 }
 
 .ambient-scene::after {
   content: "";
   position: absolute;
-  right: -8%;
-  bottom: -18%;
-  width: 46vw;
-  height: 46vw;
-  min-width: 380px;
-  min-height: 380px;
+  right: -6%;
+  bottom: -16%;
+  width: 42vw;
+  height: 42vw;
+  min-width: 340px;
+  min-height: 340px;
   border-radius: 999px;
   background: conic-gradient(
     from 160deg,
-    rgba(13, 61, 124, 0.12),
-    transparent 24%,
-    rgba(31, 93, 168, 0.16) 46%,
-    transparent 68%,
-    rgba(118, 167, 220, 0.12) 84%,
+    rgba(13, 61, 124, 0.16),
+    transparent 20%,
+    rgba(31, 93, 168, 0.2) 46%,
+    transparent 66%,
+    rgba(118, 167, 220, 0.16) 84%,
     transparent
   );
-  filter: blur(16px);
-  opacity: 0.55;
-  animation: ambient-rotate 26s linear infinite;
+  filter: blur(12px);
+  opacity: 0.72;
+  animation: ambient-rotate 18s linear infinite;
 }
 
 .ambient-orb,
@@ -101,7 +101,7 @@ body {
 .ambient-orb {
   border-radius: 999px;
   filter: blur(18px);
-  opacity: 0.92;
+  opacity: 1;
   mix-blend-mode: normal;
   will-change: transform;
 }
@@ -114,8 +114,8 @@ body {
   top: -3%;
   left: -1%;
   background:
-    radial-gradient(circle at 38% 38%, rgba(13, 61, 124, 0.28), rgba(13, 61, 124, 0.05) 58%, transparent 74%);
-  animation: ambient-float-a 16s ease-in-out infinite alternate;
+    radial-gradient(circle at 38% 38%, rgba(13, 61, 124, 0.38), rgba(13, 61, 124, 0.08) 58%, transparent 74%);
+  animation: ambient-float-a 12s ease-in-out infinite alternate;
 }
 
 .ambient-orb-b {
@@ -126,8 +126,8 @@ body {
   top: 12%;
   right: -2%;
   background:
-    radial-gradient(circle at 45% 48%, rgba(31, 93, 168, 0.24), rgba(31, 93, 168, 0.04) 60%, transparent 76%);
-  animation: ambient-float-b 18s ease-in-out infinite alternate;
+    radial-gradient(circle at 45% 48%, rgba(31, 93, 168, 0.34), rgba(31, 93, 168, 0.06) 60%, transparent 76%);
+  animation: ambient-float-b 13s ease-in-out infinite alternate;
 }
 
 .ambient-orb-c {
@@ -138,8 +138,8 @@ body {
   bottom: -6%;
   left: 54%;
   background:
-    radial-gradient(circle at 52% 46%, rgba(118, 167, 220, 0.26), rgba(118, 167, 220, 0.04) 60%, transparent 76%);
-  animation: ambient-float-c 17s ease-in-out infinite alternate;
+    radial-gradient(circle at 52% 46%, rgba(118, 167, 220, 0.36), rgba(118, 167, 220, 0.07) 60%, transparent 76%);
+  animation: ambient-float-c 12s ease-in-out infinite alternate;
 }
 
 .ambient-rings {
@@ -157,11 +157,11 @@ body {
       rgba(13, 61, 124, 0.1) 0 2px,
       transparent 2px 28px
     );
-  opacity: 0.5;
+  opacity: 0.68;
   mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.95), transparent 74%);
   -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.95), transparent 74%);
   transform-origin: center;
-  animation: ambient-spin 34s linear infinite;
+  animation: ambient-spin 24s linear infinite;
 }
 
 .ambient-grid-layer {
@@ -169,21 +169,21 @@ body {
   background:
     linear-gradient(rgba(13, 61, 124, 0.055) 1px, transparent 1px),
     linear-gradient(90deg, rgba(13, 61, 124, 0.055) 1px, transparent 1px);
-  background-size: 74px 74px;
-  opacity: 0.52;
+  background-size: 64px 64px;
+  opacity: 0.68;
   mask-image: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.68) 0%,
-    rgba(0, 0, 0, 0.14) 45%,
-    rgba(0, 0, 0, 0.48) 100%
+    rgba(0, 0, 0, 0.78) 0%,
+    rgba(0, 0, 0, 0.22) 45%,
+    rgba(0, 0, 0, 0.58) 100%
   );
   -webkit-mask-image: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.68) 0%,
-    rgba(0, 0, 0, 0.14) 45%,
-    rgba(0, 0, 0, 0.48) 100%
+    rgba(0, 0, 0, 0.78) 0%,
+    rgba(0, 0, 0, 0.22) 45%,
+    rgba(0, 0, 0, 0.58) 100%
   );
-  animation: ambient-grid 18s linear infinite;
+  animation: ambient-grid 12s linear infinite;
 }
 
 a {
@@ -485,8 +485,19 @@ code {
   }
 }
 
+@keyframes section-ambient {
+  0% {
+    background-position: 0% 0%, 100% 100%, 0 0;
+  }
+
+  100% {
+    background-position: 14% 8%, 86% 92%, 0 0;
+  }
+}
+
 .dashboard {
   padding: 20px 0 52px;
+  position: relative;
 }
 
 .hero-panel,
@@ -520,6 +531,19 @@ code {
   animation: rise-in 0.7s ease both;
 }
 
+.section-block {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 12% 6%, rgba(13, 61, 124, 0.12), transparent 24%),
+    radial-gradient(circle at 88% 86%, rgba(118, 167, 220, 0.12), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(247, 251, 255, 0.97));
+  background-size: 132% 132%, 138% 138%, 100% 100%;
+  animation:
+    rise-in 0.7s ease both,
+    section-ambient 14s ease-in-out infinite alternate;
+}
+
 .hero-panel::before {
   content: "";
   position: absolute;
@@ -527,8 +551,10 @@ code {
   top: -10%;
   width: 360px;
   height: 360px;
-  background: radial-gradient(circle, rgba(13, 61, 124, 0.18), transparent 64%);
-  animation: hero-orb 16s ease-in-out infinite alternate;
+  background: radial-gradient(circle, rgba(13, 61, 124, 0.38), transparent 64%);
+  filter: blur(10px);
+  opacity: 1;
+  animation: hero-orb 8s ease-in-out infinite alternate;
   pointer-events: none;
 }
 
@@ -539,14 +565,14 @@ code {
   background: linear-gradient(
     115deg,
     transparent 8%,
-    rgba(13, 61, 124, 0.09) 34%,
-    rgba(118, 167, 220, 0.08) 52%,
+    rgba(13, 61, 124, 0.24) 34%,
+    rgba(118, 167, 220, 0.2) 52%,
     transparent 74%
   );
   filter: blur(16px);
-  opacity: 0.78;
+  opacity: 1;
   transform: translate3d(-6%, 0, 0) rotate(-4deg);
-  animation: hero-sweep 14s ease-in-out infinite alternate;
+  animation: hero-sweep 7s ease-in-out infinite alternate;
   pointer-events: none;
 }
 
