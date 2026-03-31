@@ -111,17 +111,7 @@
           <div class="focus-copy">
             <p class="section-kicker">Branch spotlight</p>
             <h2 id="focusBranchTitle">Loading branch</h2>
-            <p class="section-note" id="focusBranchNote">Choose a branch using the buttons to update the spotlight metrics below. You can also click any branch card further down the dashboard.</p>
-          </div>
-          <div class="focus-select-panel">
-            <p class="focus-select-kicker">Choose a branch</p>
-            <p class="focus-select-copy">Use these buttons to switch the branch spotlight.</p>
-            <div
-              id="focusBranchButtons"
-              class="focus-branch-buttons"
-              role="group"
-              aria-label="Choose a branch for the spotlight"
-            ></div>
+            <p class="section-note" id="focusBranchNote">Click any branch card further down the dashboard to update the spotlight metrics below.</p>
           </div>
         </div>
         <div class="focus-grid" id="focusCards"></div>
@@ -237,49 +227,60 @@
         <div class="attention-grid" id="attentionList"></div>
       </section>
 
-      <section class="section-block" id="reviewsExplorer">
-        <div class="section-heading">
-          <div>
-            <p class="section-kicker">Comments</p>
-            <h2>Review comments</h2>
+      <section class="section-block comments-section" id="reviewsExplorer">
+        <details class="comments-accordion" id="reviewsAccordion">
+          <summary class="comments-summary">
+            <div>
+              <p class="section-kicker">Comments</p>
+              <h2>Review comments</h2>
+            </div>
+            <div class="comments-summary-side">
+              <p class="section-note">Expand this section to filter by branch, rating, date, or keyword and inspect the exact feedback customers left.</p>
+              <span class="comments-toggle-chip">
+                <span class="comments-toggle-label comments-toggle-open">Expand</span>
+                <span class="comments-toggle-label comments-toggle-close">Collapse</span>
+                <span class="comments-toggle-icon" aria-hidden="true">⌄</span>
+              </span>
+            </div>
+          </summary>
+
+          <div class="comments-accordion-body">
+            <div class="filters-panel">
+              <label class="field">
+                <span>Branch</span>
+                <select id="branchFilter"></select>
+              </label>
+              <label class="field">
+                <span>Rating</span>
+                <select id="ratingFilter">
+                  <option value="all">All ratings</option>
+                  <option value="5">5 stars</option>
+                  <option value="4">4 stars</option>
+                  <option value="3">3 stars</option>
+                  <option value="2">2 stars</option>
+                  <option value="1">1 star</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Date range</span>
+                <select id="dateFilter">
+                  <option value="all">All time</option>
+                  <option value="yesterday">Yesterday</option>
+                  <option value="last_7_days">Last 7 days</option>
+                  <option value="last_30_days">Last 30 days</option>
+                  <option value="this_month">This month</option>
+                </select>
+              </label>
+              <label class="field search-field">
+                <span>Keyword</span>
+                <input id="searchFilter" type="search" placeholder="Search reviewer comments">
+              </label>
+            </div>
+
+            <div class="reviews-summary" id="reviewsSummary"></div>
+            <div class="reviews-grid" id="reviewList"></div>
           </div>
-          <p class="section-note">Filter by branch, rating, date, or keyword to inspect the exact feedback customers left.</p>
-        </div>
-
-        <div class="filters-panel">
-          <label class="field">
-            <span>Branch</span>
-            <select id="branchFilter"></select>
-          </label>
-          <label class="field">
-            <span>Rating</span>
-            <select id="ratingFilter">
-              <option value="all">All ratings</option>
-              <option value="5">5 stars</option>
-              <option value="4">4 stars</option>
-              <option value="3">3 stars</option>
-              <option value="2">2 stars</option>
-              <option value="1">1 star</option>
-            </select>
-          </label>
-          <label class="field">
-            <span>Date range</span>
-            <select id="dateFilter">
-              <option value="all">All time</option>
-              <option value="yesterday">Yesterday</option>
-              <option value="last_7_days">Last 7 days</option>
-              <option value="last_30_days">Last 30 days</option>
-              <option value="this_month">This month</option>
-            </select>
-          </label>
-          <label class="field search-field">
-            <span>Keyword</span>
-            <input id="searchFilter" type="search" placeholder="Search reviewer comments">
-          </label>
-        </div>
-
-        <div class="reviews-summary" id="reviewsSummary"></div>
-        <div class="reviews-grid" id="reviewList"></div>
+        </details>
       </section>
     </main>
 

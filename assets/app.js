@@ -91,7 +91,10 @@ function hydrateBrandImages() {
 }
 
 function wireFilters() {
-  document.getElementById("focusBranchButtons").addEventListener("click", (event) => {
+  const focusBranchButtons = document.getElementById("focusBranchButtons");
+  const commentsLink = document.querySelector('a[href="#reviewsExplorer"]');
+
+  focusBranchButtons?.addEventListener("click", (event) => {
     const button = event.target.closest("[data-focus-branch]");
 
     if (!button) {
@@ -99,6 +102,10 @@ function wireFilters() {
     }
 
     activateFocusBranch(button.getAttribute("data-focus-branch"));
+  });
+
+  commentsLink?.addEventListener("click", () => {
+    document.getElementById("reviewsAccordion")?.setAttribute("open", "");
   });
 
   document.getElementById("branchFilter").addEventListener("change", (event) => {
@@ -572,20 +579,22 @@ function populateBranchControls(branches) {
   const branchFilter = document.getElementById("branchFilter");
   const dateFilter = document.getElementById("dateFilter");
 
-  focusBranchButtons.innerHTML = branches
-    .map(
-      (branch) =>
-        `<button
-          type="button"
-          class="focus-branch-button${branch.id === state.focusBranchId ? " is-active" : ""}"
-          data-focus-branch="${escapeHtml(branch.id)}"
-          style="--branch-color: ${escapeHtml(branch.color || "#0d3d7c")}"
-          aria-pressed="${branch.id === state.focusBranchId ? "true" : "false"}"
-        >
-          ${escapeHtml(branch.shortName || branch.name)}
-        </button>`
-    )
-    .join("");
+  if (focusBranchButtons) {
+    focusBranchButtons.innerHTML = branches
+      .map(
+        (branch) =>
+          `<button
+            type="button"
+            class="focus-branch-button${branch.id === state.focusBranchId ? " is-active" : ""}"
+            data-focus-branch="${escapeHtml(branch.id)}"
+            style="--branch-color: ${escapeHtml(branch.color || "#0d3d7c")}"
+            aria-pressed="${branch.id === state.focusBranchId ? "true" : "false"}"
+          >
+            ${escapeHtml(branch.shortName || branch.name)}
+          </button>`
+      )
+      .join("");
+  }
 
   branchFilter.innerHTML = [
     `<option value="all">All branches</option>`,
