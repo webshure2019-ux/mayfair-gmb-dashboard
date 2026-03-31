@@ -325,7 +325,6 @@ function renderDashboard() {
   state.computed = computed;
   populateHeader(data, timezone);
   populateBranchControls(computed.branches);
-  renderFocusSection(computed);
   renderSummaryCards(computed);
   renderBranchCards(computed.branches);
   renderTrendPanels(computed);
@@ -608,77 +607,6 @@ function populateBranchControls(branches) {
   dateFilter.value = state.filters.dateRange;
 }
 
-function renderFocusSection(model) {
-  const branch = getFocusBranch(model);
-  const lastReviewText = branch.latestReview
-    ? `Latest review on ${formatDate(branch.latestReview.publishedAt, model.timezone)}`
-    : "No recent review date available";
-
-  document.getElementById("focusBranchTitle").textContent = branch.shortName || branch.name;
-  document.getElementById("focusBranchNote").textContent = (
-    `${branch.name} currently holds a ${formatRating(branch.currentRating)} rating across ` +
-    `${formatInteger(branch.currentReviewsCount)} published reviews. ${lastReviewText}.`
-  );
-
-  const targetRating = Math.min(5, roundToOneDecimal(branch.currentRating + 0.1));
-  const oneStarEffectDetail = branch.lastWeekOneStarCount
-    ? `${formatInteger(branch.lastWeekOneStarCount)} one-star review${branch.lastWeekOneStarCount === 1 ? "" : "s"} in the past 7 days`
-    : "No one-star reviews in the past 7 days";
-
-  const cards = [
-    {
-      label: "Reviews in last 7 days",
-      value: formatInteger(branch.thisWeekCount),
-      detail: "Published in the past 7 days",
-      tone: "accent",
-    },
-    {
-      label: "Reviews this month",
-      value: formatInteger(branch.currentMonthCount),
-      detail: "Month to date",
-      tone: "neutral",
-    },
-    {
-      label: "Last 7-day review rating",
-      value: branch.last7Stats.count ? formatRating(branch.last7Stats.averageRating) : "N/A",
-      detail: `${formatInteger(branch.last7Stats.count)} recent reviews`,
-      tone: "neutral",
-    },
-    {
-      label: "Current GBP rating",
-      value: formatRating(branch.currentRating),
-      detail: `${formatInteger(branch.currentReviewsCount)} total published reviews`,
-      tone: "success",
-    },
-    {
-      label: "5-star reviews needed for +0.1",
-      value: branch.currentRating >= 4.95 ? "0" : formatInteger(branch.fiveStarReviewsForPointOne),
-      detail: branch.currentRating >= 4.95
-        ? "Already very close to a 5.0 rating"
-        : `Estimated lift from ${formatRating(branch.currentRating)} to ${formatRating(targetRating)}`,
-      tone: "accent",
-    },
-    {
-      label: "Last week 1-star impact",
-      value: formatSignedDecimal(branch.lastWeekOneStarEffect),
-      detail: oneStarEffectDetail,
-      tone: branch.lastWeekOneStarCount ? "danger" : "neutral",
-    },
-  ];
-
-  document.getElementById("focusCards").innerHTML = cards
-    .map(
-      (card) => `
-        <article class="focus-card ${escapeHtml(card.tone)}">
-          ${renderMetricLabel(card.label, "focus-card-label")}
-          <strong>${escapeHtml(card.value)}</strong>
-          <p>${escapeHtml(card.detail)}</p>
-        </article>
-      `
-    )
-    .join("");
-}
-
 function renderTrendPanels(model) {
   const branch = getFocusBranch(model);
   const branchLabel = branch.shortName || branch.name;
@@ -816,7 +744,7 @@ function renderBranchCards(branches) {
           data-branch-card="${escapeHtml(branch.id)}"
           tabindex="0"
           role="button"
-          aria-label="Show ${escapeHtml(branch.shortName || branch.name)} spotlight"
+          aria-label="Show trends for ${escapeHtml(branch.shortName || branch.name)}"
         >
           <div class="review-topline branch-card-head">
             <div class="branch-heading">
