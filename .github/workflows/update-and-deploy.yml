@@ -57,7 +57,9 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Refresh review data from Apify
+        id: apify_refresh
         if: ${{ env.APIFY_API_TOKEN != '' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'full')) }}
+        continue-on-error: ${{ github.event_name == 'schedule' }}
         run: python3 scripts/fetch_reviews.py
 
       - name: Preview Apify fetch without replacing live data
@@ -68,7 +70,7 @@ jobs:
         run: python3 scripts/fetch_reviews.py
 
       - name: Preserve currently published dataset
-        if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'deploy_only') }}
+        if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'deploy_only') || (github.event_name == 'schedule' && (env.APIFY_API_TOKEN == '' || steps.apify_refresh.outcome == 'failure')) }}
         env:
           PAGES_DATA_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/data/reviews.json
         run: |
@@ -81,6 +83,10 @@ jobs:
       - name: Note demo mode
         if: ${{ env.APIFY_API_TOKEN == '' || github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode != 'full') }}
         run: echo "No fresh live dataset replacement happened in this run. The latest available dataset will be deployed."
+
+      - name: Note scheduled fallback
+        if: ${{ github.event_name == 'schedule' && (env.APIFY_API_TOKEN == '' || steps.apify_refresh.outcome == 'failure') }}
+        run: echo "The scheduled Apify refresh did not complete, so the last published live dataset was redeployed."
 
       - name: Validate preview dataset
         if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'preview' }}
