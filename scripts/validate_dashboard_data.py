@@ -80,7 +80,11 @@ def validate_payload(payload: Dict[str, Any]) -> List[str]:
         )
 
     overall_branch_total = 0
-    live_mode = meta.get("mode") == "live"
+    mode = str(meta.get("mode") or "").strip().lower()
+    live_mode = mode == "live"
+    published_mode = mode in {"live", "manual"}
+    sampled_mode = bool(meta.get("sampled"))
+    strict_count_validation = published_mode and not sampled_mode
 
     for branch in branches:
         branch_id = branch.get("id")
@@ -90,20 +94,24 @@ def validate_payload(payload: Dict[str, Any]) -> List[str]:
         configured_count = int(float(branch.get("currentReviewsCount") or 0))
         overall_branch_total += configured_count
 
-        if configured_count != tracked_count:
+        if strict_count_validation and configured_count != tracked_count:
             errors.append(
                 f"{branch_name}: currentReviewsCount is {configured_count}, but {tracked_count} reviews were matched."
+            )
+        elif not strict_count_validation and configured_count < tracked_count:
+            errors.append(
+                f"{branch_name}: currentReviewsCount is {configured_count}, but at least {tracked_count} reviews were matched."
             )
 
         rounded_average = round_one_decimal(average([review.get("rating") for review in branch_reviews]))
         configured_rating = round_one_decimal(branch.get("currentRating") or 0)
-        if tracked_count and configured_rating != rounded_average:
+        if tracked_count and configured_count == tracked_count and configured_rating != rounded_average:
             errors.append(
                 f"{branch_name}: currentRating is {configured_rating:.1f}, but matched reviews round to {rounded_average:.1f}."
             )
 
-        if live_mode and tracked_count == 0:
-            errors.append(f"{branch_name}: live dataset contains no matched reviews.")
+        if published_mode and tracked_count == 0:
+            errors.append(f"{branch_name}: published dataset contains no matched reviews.")
 
         wrong_names = {
             str(review.get("branchName"))
@@ -115,7 +123,7 @@ def validate_payload(payload: Dict[str, Any]) -> List[str]:
                 f"{branch_name}: review branchName values do not match the configured branch name."
             )
 
-    if overall_branch_total != len(reviews):
+    if strict_count_validation and overall_branch_total != len(reviews):
         errors.append(
             f"The sum of branch currentReviewsCount values is {overall_branch_total}, but the dataset contains {len(reviews)} reviews."
         )

@@ -561,8 +561,17 @@ function buildComputedModel(data, timezone) {
 }
 
 function populateHeader(data, timezone) {
-  const mode = data.meta?.mode === "live" ? "Live data" : "Demo data";
-  const modeClass = data.meta?.mode === "live" ? "live" : "demo";
+  const modeKey = data.meta?.mode;
+  const mode = modeKey === "live"
+    ? "Live data"
+    : modeKey === "manual"
+      ? "Manual refresh"
+      : "Demo data";
+  const modeClass = modeKey === "live"
+    ? "live"
+    : modeKey === "manual"
+      ? "manual"
+      : "demo";
   const modeTarget = document.getElementById("dataMode");
 
   modeTarget.innerHTML = `<span class="status-pill ${modeClass}">${escapeHtml(mode)}</span>`;

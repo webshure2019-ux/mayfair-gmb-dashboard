@@ -1,16 +1,34 @@
 {
   "meta": {
-    "mode": "manual",
-    "generatedAt": "2026-04-13T06:16:53.663453+00:00",
+    "mode": "live",
+    "generatedAt": "2026-03-30T23:53:58.658986+00:00",
     "timezone": "Africa/Johannesburg",
-    "source": "Manual update workflow",
+    "source": "Apify",
+    "actorId": "compass/google-maps-reviews-scraper",
+    "actorRunId": "09hl4CZKvehBb5mTX",
     "reviewCount": 800,
-    "manualReviewCount": 0,
-    "manualBranchCounts": {},
-    "baseGeneratedAt": "2026-03-30T23:53:58.658986+00:00",
-    "baseSource": "Apify",
-    "actorId": null,
-    "actorRunId": null
+    "rawItemCount": 800,
+    "unmatchedItemCount": 0,
+    "branchMatchSummary": [
+      {
+        "id": "jhb-auto",
+        "matchedReviews": 218
+      },
+      {
+        "id": "germiston-commercial",
+        "matchedReviews": 167
+      },
+      {
+        "id": "pretoria-manual-auto",
+        "matchedReviews": 272
+      },
+      {
+        "id": "jhb-manual",
+        "matchedReviews": 143
+      }
+    ],
+    "missingBranchIds": [],
+    "unmatchedSamples": []
   },
   "branches": [
     {
@@ -29,12 +47,11 @@
         "Mayfair Gearbox Automatic Gearbox Repair Centre Johannesburg",
         "Automatic Gearbox Repair Centre Johannesburg"
       ],
-      "currentReviewsCount": 218,
+      "currentReviewsCount": 218.0,
       "currentRating": 4.3,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Automatic%20Gearbox%20Repair%20Centre%20Johannesburg&query_place_id=ChIJeYdnKrkOlR4R3c_MWW9rS1k",
       "fid": "0x1e950eb92a678779:0x594b6b6f59cccfdd",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHVAweow-9VZV959W6hNL-2FkiGjSRTKaSMB4-3HDiIgoF59Tn928UGJNPO2HkqTkhC-vTqeuboUzsiPZ7mcqIzGWJuXk3Ux7S8_LIcDU_VnVPHkwR_xAQzm50yedsxG8dvbKhxDl_tG2Q=w408-h272-k-no",
-      "googleLocationName": ""
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHVAweow-9VZV959W6hNL-2FkiGjSRTKaSMB4-3HDiIgoF59Tn928UGJNPO2HkqTkhC-vTqeuboUzsiPZ7mcqIzGWJuXk3Ux7S8_LIcDU_VnVPHkwR_xAQzm50yedsxG8dvbKhxDl_tG2Q=w408-h272-k-no"
     },
     {
       "id": "germiston-commercial",
@@ -52,12 +69,11 @@
         "Mayfair Gearbox Commercial Truck Gearbox Centre And Specialists Germiston",
         "Commercial Truck Gearbox Centre And Specialists Germiston"
       ],
-      "currentReviewsCount": 167,
+      "currentReviewsCount": 167.0,
       "currentRating": 4.4,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Commercial%20Truck%20Gearbox%20Centre%20And%20Specialists%20-%20Germiston&query_place_id=ChIJmW_CQAcRlR4RuhIS_5oweBk",
       "fid": "0x1e95110740c26f99:0x1978309aff1212ba",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHVAweotERpytvIiIu1WaA3Ixbkz9LtBeZP5c-SjyrfZy_b6gY4Rf_-0D6rTOq5IbXk6EJCvw-SZUA5ZW9t9StWCI7GQquJ90V2sDP8-dM8n0wxxYjG4cazUNMJR96vEo7IoKSBRdpSy=w408-h306-k-no",
-      "googleLocationName": ""
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHVAweotERpytvIiIu1WaA3Ixbkz9LtBeZP5c-SjyrfZy_b6gY4Rf_-0D6rTOq5IbXk6EJCvw-SZUA5ZW9t9StWCI7GQquJ90V2sDP8-dM8n0wxxYjG4cazUNMJR96vEo7IoKSBRdpSy=w408-h306-k-no"
     },
     {
       "id": "pretoria-manual-auto",
@@ -66,7 +82,7 @@
       "location": "Pretoria",
       "color": "#3c79c3",
       "cid": null,
-      "placeId": null,
+      "placeId": "ChIJK8UdZP1flR4RxNimOgIMjfo",
       "profileUrl": "https://business.google.com/n/3744862638621212617/profile?fid=18054099684911667396",
       "searchQuery": "Mayfair Gearbox Manual and Automatic Gearbox Repair Centre Pretoria",
       "mapsSearchUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20%26%20Automatic%20Gearbox%20Repair%20Centre%20Pretoria%20119%20Foundry%20St%20Silvertondale%20Pretoria",
@@ -78,12 +94,11 @@
         "Mayfair Gearbox Manual and Automatic Gearbox Repair Centre Pretoria",
         "Manual & Automatic Gearbox Repair Centre Pretoria"
       ],
-      "currentReviewsCount": 272,
+      "currentReviewsCount": 272.0,
       "currentRating": 4.4,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20%26%20Automatic%20Gearbox%20Repair%20Centre%20Pretoria&query_place_id=ChIJK8UdZP1flR4RxNimOgIMjfo",
       "fid": "0x1e955ffd641dc52b:0xfa8d0c023aa6d8c4",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHVAweqZ_q-vKHxHdZXiQOQ9dPa4mPYxvjnLCz6bVHBeh4BH0t75ANh__H5oF_1wXsekVvrkqdh2_lxbR3EJEuuSz2Z6NwSiw7NBr4_omdGtAL0qAiAYpB82rt9ZHWbo1SguW1Cipq0R=w600-h240-k-no",
-      "googleLocationName": ""
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHVAweqZ_q-vKHxHdZXiQOQ9dPa4mPYxvjnLCz6bVHBeh4BH0t75ANh__H5oF_1wXsekVvrkqdh2_lxbR3EJEuuSz2Z6NwSiw7NBr4_omdGtAL0qAiAYpB82rt9ZHWbo1SguW1Cipq0R=w600-h240-k-no"
     },
     {
       "id": "jhb-manual",
@@ -101,12 +116,11 @@
         "Mayfair Gearbox Manual Gearbox Repair Centre Johannesburg",
         "Manual Gearbox Repair Centre Johannesburg"
       ],
-      "currentReviewsCount": 143,
+      "currentReviewsCount": 143.0,
       "currentRating": 4.4,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20Gearbox%20Repair%20Centre%20Johannesburg&query_place_id=ChIJCTGjuhoPlR4RMBxg_FwqAg8",
       "fid": "0x1e950f1abaa33109:0xf022a5cfc601c30",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHVAwermKgmiss2i0tSL_zf6EE_P052xbj8JsRhJAMTwT9O6NIFyMM32QtzxT2BBTT45lhS0SYhzEoq4WPLMYVW-p9xPkB1HgCW9exvklwe4aZjm7LmqWXdIOPUIF43wnt7uCAd8UcU=w600-h240-k-no",
-      "googleLocationName": ""
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHVAwermKgmiss2i0tSL_zf6EE_P052xbj8JsRhJAMTwT9O6NIFyMM32QtzxT2BBTT45lhS0SYhzEoq4WPLMYVW-p9xPkB1HgCW9exvklwe4aZjm7LmqWXdIOPUIF43wnt7uCAd8UcU=w600-h240-k-no"
     }
   ],
   "reviews": [

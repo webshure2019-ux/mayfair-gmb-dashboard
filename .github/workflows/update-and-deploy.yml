@@ -4,12 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       run_mode:
-        description: "Choose whether to fetch live Apify data"
+        description: "Choose the deploy mode"
         required: true
         default: deploy_only
         type: choice
         options:
           - deploy_only
+          - manual_rebuild
           - preview
           - full
       branch_ids:
@@ -40,10 +41,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      APIFY_API_TOKEN: ${{ secrets.APIFY_API_TOKEN }}
-      APIFY_LANGUAGE: en
-      APIFY_BRANCH_IDS: ${{ github.event.inputs.branch_ids || '' }}
-      APIFY_MAX_REVIEWS: ${{ github.event.inputs.max_reviews || '' }}
+      GBP_CLIENT_ID: ${{ secrets.GBP_CLIENT_ID }}
+      GBP_CLIENT_SECRET: ${{ secrets.GBP_CLIENT_SECRET }}
+      GBP_REFRESH_TOKEN: ${{ secrets.GBP_REFRESH_TOKEN }}
+      GBP_BRANCH_IDS: ${{ github.event.inputs.branch_ids || '' }}
+      GBP_MAX_REVIEWS: ${{ github.event.inputs.max_reviews || '' }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -56,37 +58,36 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Refresh review data from Apify
-        id: apify_refresh
-        if: ${{ env.APIFY_API_TOKEN != '' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'full')) }}
+      - name: Require GBP secrets for preview and full runs
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode != 'deploy_only' && (env.GBP_CLIENT_ID == '' || env.GBP_CLIENT_SECRET == '' || env.GBP_REFRESH_TOKEN == '') }}
+        run: |
+          echo "GBP_CLIENT_ID, GBP_CLIENT_SECRET, and GBP_REFRESH_TOKEN must all be configured for preview/full runs."
+          exit 1
+
+      - name: Refresh review data from Google Business Profile
+        id: gbp_refresh
+        if: ${{ env.GBP_CLIENT_ID != '' && env.GBP_CLIENT_SECRET != '' && env.GBP_REFRESH_TOKEN != '' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'full')) }}
         continue-on-error: ${{ github.event_name == 'schedule' }}
         run: python3 scripts/fetch_reviews.py
 
-      - name: Preview Apify fetch without replacing live data
-        if: ${{ env.APIFY_API_TOKEN != '' && github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'preview' }}
+      - name: Preview Google Business Profile fetch without replacing live data
+        if: ${{ env.GBP_CLIENT_ID != '' && env.GBP_CLIENT_SECRET != '' && env.GBP_REFRESH_TOKEN != '' && github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'preview' }}
         env:
-          APIFY_MAX_REVIEWS: ${{ github.event.inputs.max_reviews || '1' }}
-          APIFY_SKIP_WRITE: 1
+          GBP_PREVIEW_MODE: 1
+          GBP_MAX_REVIEWS: ${{ github.event.inputs.max_reviews || '1' }}
         run: python3 scripts/fetch_reviews.py
 
-      - name: Preserve currently published dataset
-        if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'deploy_only') || (github.event_name == 'schedule' && (env.APIFY_API_TOKEN == '' || steps.apify_refresh.outcome == 'failure')) }}
-        env:
-          PAGES_DATA_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/data/reviews.json
-        run: |
-          if curl -fsSL "$PAGES_DATA_URL" -o data/reviews.json; then
-            echo "Reused the currently published dataset for this deploy."
-          else
-            echo "No published dataset was available. Keeping the repository copy."
-          fi
+      - name: Build deploy dataset from manual fallback files
+        if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.run_mode == 'deploy_only' || github.event.inputs.run_mode == 'manual_rebuild')) || (github.event_name == 'schedule' && ((env.GBP_CLIENT_ID == '' || env.GBP_CLIENT_SECRET == '' || env.GBP_REFRESH_TOKEN == '') || steps.gbp_refresh.outcome == 'failure')) }}
+        run: python3 scripts/build_manual_dataset.py
 
-      - name: Note demo mode
-        if: ${{ env.APIFY_API_TOKEN == '' || github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode != 'full') }}
-        run: echo "No fresh live dataset replacement happened in this run. The latest available dataset will be deployed."
+      - name: Note manual fallback mode
+        if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.run_mode == 'deploy_only' || github.event.inputs.run_mode == 'manual_rebuild')) }}
+        run: echo "This run is deploying the repo's manual fallback dataset, built from data/manual/base-reviews.json plus manual additions."
 
       - name: Note scheduled fallback
-        if: ${{ github.event_name == 'schedule' && (env.APIFY_API_TOKEN == '' || steps.apify_refresh.outcome == 'failure') }}
-        run: echo "The scheduled Apify refresh did not complete, so the last published live dataset was redeployed."
+        if: ${{ github.event_name == 'schedule' && ((env.GBP_CLIENT_ID == '' || env.GBP_CLIENT_SECRET == '' || env.GBP_REFRESH_TOKEN == '') || steps.gbp_refresh.outcome == 'failure') }}
+        run: echo "The scheduled Google Business Profile refresh did not complete, so the manual fallback dataset was rebuilt and redeployed instead."
 
       - name: Validate preview dataset
         if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'preview' }}
