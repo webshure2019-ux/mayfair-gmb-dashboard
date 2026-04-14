@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 BRANCHES_PATH = ROOT / "config" / "branches.json"
 BASE_DATASET_PATH = ROOT / "data" / "manual" / "base-reviews.json"
 MANUAL_ADDITIONS_PATH = ROOT / "data" / "manual" / "manual-review-additions.csv"
+MANUAL_REMOVALS_PATH = ROOT / "data" / "manual" / "manual-review-removals.csv"
 OUTPUT_PATH = ROOT / "data" / "reviews.json"
 
 
@@ -23,12 +24,14 @@ def main() -> int:
     branches = read_json(BRANCHES_PATH)
     base_dataset = read_json(BASE_DATASET_PATH)
     additions = load_manual_additions(MANUAL_ADDITIONS_PATH, branches, base_dataset)
-    merged = build_dataset(branches, base_dataset, additions)
+    removals = load_manual_removals(MANUAL_REMOVALS_PATH, branches)
+    merged = build_dataset(branches, base_dataset, additions, removals)
     write_json(OUTPUT_PATH, merged)
 
     print(
         f"Wrote manual dataset with {len(merged['reviews'])} reviews "
-        f"({len(additions)} manual additions) to {OUTPUT_PATH.relative_to(ROOT)}"
+        f"({len(additions)} manual additions, {len(removals)} manual removals) "
+        f"to {OUTPUT_PATH.relative_to(ROOT)}"
     )
     for branch in merged["branches"]:
         print(
@@ -42,16 +45,24 @@ def build_dataset(
     configured_branches: List[Dict[str, Any]],
     base_dataset: Dict[str, Any],
     manual_additions: List[Dict[str, Any]],
+    manual_removals: List[Dict[str, Any]],
 ) -> Dict[str, Any]:
     base_branches_by_id = {branch["id"]: branch for branch in base_dataset.get("branches") or []}
     base_reviews = base_dataset.get("reviews") or []
     merged_reviews_by_key: Dict[str, Dict[str, Any]] = {}
+    removed_review_keys = {removal["reviewKey"] for removal in manual_removals}
 
     for review in base_reviews:
-        merged_reviews_by_key[review_key(review)] = review
+        key = review_key(review)
+        if key in removed_review_keys:
+            continue
+        merged_reviews_by_key[key] = review
 
     for review in manual_additions:
-        merged_reviews_by_key[review_key(review)] = review
+        key = review_key(review)
+        if key in removed_review_keys:
+            continue
+        merged_reviews_by_key[key] = review
 
     merged_reviews = list(merged_reviews_by_key.values())
     merged_reviews.sort(
@@ -85,6 +96,11 @@ def build_dataset(
     for review in manual_additions:
         manual_branch_counts[review["branchId"]] = manual_branch_counts.get(review["branchId"], 0) + 1
 
+    manual_removed_branch_counts = {}
+    for removal in manual_removals:
+        branch_id = removal["branchId"]
+        manual_removed_branch_counts[branch_id] = manual_removed_branch_counts.get(branch_id, 0) + 1
+
     meta = {
         "mode": "manual",
         "generatedAt": datetime.now(timezone.utc).isoformat(),
@@ -93,6 +109,8 @@ def build_dataset(
         "reviewCount": len(merged_reviews),
         "manualReviewCount": len(manual_additions),
         "manualBranchCounts": manual_branch_counts,
+        "manualRemovalCount": len(manual_removals),
+        "manualRemovedBranchCounts": manual_removed_branch_counts,
         "baseGeneratedAt": base_dataset.get("meta", {}).get("generatedAt"),
         "baseSource": base_dataset.get("meta", {}).get("source"),
         "actorId": None,
@@ -192,6 +210,55 @@ def load_manual_additions(
             )
 
     return additions
+
+
+def load_manual_removals(
+    csv_path: Path,
+    branches: List[Dict[str, Any]],
+) -> List[Dict[str, Any]]:
+    if not csv_path.exists():
+        return []
+
+    branch_lookup = {branch["id"]: branch for branch in branches}
+    removals: List[Dict[str, Any]] = []
+    seen_review_keys: set[str] = set()
+
+    with csv_path.open("r", encoding="utf-8-sig", newline="") as handle:
+        reader = csv.DictReader(handle)
+        for row_number, row in enumerate(reader, start=2):
+            if not has_manual_content(row):
+                continue
+
+            branch_id = clean(row.get("branch_id"))
+            if branch_id not in branch_lookup:
+                raise ValueError(
+                    f"{csv_path.name} row {row_number}: unknown branch_id {branch_id!r}. "
+                    f"Use one of: {', '.join(sorted(branch_lookup))}"
+                )
+
+            review_id = clean(row.get("review_id"))
+            if not review_id:
+                raise ValueError(f"{csv_path.name} row {row_number}: review_id is required.")
+
+            review_key_value = f"{branch_id}::{review_id}"
+            if review_key_value in seen_review_keys:
+                raise ValueError(
+                    f"{csv_path.name} row {row_number}: duplicate removal for review_id {review_id!r}."
+                )
+            seen_review_keys.add(review_key_value)
+
+            removals.append(
+                {
+                    "branchId": branch_id,
+                    "reviewId": review_id,
+                    "reviewKey": review_key_value,
+                    "reviewerName": clean(row.get("reviewer_name")),
+                    "publishedAt": clean(row.get("published_at")),
+                    "reason": clean(row.get("reason")),
+                }
+            )
+
+    return removals
 
 
 def has_manual_content(row: Dict[str, Any]) -> bool:
