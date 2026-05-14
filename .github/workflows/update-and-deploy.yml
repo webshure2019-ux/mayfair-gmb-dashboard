@@ -11,14 +11,16 @@ on:
         options:
           - deploy_only
           - manual_rebuild
-          - preview
-          - full
+          - apify_preview
+          - apify_incremental
+          - gbp_preview
+          - gbp_full
       branch_ids:
-        description: "Optional comma-separated branch IDs"
+        description: "Optional comma-separated branch IDs for preview runs only"
         required: false
         default: ""
       max_reviews:
-        description: "Optional max reviews per selected branch"
+        description: "Optional max reviews per selected branch. Apify live runs are capped at 20."
         required: false
         default: ""
   push:
@@ -29,7 +31,7 @@ on:
     - cron: "0 22 * * *"
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -41,6 +43,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
+      APIFY_API_TOKEN: ${{ secrets.APIFY_API_TOKEN }}
+      APIFY_BRANCH_IDS: ${{ github.event.inputs.branch_ids || '' }}
+      APIFY_MAX_REVIEWS: ${{ github.event.inputs.max_reviews || '' }}
       GBP_CLIENT_ID: ${{ secrets.GBP_CLIENT_ID }}
       GBP_CLIENT_SECRET: ${{ secrets.GBP_CLIENT_SECRET }}
       GBP_REFRESH_TOKEN: ${{ secrets.GBP_REFRESH_TOKEN }}
@@ -49,6 +54,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -58,27 +65,57 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Require GBP secrets for preview and full runs
-        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode != 'deploy_only' && (env.GBP_CLIENT_ID == '' || env.GBP_CLIENT_SECRET == '' || env.GBP_REFRESH_TOKEN == '') }}
+      - name: Require Apify token for Apify manual runs
+        if: ${{ github.event_name == 'workflow_dispatch' && (github.event.inputs.run_mode == 'apify_preview' || github.event.inputs.run_mode == 'apify_incremental') && env.APIFY_API_TOKEN == '' }}
         run: |
-          echo "GBP_CLIENT_ID, GBP_CLIENT_SECRET, and GBP_REFRESH_TOKEN must all be configured for preview/full runs."
+          echo "APIFY_API_TOKEN must be configured for Apify preview/incremental runs."
           exit 1
+
+      - name: Require GBP secrets for GBP manual runs
+        if: ${{ github.event_name == 'workflow_dispatch' && (github.event.inputs.run_mode == 'gbp_preview' || github.event.inputs.run_mode == 'gbp_full') && (env.GBP_CLIENT_ID == '' || env.GBP_CLIENT_SECRET == '' || env.GBP_REFRESH_TOKEN == '') }}
+        run: |
+          echo "GBP_CLIENT_ID, GBP_CLIENT_SECRET, and GBP_REFRESH_TOKEN must all be configured for GBP preview/full runs."
+          exit 1
+
+      - name: Refresh reviews with capped Apify incremental sync
+        id: apify_refresh
+        if: ${{ env.APIFY_API_TOKEN != '' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'apify_incremental')) }}
+        continue-on-error: ${{ github.event_name == 'schedule' }}
+        env:
+          APIFY_SYNC_MODE: scheduled
+          APIFY_MAX_REVIEWS: "20"
+        run: python3 scripts/fetch_apify_incremental.py
+
+      - name: Preview capped Apify sync without replacing live data
+        if: ${{ env.APIFY_API_TOKEN != '' && github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'apify_preview' }}
+        env:
+          APIFY_PREVIEW_MODE: "1"
+          APIFY_MAX_REVIEWS: ${{ github.event.inputs.max_reviews || '20' }}
+        run: python3 scripts/fetch_apify_incremental.py
 
       - name: Refresh review data from Google Business Profile
         id: gbp_refresh
-        if: ${{ env.GBP_CLIENT_ID != '' && env.GBP_CLIENT_SECRET != '' && env.GBP_REFRESH_TOKEN != '' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'full')) }}
-        continue-on-error: ${{ github.event_name == 'schedule' }}
+        if: ${{ env.GBP_CLIENT_ID != '' && env.GBP_CLIENT_SECRET != '' && env.GBP_REFRESH_TOKEN != '' && github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'gbp_full' }}
         run: python3 scripts/fetch_reviews.py
 
       - name: Preview Google Business Profile fetch without replacing live data
-        if: ${{ env.GBP_CLIENT_ID != '' && env.GBP_CLIENT_SECRET != '' && env.GBP_REFRESH_TOKEN != '' && github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'preview' }}
+        if: ${{ env.GBP_CLIENT_ID != '' && env.GBP_CLIENT_SECRET != '' && env.GBP_REFRESH_TOKEN != '' && github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'gbp_preview' }}
         env:
-          GBP_PREVIEW_MODE: 1
+          GBP_PREVIEW_MODE: "1"
           GBP_MAX_REVIEWS: ${{ github.event.inputs.max_reviews || '1' }}
         run: python3 scripts/fetch_reviews.py
 
+      - name: Persist successful Apify incremental dataset
+        if: ${{ steps.apify_refresh.outcome == 'success' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/reviews.json data/manual/base-reviews.json
+          git commit -m "Persist Apify incremental dataset [skip ci]" || echo "No Apify dataset changes to persist."
+          git push || echo "No Apify dataset commit to push."
+
       - name: Build deploy dataset from manual fallback files
-        if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.run_mode == 'deploy_only' || github.event.inputs.run_mode == 'manual_rebuild')) || (github.event_name == 'schedule' && ((env.GBP_CLIENT_ID == '' || env.GBP_CLIENT_SECRET == '' || env.GBP_REFRESH_TOKEN == '') || steps.gbp_refresh.outcome == 'failure')) }}
+        if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.run_mode == 'deploy_only' || github.event.inputs.run_mode == 'manual_rebuild')) || (github.event_name == 'schedule' && (env.APIFY_API_TOKEN == '' || steps.apify_refresh.outcome == 'failure')) }}
         run: python3 scripts/build_manual_dataset.py
 
       - name: Note manual fallback mode
@@ -86,25 +123,25 @@ jobs:
         run: echo "This run is deploying the repo's manual fallback dataset, built from data/manual/base-reviews.json plus manual additions."
 
       - name: Note scheduled fallback
-        if: ${{ github.event_name == 'schedule' && ((env.GBP_CLIENT_ID == '' || env.GBP_CLIENT_SECRET == '' || env.GBP_REFRESH_TOKEN == '') || steps.gbp_refresh.outcome == 'failure') }}
-        run: echo "The scheduled Google Business Profile refresh did not complete, so the manual fallback dataset was rebuilt and redeployed instead."
+        if: ${{ github.event_name == 'schedule' && (env.APIFY_API_TOKEN == '' || steps.apify_refresh.outcome == 'failure') }}
+        run: echo "The scheduled Apify refresh did not complete, so the manual fallback dataset was rebuilt and redeployed instead."
 
       - name: Validate preview dataset
-        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'preview' }}
+        if: ${{ github.event_name == 'workflow_dispatch' && (github.event.inputs.run_mode == 'apify_preview' || github.event.inputs.run_mode == 'gbp_preview') }}
         run: python3 scripts/validate_dashboard_data.py data/preview/reviews-preview.json
 
       - name: Validate deploy dataset
-        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.run_mode != 'preview' }}
+        if: ${{ github.event_name != 'workflow_dispatch' || (github.event.inputs.run_mode != 'apify_preview' && github.event.inputs.run_mode != 'gbp_preview') }}
         run: python3 scripts/validate_dashboard_data.py data/reviews.json
 
       - name: Upload Pages artifact
-        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.run_mode != 'preview' }}
+        if: ${{ github.event_name != 'workflow_dispatch' || (github.event.inputs.run_mode != 'apify_preview' && github.event.inputs.run_mode != 'gbp_preview') }}
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
 
   deploy:
-    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.run_mode != 'preview' }}
+    if: ${{ github.event_name != 'workflow_dispatch' || (github.event.inputs.run_mode != 'apify_preview' && github.event.inputs.run_mode != 'gbp_preview') }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

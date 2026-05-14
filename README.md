@@ -15,6 +15,57 @@ How it works:
 
 This keeps the customer-facing dashboard stable and lets you update it manually until Google approves the official API project.
 
+## Apify incremental automation
+
+The dashboard also supports a controlled Apify automation bridge while Google Business Profile API approval is pending.
+
+How it works:
+
+- `scripts/fetch_apify_incremental.py` calls `compass/google-maps-reviews-scraper`
+- every scheduled run is hard-capped at `20` newest reviews per branch
+- all 4 branches must be included for a live Apify publish
+- scraped reviews are merged into the existing trusted dataset
+- duplicate reviews are ignored or blocked before publish
+- removed reviews still respect `data/manual/manual-review-removals.csv`
+- successful live Apify runs update both `data/reviews.json` and `data/manual/base-reviews.json`
+- the frontend files stay unchanged and continue reading the same `data/reviews.json` schema
+
+Expected Free-plan usage at the current screenshot pricing:
+
+```text
+4 branches x 20 reviews/day = 80 scraped reviews/day
+80 x 31 days = 2,480 scraped reviews/month
+2,480 / 1,000 x $0.60 = about $1.49/month
+```
+
+Safety controls:
+
+- live/scheduled Apify runs reject any cap above `20` reviews per branch
+- live/scheduled Apify runs reject partial branch selections
+- projected monthly volume has a warning threshold of `5,000` reviews
+- projected monthly volume has a hard stop at `6,500` reviews
+- if Apify fails on a schedule, GitHub Actions falls back to the manual dataset instead of publishing partial data
+- preview runs write only to `data/preview/reviews-preview.json` and do not deploy
+
+Add this GitHub repository secret before using Apify mode:
+
+- `APIFY_API_TOKEN`
+
+Useful local tests:
+
+```bash
+APIFY_DRY_RUN=1 python3 scripts/fetch_apify_incremental.py
+APIFY_DRY_RUN=1 APIFY_BRANCH_IDS=jhb-auto APIFY_PREVIEW_MODE=1 python3 scripts/fetch_apify_incremental.py
+```
+
+Useful GitHub Actions modes:
+
+- `apify_preview`: fetches preview data only and does not deploy
+- `apify_incremental`: runs the capped 20-per-branch live merge and deploys after validation
+- `deploy_only`: rebuilds/deploys the manual fallback dataset
+- `manual_rebuild`: same as deploy-only, but explicit for manual update work
+- `gbp_preview` and `gbp_full`: reserved for the official Google API once approved
+
 ## What it includes
 
 - Branch-by-branch review totals and current average rating
@@ -33,6 +84,7 @@ This keeps the customer-facing dashboard stable and lets you update it manually 
 - `assets/app.js`: client-side rendering and analytics
 - `config/branches.json`: branch metadata plus exact Google location resource names
 - `scripts/fetch_reviews.py`: live Google Business Profile fetch pipeline
+- `scripts/fetch_apify_incremental.py`: capped Apify incremental sync pipeline
 - `scripts/build_manual_dataset.py`: manual fallback builder for temporary review updates
 - `scripts/bootstrap_gbp_token.py`: one-time OAuth helper to generate a refresh token
 - `scripts/list_gbp_locations.py`: lists accessible GBP accounts and locations
@@ -243,15 +295,16 @@ The workflow will rebuild from the manual files and redeploy the live site.
 The workflow in `.github/workflows/update-and-deploy.yml` does two things:
 
 - redeploys the dashboard on each push to `main` or `master`
-- refreshes live review data every day at `22:00 UTC`, which is `00:00` in Johannesburg, once the official API project is approved
-- until then, scheduled fallback deploys rebuild from the manual base snapshot plus manual additions
+- refreshes live review data every day at `22:00 UTC`, which is `00:00` in Johannesburg
+- uses capped Apify incremental sync when `APIFY_API_TOKEN` is configured
+- falls back to the manual base snapshot plus manual additions if the scheduled Apify refresh cannot run
 
-If a scheduled Google fetch fails, the workflow reuses the last published live dataset instead of breaking the public site.
+If a scheduled Apify fetch fails, the workflow reuses the trusted manual dataset instead of breaking the public site.
 
 Once GitHub Pages is enabled for the repo, GitHub will give you a public URL that you can share with the customer.
 
 ## Notes
 
-- The bundled `data/reviews.json` is demo data until the first successful Google Business Profile sync completes.
+- The bundled `data/reviews.json` is the production dashboard dataset.
 - The official GBP API path is free from scraper costs, but it still depends on Google approving the project and the OAuth user having profile access.
 - Review URLs are left blank by design because the official GBP review payload does not guarantee a public per-review link.
