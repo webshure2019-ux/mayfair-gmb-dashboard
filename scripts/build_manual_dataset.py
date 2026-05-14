@@ -56,13 +56,21 @@ def build_dataset(
         key = review_key(review)
         if key in removed_review_keys:
             continue
-        merged_reviews_by_key[key] = review
+        existing_key = find_existing_review_key(merged_reviews_by_key, review)
+        if existing_key:
+            merged_reviews_by_key[existing_key] = merge_review_values(merged_reviews_by_key[existing_key], review)
+        else:
+            merged_reviews_by_key[key] = review
 
     for review in manual_additions:
         key = review_key(review)
         if key in removed_review_keys:
             continue
-        merged_reviews_by_key[key] = review
+        existing_key = find_existing_review_key(merged_reviews_by_key, review)
+        if existing_key:
+            merged_reviews_by_key[existing_key] = merge_review_values(merged_reviews_by_key[existing_key], review)
+        else:
+            merged_reviews_by_key[key] = review
 
     merged_reviews = list(merged_reviews_by_key.values())
     merged_reviews.sort(
@@ -348,6 +356,75 @@ def clean(value: Any) -> str:
 
 def review_key(review: Dict[str, Any]) -> str:
     return f"{review.get('branchId')}::{review.get('id')}"
+
+
+def find_existing_review_key(
+    reviews_by_key: Dict[str, Dict[str, Any]],
+    review: Dict[str, Any],
+) -> Optional[str]:
+    key = review_key(review)
+    if key in reviews_by_key:
+        return key
+
+    exact_signature = fallback_signature(review)
+    loose = loose_signature(review)
+    for existing_key, existing_review in reviews_by_key.items():
+        if fallback_signature(existing_review) == exact_signature:
+            return existing_key
+        if loose_signature(existing_review) == loose and can_loose_merge(existing_review, review):
+            return existing_key
+
+    return None
+
+
+def fallback_signature(review: Dict[str, Any]) -> str:
+    return "|".join(
+        [
+            normalize_text(review.get("branchId")),
+            normalize_text(review.get("reviewerName")),
+            str(review.get("publishedAt") or "")[:10],
+            str(int(float(review.get("rating") or 0))),
+            normalize_text(review.get("comment")),
+        ]
+    )
+
+
+def loose_signature(review: Dict[str, Any]) -> str:
+    return "|".join(
+        [
+            normalize_text(review.get("branchId")),
+            normalize_text(review.get("reviewerName")),
+            str(review.get("publishedAt") or "")[:10],
+            str(int(float(review.get("rating") or 0))),
+        ]
+    )
+
+
+def merge_review_values(existing: Dict[str, Any], incoming: Dict[str, Any]) -> Dict[str, Any]:
+    existing_source = normalize_text(existing.get("reviewSource"))
+    incoming_source = normalize_text(incoming.get("reviewSource"))
+    prefer_existing = existing_source == "google" and incoming_source != "google"
+    primary = existing if prefer_existing else incoming
+    secondary = incoming if prefer_existing else existing
+    merged = {**secondary, **primary}
+
+    for field in ["ownerResponseText", "ownerResponseDate", "ownerResponseUpdatedAt"]:
+        if not merged.get(field) and secondary.get(field):
+            merged[field] = secondary[field]
+
+    return merged
+
+
+def can_loose_merge(existing: Dict[str, Any], incoming: Dict[str, Any]) -> bool:
+    sources = {
+        normalize_text(existing.get("reviewSource")),
+        normalize_text(incoming.get("reviewSource")),
+    }
+    return "manual update" in sources and "google" in sources
+
+
+def normalize_text(value: Any) -> str:
+    return " ".join(str(value or "").lower().replace("&", "and").replace("-", " ").split())
 
 
 def average(values: Iterable[Any]) -> float:

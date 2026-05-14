@@ -436,8 +436,13 @@ def merge_incremental_dataset(
 
     for review in current_reviews:
         key = review_key(review)
+        existing_key = find_existing_review_key(merged_by_key, review)
+        if existing_key:
+            merged_by_key[existing_key] = merge_review_values(merged_by_key[existing_key], review)
+            continue
         merged_by_key[key] = review
         fallback_to_key[fallback_signature(review)] = key
+        fallback_to_key[loose_signature(review)] = key
 
     for review in scraped_reviews:
         key = review_key(review)
@@ -445,13 +450,26 @@ def merge_incremental_dataset(
             continue
 
         fallback = fallback_signature(review)
-        existing_key = key if key in merged_by_key else fallback_to_key.get(fallback)
+        loose_fallback = loose_signature(review)
+        loose_existing_key = fallback_to_key.get(loose_fallback)
+        existing_key = (
+            key
+            if key in merged_by_key
+            else fallback_to_key.get(fallback)
+            or (
+                loose_existing_key
+                if loose_existing_key and can_loose_merge(merged_by_key[loose_existing_key], review)
+                else None
+            )
+        )
         if existing_key:
-            merged_by_key[existing_key] = {**merged_by_key[existing_key], **review}
+            merged_by_key[existing_key] = merge_review_values(merged_by_key[existing_key], review)
             fallback_to_key[fallback] = existing_key
+            fallback_to_key[loose_fallback] = existing_key
         else:
             merged_by_key[key] = review
             fallback_to_key[fallback] = key
+            fallback_to_key[loose_fallback] = key
 
     merged_reviews = list(merged_by_key.values())
     merged_reviews.sort(
@@ -583,6 +601,25 @@ def review_key(review: Dict[str, Any]) -> str:
     return f"{review.get('branchId')}::{review.get('id')}"
 
 
+def find_existing_review_key(
+    reviews_by_key: Dict[str, Dict[str, Any]],
+    review: Dict[str, Any],
+) -> Optional[str]:
+    key = review_key(review)
+    if key in reviews_by_key:
+        return key
+
+    exact_signature = fallback_signature(review)
+    loose = loose_signature(review)
+    for existing_key, existing_review in reviews_by_key.items():
+        if fallback_signature(existing_review) == exact_signature:
+            return existing_key
+        if loose_signature(existing_review) == loose and can_loose_merge(existing_review, review):
+            return existing_key
+
+    return None
+
+
 def fallback_signature(review: Dict[str, Any]) -> str:
     return "|".join(
         [
@@ -593,6 +630,42 @@ def fallback_signature(review: Dict[str, Any]) -> str:
             normalize_text(review.get("comment")),
         ]
     )
+
+
+def loose_signature(review: Dict[str, Any]) -> str:
+    return "|".join(
+        [
+            normalize_text(review.get("branchId")),
+            normalize_text(review.get("reviewerName")),
+            str(review.get("publishedAt") or "")[:10],
+            str(int(first_number(review.get("rating"), 0))),
+        ]
+    )
+
+
+def merge_review_values(existing: Dict[str, Any], incoming: Dict[str, Any]) -> Dict[str, Any]:
+    existing_source = normalize_text(existing.get("reviewSource"))
+    incoming_source = normalize_text(incoming.get("reviewSource"))
+    prefer_incoming = incoming_source == "google" and existing_source != "google"
+    primary = incoming if prefer_incoming else existing
+    secondary = existing if prefer_incoming else incoming
+    merged = {**secondary, **primary}
+
+    # Preserve useful manual owner-response data if Apify returns the same review
+    # without the full response content.
+    for field in ["ownerResponseText", "ownerResponseDate", "ownerResponseUpdatedAt"]:
+        if not merged.get(field) and secondary.get(field):
+            merged[field] = secondary[field]
+
+    return merged
+
+
+def can_loose_merge(existing: Dict[str, Any], incoming: Dict[str, Any]) -> bool:
+    sources = {
+        normalize_text(existing.get("reviewSource")),
+        normalize_text(incoming.get("reviewSource")),
+    }
+    return "manual update" in sources and "google" in sources
 
 
 def generate_review_id(branch_id: str, reviewer_name: str, rating: int, published_at: str, comment: str) -> str:
