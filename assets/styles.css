@@ -27,6 +27,9 @@
 
 html {
   scroll-behavior: smooth;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -39,6 +42,8 @@ body {
     linear-gradient(180deg, #ffffff 0%, #f8fbff 54%, #eef3f9 100%);
   min-height: 100vh;
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
 .ambient-scene {
@@ -198,6 +203,9 @@ code {
 .page-shell {
   position: relative;
   z-index: 1;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .topbar,
@@ -529,6 +537,15 @@ code {
   position: relative;
   overflow: hidden;
   animation: rise-in 0.7s ease both;
+}
+
+.hero-copy,
+.hero-meta,
+.section-heading > *,
+.comments-summary > *,
+.comments-summary-side > *,
+.topbar > * {
+  min-width: 0;
 }
 
 .section-block {
@@ -1658,6 +1675,9 @@ code {
   }
 
   .brand-cluster {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
   }
 
@@ -1666,9 +1686,15 @@ code {
   }
 
   .logo-frame {
-    min-width: 148px;
+    width: 100%;
+    min-width: 0;
     min-height: 52px;
     padding: 10px 14px;
+  }
+
+  .logo-frame img {
+    max-width: 100%;
+    min-width: 0;
   }
 
   .back-to-top {
@@ -1722,6 +1748,14 @@ code {
 
   .hero-copy h1 {
     max-width: none;
+    overflow-wrap: anywhere;
+  }
+
+  .hero-text,
+  .section-note,
+  .review-comment,
+  .branch-subtitle {
+    overflow-wrap: anywhere;
   }
 
   .bars-panel {

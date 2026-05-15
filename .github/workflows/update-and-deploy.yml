@@ -65,6 +65,29 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
+      - name: Detect manual fallback source changes
+        id: manual_changes
+        if: ${{ github.event_name == 'push' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          base_sha="${{ github.event.before }}"
+          head_sha="${{ github.sha }}"
+
+          if [[ "$base_sha" =~ ^0+$ ]]; then
+            changed_files="$(git diff-tree --no-commit-id --name-only -r "$head_sha")"
+          else
+            changed_files="$(git diff --name-only "$base_sha" "$head_sha")"
+          fi
+
+          echo "$changed_files"
+
+          if echo "$changed_files" | grep -Eq '^(data/manual/|scripts/build_manual_dataset.py|config/branches.json)'; then
+            echo "manual_changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "manual_changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Require Apify token for Apify manual runs
         if: ${{ github.event_name == 'workflow_dispatch' && (github.event.inputs.run_mode == 'apify_preview' || github.event.inputs.run_mode == 'apify_incremental') && env.APIFY_API_TOKEN == '' }}
         run: |
@@ -115,11 +138,11 @@ jobs:
           git push || echo "No Apify dataset commit to push."
 
       - name: Build deploy dataset from manual fallback files
-        if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.run_mode == 'deploy_only' || github.event.inputs.run_mode == 'manual_rebuild')) || (github.event_name == 'schedule' && (env.APIFY_API_TOKEN == '' || steps.apify_refresh.outcome == 'failure')) }}
+        if: ${{ (github.event_name == 'push' && steps.manual_changes.outputs.manual_changed == 'true') || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'manual_rebuild') || (github.event_name == 'schedule' && (env.APIFY_API_TOKEN == '' || steps.apify_refresh.outcome == 'failure')) }}
         run: python3 scripts/build_manual_dataset.py
 
       - name: Note manual fallback mode
-        if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.run_mode == 'deploy_only' || github.event.inputs.run_mode == 'manual_rebuild')) }}
+        if: ${{ (github.event_name == 'push' && steps.manual_changes.outputs.manual_changed == 'true') || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'manual_rebuild') }}
         run: echo "This run is deploying the repo's manual fallback dataset, built from data/manual/base-reviews.json plus manual additions."
 
       - name: Note scheduled fallback
