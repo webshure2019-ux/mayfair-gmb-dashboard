@@ -1,7 +1,7 @@
 {
   "meta": {
     "mode": "live",
-    "generatedAt": "2026-05-15T22:54:01.628919+00:00",
+    "generatedAt": "2026-05-16T22:43:57.307178+00:00",
     "timezone": "Africa/Johannesburg",
     "source": "Apify incremental sync",
     "reviewCount": 870,
@@ -19,12 +19,12 @@
     "baseGeneratedAt": "2026-05-14T12:19:36.665698+00:00",
     "baseSource": "Apify incremental sync",
     "actorId": "compass/google-maps-reviews-scraper",
-    "actorRunId": "RhF6viDKeiuPsiOLv",
+    "actorRunId": "XY8ZhEr8RTLfG24GG",
     "apifyMaxReviewsPerBranch": 20,
     "apifyScrapedReviewCount": 80,
     "apifyScrapedBranchCounts": {
-      "jhb-auto": 20,
       "germiston-commercial": 20,
+      "jhb-auto": 20,
       "jhb-manual": 20,
       "pretoria-manual-auto": 20
     },
@@ -108,7 +108,7 @@
       "currentRating": 4.4,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20%26%20Automatic%20Gearbox%20Repair%20Centre%20Pretoria&query_place_id=ChIJK8UdZP1flR4RxNimOgIMjfo",
       "fid": "0x1e955ffd641dc52b:0xfa8d0c023aa6d8c4",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAG7d9jDpTO15Z_pOBTdHLVWqeX4yvS3HdLV02_kwL-8TWVdQGvHhvpTS-HXJd0KXIQIUPgtve7LI2tUbwhhq4bVv5BRGam8zSq72CbepmOUiGyMDdDiMLr6sXhwmoluyJ-wc-Ky=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFEK-aucu-Wju1WC7eahP7JndN_LTYyehi1wcv2alp3xXUeEPbMVPx93VNdDVdtTXwveYXVutS69yWv27ZeySL2ABw48qZ80ToueUgSKDS1XjoDmtwsFgjyJO55KRUtCWDdcVwH=w600-h240-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 304,
       "apifyReportedRating": 4.4
@@ -133,7 +133,7 @@
       "currentRating": 4.4,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20Gearbox%20Repair%20Centre%20Johannesburg&query_place_id=ChIJCTGjuhoPlR4RMBxg_FwqAg8",
       "fid": "0x1e950f1abaa33109:0xf022a5cfc601c30",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAF9PV9Rxt_46etPblciT0sySWLJzM-BdwYfJ3HAaWGXiQHjf4KnOVhgXoxduZ-nHfvgPR1m05-t_IIeIi_jzjT8MCPt-XfBD3bX5aUfgtWgEytou19OHu_-QjPkUmj2ZQ50Kpc=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGQsRReEHZxOJ7lMOGpF8A9bbr87J4AMSHdeVmVrPafVMJnZjliyX0Hy5a-jnd8HwX6zkgfbno_Pvlk6ARXj42SAQjOh2YjOmoi5ZqaUCdNtvR_LOggazsmJMT0hCE8Z7RfPWw=w600-h240-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 150,
       "apifyReportedRating": 4.4
