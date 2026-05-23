@@ -1,7 +1,7 @@
 {
   "meta": {
     "mode": "live",
-    "generatedAt": "2026-05-22T22:58:44.490432+00:00",
+    "generatedAt": "2026-05-23T22:53:29.155996+00:00",
     "timezone": "Africa/Johannesburg",
     "source": "Apify incremental sync",
     "reviewCount": 884,
@@ -19,7 +19,7 @@
     "baseGeneratedAt": "2026-05-14T12:19:36.665698+00:00",
     "baseSource": "Apify incremental sync",
     "actorId": "compass/google-maps-reviews-scraper",
-    "actorRunId": "f0PVG0B4ENBcwcWTK",
+    "actorRunId": "VP2przJ7MFFHtE30H",
     "apifyMaxReviewsPerBranch": 20,
     "apifyScrapedReviewCount": 80,
     "apifyScrapedBranchCounts": {
@@ -55,7 +55,7 @@
       "currentRating": 4.3,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Automatic%20Gearbox%20Repair%20Centre%20Johannesburg&query_place_id=ChIJeYdnKrkOlR4R3c_MWW9rS1k",
       "fid": "0x1e950eb92a678779:0x594b6b6f59cccfdd",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGXgdtMdWXLhje8B38t6nNfM2IyOu5tZ51RDeLNh_bNVbjuf8nkN94v-H1yZG6bjAOdEFhkqQi0svnFuQlBKC3DZx_KnbPOOxUUjekILnuMpkYnLmdrSpX1FS0pZ0L-r8JitgEcMA=w408-h272-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEBJ33QVZUn3_6PGC96lxCCjRIHWD9MM6-UUfeNFiX994frBdPka0U9_BZghdQbypW1Kz4KUoRCQ-MppLA9Ndmh9A65C600Y4lB-RBV4sSkVRS0zQ2mtSRVYdK8CimkkTrFKf_4Ww=w408-h272-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 233,
       "apifyReportedRating": 4.3
@@ -80,7 +80,7 @@
       "currentRating": 4.4,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Commercial%20Truck%20Gearbox%20Centre%20And%20Specialists%20-%20Germiston&query_place_id=ChIJmW_CQAcRlR4RuhIS_5oweBk",
       "fid": "0x1e95110740c26f99:0x1978309aff1212ba",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFKlQ3n6IzxkecpRx0QM1rMbn_9vF3ZbqPeLzfQH2BQRUy7aE4GhkBMkSdVEPG2M_Ep-dQJySFxvU8iPcULmbT-VE8EDu7r0prqyedL6GOJZPeC-BBnsBIZcOeKPVicOAq3HefL=w408-h306-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGHhKy5QlU-iDI7euDYmUIvtjtXUrJ7ktBcTzJcbNnKv0RG-1gchTotk812NWWAwv37k6fjCkjz2TMsdoYa9kizyI-RvCjYCrCx2Pb1OjqxrcC5oAz5UkieRcYMCUANTCtPZ3Zh=w408-h306-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 179,
       "apifyReportedRating": 4.4
