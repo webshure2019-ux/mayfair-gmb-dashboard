@@ -1,7 +1,7 @@
 {
   "meta": {
     "mode": "live",
-    "generatedAt": "2026-06-06T23:03:55.563978+00:00",
+    "generatedAt": "2026-06-07T23:04:26.982661+00:00",
     "timezone": "Africa/Johannesburg",
     "source": "Apify incremental sync",
     "reviewCount": 922,
@@ -19,7 +19,7 @@
     "baseGeneratedAt": "2026-05-14T12:19:36.665698+00:00",
     "baseSource": "Apify incremental sync",
     "actorId": "compass/google-maps-reviews-scraper",
-    "actorRunId": "KpdykkvYSXsNrSnlJ",
+    "actorRunId": "98qr305Er1a9UgZqE",
     "apifyMaxReviewsPerBranch": 20,
     "apifyScrapedReviewCount": 80,
     "apifyScrapedBranchCounts": {
@@ -108,7 +108,7 @@
       "currentRating": 4.4,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20%26%20Automatic%20Gearbox%20Repair%20Centre%20Pretoria&query_place_id=ChIJK8UdZP1flR4RxNimOgIMjfo",
       "fid": "0x1e955ffd641dc52b:0xfa8d0c023aa6d8c4",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAE2Q9RtKnV6fs-qVD5bB_d0L9T0Rsuht8lYkiMdsWtHLgvT8ph4Efkz0sIjem6faP_yhl1oYhG1HqrEeAyzMeKrUnxaTOzqFiSeMtBzbScywzJlmXjHnEIhxqr9fhKwQWIspeIn=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEkyNrfu5Sca6FBvrJHT75I3fiH9yhqROs4FGkdSbA1jod34U-i-dI_aQ8dMpEPb92byXvhtTqIzHxAtrRyX_PpnjB1-dDDRsbS74uOT13u5YTYQOiUUW2yhOYXsFkBXMA-EBc_=w600-h240-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 328,
       "apifyReportedRating": 4.5
@@ -133,7 +133,7 @@
       "currentRating": 4.4,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20Gearbox%20Repair%20Centre%20Johannesburg&query_place_id=ChIJCTGjuhoPlR4RMBxg_FwqAg8",
       "fid": "0x1e950f1abaa33109:0xf022a5cfc601c30",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFuuS0eg3HoSJnBhjAdhNmDz7WLt8n9WE6FB2HqcsrWMecJKyhZ6eXmD1pYsfOSvoG55Q4vy3QAD7kmcD8u7gWdrP7D5cEiKcgV9KfRmqeFXnGk7VTNNUB9OPBr7F0_7oBJb-Y=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHCpd35fFDgPqRFtpZKhVWc2__ONfnhhQbtEfbYPDmookb4CqvyXUpuLArBUToHaWST-gR-PG1nbVvEjnCdaIu3Rpr7jL4cOUutZBlGcxzgR4ftZBHLQ1BrIwpMc1UG8mrQfUs=w600-h240-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 164,
       "apifyReportedRating": 4.5
