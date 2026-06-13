@@ -1,7 +1,7 @@
 {
   "meta": {
     "mode": "live",
-    "generatedAt": "2026-06-12T23:16:57.155083+00:00",
+    "generatedAt": "2026-06-13T23:04:06.672862+00:00",
     "timezone": "Africa/Johannesburg",
     "source": "Apify incremental sync",
     "reviewCount": 939,
@@ -19,14 +19,14 @@
     "baseGeneratedAt": "2026-05-14T12:19:36.665698+00:00",
     "baseSource": "Apify incremental sync",
     "actorId": "compass/google-maps-reviews-scraper",
-    "actorRunId": "B5kt1EQ5ZY0DdXhMD",
+    "actorRunId": "Xb5r0eNbozg8aqhai",
     "apifyMaxReviewsPerBranch": 20,
     "apifyScrapedReviewCount": 80,
     "apifyScrapedBranchCounts": {
-      "jhb-auto": 20,
       "germiston-commercial": 20,
       "jhb-manual": 20,
-      "pretoria-manual-auto": 20
+      "pretoria-manual-auto": 20,
+      "jhb-auto": 20
     },
     "apifyProjectedDailyReviews": 80,
     "apifyProjectedMonthlyReviews": 2480,
@@ -108,7 +108,7 @@
       "currentRating": 4.5,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20%26%20Automatic%20Gearbox%20Repair%20Centre%20Pretoria&query_place_id=ChIJK8UdZP1flR4RxNimOgIMjfo",
       "fid": "0x1e955ffd641dc52b:0xfa8d0c023aa6d8c4",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFgHl98hQoTeC0f4iwcliYWsgvP9jLR2zRivzs76z6vSfckrgV2K0ULpCog7k5jWrX9w_mOdk8tUGNUiG1Jdn24BVApt5nZvWw2XOLAhvY9wiQLVzRKyRCvibsup5Hfmur33AlW=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEGZj2xHw8DeExo0tWp4enOm7yZRwgTNvK-i2oO6d8XldV93Nar15fAKsDlnaj0VN3rayY6I5DnAJmFS3lHVVDVFWBxVO89-fAKaQgz3awrPr0rACWB6gSwkBjxfunyjs__-FrC=w600-h240-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 332,
       "apifyReportedRating": 4.5
@@ -133,7 +133,7 @@
       "currentRating": 4.5,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20Gearbox%20Repair%20Centre%20Johannesburg&query_place_id=ChIJCTGjuhoPlR4RMBxg_FwqAg8",
       "fid": "0x1e950f1abaa33109:0xf022a5cfc601c30",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGNg-eFhZXp1Y_J-1TIosixUDT1vH1zc9BBDnMjqaW0xikAtlMX1FE4OK6l80bea2YUB7TSkK5yMiYFwel3zpSZTM08AIgvqO-G6lLNcA9JQGDej_hxPIbmFkzeyn0Re3tyPS4=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFnimI6ycwSLjSymkkvtHvFLFxpqVnWZY8ojd-PKgerCyt8vA67VDuKSkNY_0AD-05HQ7tHjhqDN_g9UWTjzyD6nMwF5o9vySNAUhnFNhtf9wN3BdcrGIkfs8ae1BiW5xzSNr4=w600-h240-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 177,
       "apifyReportedRating": 4.5
@@ -997,9 +997,9 @@
       "publishedLabel": "9 hours ago",
       "reviewUrl": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT205Uk0zQnNYMWxvYW1kb2RFWTRSVWx2TW5kUFIwRRAB!2m1!1s0x0:0xf022a5cfc601c30!3m1!1s2@1:CAIQACodChtycF9oOm9RM3BsX1loamdodEY4RUlvMndPR0E%7C%7C?hl=en",
       "reviewSource": "Google",
-      "ownerResponseText": "",
-      "ownerResponseDate": null,
-      "ownerResponseUpdatedAt": null,
+      "ownerResponseText": "Thank you, Russel. We're glad Neo kept you updated and that your Ford EcoSport (KTL212NW) was repaired within five days. We appreciate you sharing this feedback and will pass your compliments along to Neo and the team.\n\nRegards The Mayfair Gearbox team",
+      "ownerResponseDate": "2026-06-13T07:03:36.000Z",
+      "ownerResponseUpdatedAt": "2026-06-13T07:03:36.000Z",
       "reviewImageUrls": [],
       "language": "en",
       "translatedLanguage": null,
