@@ -1,7 +1,7 @@
 {
   "meta": {
     "mode": "live",
-    "generatedAt": "2026-06-15T23:45:40.386288+00:00",
+    "generatedAt": "2026-06-16T23:23:50.243715+00:00",
     "timezone": "Africa/Johannesburg",
     "source": "Apify incremental sync",
     "reviewCount": 940,
@@ -19,14 +19,14 @@
     "baseGeneratedAt": "2026-05-14T12:19:36.665698+00:00",
     "baseSource": "Apify incremental sync",
     "actorId": "compass/google-maps-reviews-scraper",
-    "actorRunId": "grywx8WbEU7kCO53g",
+    "actorRunId": "MW9IuAO3oKKiJjNbY",
     "apifyMaxReviewsPerBranch": 20,
     "apifyScrapedReviewCount": 80,
     "apifyScrapedBranchCounts": {
       "germiston-commercial": 20,
-      "jhb-auto": 20,
+      "pretoria-manual-auto": 20,
       "jhb-manual": 20,
-      "pretoria-manual-auto": 20
+      "jhb-auto": 20
     },
     "apifyProjectedDailyReviews": 80,
     "apifyProjectedMonthlyReviews": 2480,
@@ -55,7 +55,7 @@
       "currentRating": 4.3,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Automatic%20Gearbox%20Repair%20Centre%20Johannesburg&query_place_id=ChIJeYdnKrkOlR4R3c_MWW9rS1k",
       "fid": "0x1e950eb92a678779:0x594b6b6f59cccfdd",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFEt3H5VVLQKfioibW75lN_7ECy1ya_WZqsRIHDFDHlFHP2dZ7RhOfbg0sH_I1qbCWNI45RNtdrAkqAcrXPygYec8QZTdtpbdd9uH5xHTmtd6Vhdtc2KG_W10PSvYoL5lfT8XMxiA=w408-h272-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHyOK5hmsI3mTwwProMnf4bD4cNsIHyEkf5kdzL2LH3lxeitF6JFDKJ-BbG3eiWZz3nZXTq3dUP1tkJcXuxlJVCjh3zorcsxJgjoszM8a0jnDIXZQO5q0cgtDSMFzU8oWJSx56fpQ=w408-h272-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 235,
       "apifyReportedRating": 4.3
@@ -80,7 +80,7 @@
       "currentRating": 4.4,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Commercial%20Truck%20Gearbox%20Centre%20And%20Specialists%20-%20Germiston&query_place_id=ChIJmW_CQAcRlR4RuhIS_5oweBk",
       "fid": "0x1e95110740c26f99:0x1978309aff1212ba",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGN4wHQYr_bZQAKKtvHLUOJGJqED3M5NzUE3WTgLEeMv0NePnD0XzKP4tpY9E3bDLjkkEnqnwoGZzITlBSMYgzoA1zti9FNz1A7zsw49k0xnPzr5NHNigsZXMaQGoAljqXbW9er=w408-h306-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHun7WDSgujlglzDBzjo6_E2VbocDKO_OKtDOmG_ziQxDImMv58740AmkyXrSJom4zeBp2UG0sCIo8Bf8u8prdPrzG5D13gWYaiQwr8rANQ15EN6myyI_v6_SlyM-C0U5zyLylV=w408-h306-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 186,
       "apifyReportedRating": 4.5
