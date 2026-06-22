@@ -49,6 +49,12 @@ def build_dataset(
 ) -> Dict[str, Any]:
     base_branches_by_id = {branch["id"]: branch for branch in base_dataset.get("branches") or []}
     base_reviews = base_dataset.get("reviews") or []
+    branch_ids_with_manual_additions = {review["branchId"] for review in manual_additions}
+    active_branches = [
+        branch
+        for branch in configured_branches
+        if branch["id"] in base_branches_by_id or branch["id"] in branch_ids_with_manual_additions
+    ]
     merged_reviews_by_key: Dict[str, Dict[str, Any]] = {}
     removed_review_keys = {removal["reviewKey"] for removal in manual_removals}
 
@@ -78,14 +84,14 @@ def build_dataset(
         reverse=True,
     )
 
-    reviews_by_branch: Dict[str, List[Dict[str, Any]]] = {branch["id"]: [] for branch in configured_branches}
+    reviews_by_branch: Dict[str, List[Dict[str, Any]]] = {branch["id"]: [] for branch in active_branches}
     for review in merged_reviews:
         branch_id = review.get("branchId")
         if branch_id in reviews_by_branch:
             reviews_by_branch[branch_id].append(review)
 
     merged_branches: List[Dict[str, Any]] = []
-    for branch in configured_branches:
+    for branch in active_branches:
         branch_id = branch["id"]
         base_branch = base_branches_by_id.get(branch_id, {})
         branch_reviews = reviews_by_branch.get(branch_id, [])

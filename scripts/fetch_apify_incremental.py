@@ -174,6 +174,13 @@ def enforce_selection_safety(
     if preview_mode or dry_run:
         return
 
+    if sync_mode == "backfill":
+        if not os.getenv("APIFY_BRANCH_IDS", "").strip():
+            raise RuntimeError("Apify backfill mode requires APIFY_BRANCH_IDS so it cannot run every branch accidentally.")
+        if len(selected_branches) >= len(all_branches):
+            raise RuntimeError("Apify backfill mode is only for selected branch updates. Use incremental mode for all branches.")
+        return
+
     if sync_mode not in {"incremental", "scheduled"}:
         raise RuntimeError(
             "Live Apify writes are only allowed for incremental/scheduled syncs. "

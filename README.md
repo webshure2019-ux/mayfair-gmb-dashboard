@@ -1,6 +1,6 @@
 # Mayfair Gearbox Review Dashboard
 
-Static client-facing dashboard for Mayfair Gearbox's Google Business Profile reviews across all 4 branches, built for Webshure.
+Static client-facing dashboard for Mayfair Gearbox's Google Business Profile reviews across all tracked branches, built for Webshure.
 
 ## Temporary fallback mode
 
@@ -23,7 +23,7 @@ How it works:
 
 - `scripts/fetch_apify_incremental.py` calls `compass/google-maps-reviews-scraper`
 - every scheduled run is hard-capped at `20` newest reviews per branch
-- all 4 branches must be included for a live Apify publish
+- every configured branch must be included for a live Apify publish
 - scraped reviews are merged into the existing trusted dataset
 - duplicate reviews are ignored or blocked before publish
 - removed reviews still respect `data/manual/manual-review-removals.csv`
@@ -36,6 +36,10 @@ Expected Free-plan usage at the current screenshot pricing:
 4 branches x 20 reviews/day = 80 scraped reviews/day
 80 x 31 days = 2,480 scraped reviews/month
 2,480 / 1,000 x $0.60 = about $1.49/month
+
+5 branches x 20 reviews/day = 100 scraped reviews/day
+100 x 31 days = 3,100 scraped reviews/month
+3,100 / 1,000 x $0.60 = about $1.86/month
 ```
 
 Safety controls:
@@ -65,6 +69,31 @@ Useful GitHub Actions modes:
 - `deploy_only`: rebuilds/deploys the manual fallback dataset
 - `manual_rebuild`: same as deploy-only, but explicit for manual update work
 - `gbp_preview` and `gbp_full`: reserved for the official Google API once approved
+
+## Adding another branch safely
+
+Before adding a new Mayfair Gearbox branch, collect:
+
+- exact Google Business Profile name
+- Google Maps share link or full Google Maps URL
+- Google Business Profile manager/profile URL, if available
+- current total review count and current rating
+- branch location/city and preferred short dashboard label
+- Google Place ID or CID, if available
+
+Safe implementation flow:
+
+1. Add the branch to `config/branches.json` with a unique `id`, Mayfair blue `color`, exact `name`, `shortName`, `location`, `profileUrl`, `mapsSearchUrl`, and useful `aliases`.
+2. Run an Apify preview for only that branch with the default `20` newest reviews to confirm the profile match is correct.
+3. If the new branch has `20` or fewer total reviews, the normal capped Apify run can collect its full history in one pass.
+4. If the new branch has more than `20` total reviews, do not publish it until it has a controlled one-time backfill. Otherwise all-time totals and comparisons will show only the latest sampled reviews.
+5. Once validation passes, the normal scheduled automation will include the new branch at the same `20` reviews-per-branch cap.
+
+Usage note:
+
+- adding a fifth branch changes the daily scheduled cap from `80` to `100` reviews/day
+- the monthly projected cost remains safely below the $5 Apify free credit at the current conservative `$0.60 / 1,000 reviews` estimate
+- keep Apify's account usage limit enabled as the final safety net
 
 ## What it includes
 
@@ -158,7 +187,7 @@ The script will:
 - request the `https://www.googleapis.com/auth/business.manage` scope
 - print a refresh token when the flow completes
 
-### 5. Discover the 4 exact GBP location resource names
+### 5. Discover the exact GBP location resource names
 
 After you have the refresh token, set it locally:
 
@@ -176,7 +205,7 @@ That script prints:
 
 - accessible GBP accounts
 - accessible locations
-- suggested `googleLocationName` matches for the 4 configured Mayfair branches
+- suggested `googleLocationName` matches for the configured Mayfair branches
 
 Update `config/branches.json` by filling each branch's:
 
@@ -216,7 +245,7 @@ python3 scripts/fetch_reviews.py
 Important safety rule:
 
 - sampled or partial-branch datasets are allowed only in preview mode
-- the live `data/reviews.json` publish path requires all 4 branches with no `GBP_MAX_REVIEWS` cap
+- the live `data/reviews.json` publish path requires all configured branches with no `GBP_MAX_REVIEWS` cap
 
 ## Manual fallback workflow
 

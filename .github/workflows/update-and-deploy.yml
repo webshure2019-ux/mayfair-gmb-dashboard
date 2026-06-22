@@ -12,6 +12,7 @@ on:
           - deploy_only
           - manual_rebuild
           - apify_preview
+          - apify_branch_backfill
           - apify_incremental
           - gbp_preview
           - gbp_full
@@ -83,14 +84,14 @@ jobs:
 
           echo "$changed_files"
 
-          if echo "$changed_files" | grep -Eq '^(data/manual/|scripts/build_manual_dataset.py|config/branches.json)'; then
+          if echo "$changed_files" | grep -Eq '^(data/manual/|scripts/build_manual_dataset.py)'; then
             echo "manual_changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "manual_changed=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Require Apify token for Apify manual runs
-        if: ${{ github.event_name == 'workflow_dispatch' && (github.event.inputs.run_mode == 'apify_preview' || github.event.inputs.run_mode == 'apify_incremental') && env.APIFY_API_TOKEN == '' }}
+        if: ${{ github.event_name == 'workflow_dispatch' && (github.event.inputs.run_mode == 'apify_preview' || github.event.inputs.run_mode == 'apify_branch_backfill' || github.event.inputs.run_mode == 'apify_incremental') && env.APIFY_API_TOKEN == '' }}
         run: |
           echo "APIFY_API_TOKEN must be configured for Apify preview/incremental runs."
           exit 1
@@ -117,6 +118,14 @@ jobs:
           APIFY_MAX_REVIEWS: ${{ github.event.inputs.max_reviews || '20' }}
         run: python3 scripts/fetch_apify_incremental.py
 
+      - name: Backfill selected branch with capped Apify sync
+        id: apify_backfill
+        if: ${{ env.APIFY_API_TOKEN != '' && github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'apify_branch_backfill' }}
+        env:
+          APIFY_SYNC_MODE: backfill
+          APIFY_MAX_REVIEWS: ${{ github.event.inputs.max_reviews || '10' }}
+        run: python3 scripts/fetch_apify_incremental.py
+
       - name: Refresh review data from Google Business Profile
         id: gbp_refresh
         if: ${{ env.GBP_CLIENT_ID != '' && env.GBP_CLIENT_SECRET != '' && env.GBP_REFRESH_TOKEN != '' && github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'gbp_full' }}
@@ -129,8 +138,8 @@ jobs:
           GBP_MAX_REVIEWS: ${{ github.event.inputs.max_reviews || '1' }}
         run: python3 scripts/fetch_reviews.py
 
-      - name: Persist successful Apify incremental dataset
-        if: ${{ steps.apify_refresh.outcome == 'success' }}
+      - name: Persist successful Apify dataset
+        if: ${{ steps.apify_refresh.outcome == 'success' || steps.apify_backfill.outcome == 'success' }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

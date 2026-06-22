@@ -73,5 +73,24 @@
       "Mayfair Gearbox Manual Gearbox Repair Centre Johannesburg",
       "Manual Gearbox Repair Centre Johannesburg"
     ]
+  },
+  {
+    "id": "nelspruit-fleet-maintenance",
+    "name": "Mayfair Gearbox & Fleet Maintenance Nelspruit",
+    "shortName": "Nelspruit",
+    "location": "Nelspruit",
+    "color": "#2b6fb4",
+    "googleLocationName": "",
+    "cid": null,
+    "placeId": null,
+    "profileUrl": "https://share.google/wTy9kOE8hEdj4GVy7",
+    "searchQuery": "Mayfair Gearbox & Fleet Maintenance Nelspruit",
+    "mapsSearchUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20%26%20Fleet%20Maintenance%20Nelspruit%2014%20Unit%202%20Old%20Pretoria%20Rd%20West%20Acres%20Mbombela%201211",
+    "aliases": [
+      "Mayfair Gearbox & Fleet Maintenance Nelspruit",
+      "Mayfair Gearbox and Fleet Maintenance Nelspruit",
+      "Fleet Maintenance Nelspruit",
+      "Nelspruit"
+    ]
   }
 ]
