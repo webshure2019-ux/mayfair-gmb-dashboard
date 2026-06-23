@@ -148,16 +148,16 @@ jobs:
           git push || echo "No Apify dataset commit to push."
 
       - name: Build deploy dataset from manual fallback files
-        if: ${{ (github.event_name == 'push' && steps.manual_changes.outputs.manual_changed == 'true') || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'manual_rebuild') || (github.event_name == 'schedule' && (env.APIFY_API_TOKEN == '' || steps.apify_refresh.outcome == 'failure')) }}
+        if: ${{ (github.event_name == 'push' && steps.manual_changes.outputs.manual_changed == 'true') || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'manual_rebuild') }}
         run: python3 scripts/build_manual_dataset.py
 
       - name: Note manual fallback mode
         if: ${{ (github.event_name == 'push' && steps.manual_changes.outputs.manual_changed == 'true') || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'manual_rebuild') }}
         run: echo "This run is deploying the repo's manual fallback dataset, built from data/manual/base-reviews.json plus manual additions."
 
-      - name: Note scheduled fallback
+      - name: Note scheduled refresh fallback
         if: ${{ github.event_name == 'schedule' && (env.APIFY_API_TOKEN == '' || steps.apify_refresh.outcome == 'failure') }}
-        run: echo "The scheduled Apify refresh did not complete, so the manual fallback dataset was rebuilt and redeployed instead."
+        run: echo "The scheduled Apify refresh did not complete, so the last committed dataset will be redeployed unchanged."
 
       - name: Validate preview dataset
         if: ${{ github.event_name == 'workflow_dispatch' && (github.event.inputs.run_mode == 'apify_preview' || github.event.inputs.run_mode == 'gbp_preview') }}

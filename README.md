@@ -11,7 +11,7 @@ How it works:
 - `data/manual/base-reviews.json` stores a frozen copy of the last good live dataset
 - `data/manual/manual-review-additions.csv` is where you add only the new reviews that arrived after that snapshot
 - `scripts/build_manual_dataset.py` merges the base snapshot plus manual additions into `data/reviews.json`
-- pushes, `deploy_only`, `manual_rebuild`, and scheduled fallback deploys rebuild from those local files instead of relying on a blocked API
+- pushes that change manual files and `manual_rebuild` rebuild from those local files instead of relying on a blocked API
 
 This keeps the customer-facing dashboard stable and lets you update it manually until Google approves the official API project.
 
@@ -48,7 +48,7 @@ Safety controls:
 - live/scheduled Apify runs reject partial branch selections
 - projected monthly volume has a warning threshold of `5,000` reviews
 - projected monthly volume has a hard stop at `6,500` reviews
-- if Apify fails on a schedule, GitHub Actions falls back to the manual dataset instead of publishing partial data
+- if Apify fails on a schedule, GitHub Actions redeploys the last committed dataset instead of overwriting live data with a manual fallback
 - preview runs write only to `data/preview/reviews-preview.json` and do not deploy
 
 Add this GitHub repository secret before using Apify mode:
@@ -66,8 +66,8 @@ Useful GitHub Actions modes:
 
 - `apify_preview`: fetches preview data only and does not deploy
 - `apify_incremental`: runs the capped 20-per-branch live merge and deploys after validation
-- `deploy_only`: rebuilds/deploys the manual fallback dataset
-- `manual_rebuild`: same as deploy-only, but explicit for manual update work
+- `deploy_only`: deploys the currently committed dataset without fetching new reviews
+- `manual_rebuild`: rebuilds/deploys the manual fallback dataset from the manual files
 - `gbp_preview` and `gbp_full`: reserved for the official Google API once approved
 
 ## Adding another branch safely
@@ -326,9 +326,9 @@ The workflow in `.github/workflows/update-and-deploy.yml` does two things:
 - redeploys the dashboard on each push to `main` or `master`
 - refreshes live review data every day at `22:00 UTC`, which is `00:00` in Johannesburg
 - uses capped Apify incremental sync when `APIFY_API_TOKEN` is configured
-- falls back to the manual base snapshot plus manual additions if the scheduled Apify refresh cannot run
+- redeploys the last committed dataset unchanged if the scheduled Apify refresh cannot run
 
-If a scheduled Apify fetch fails, the workflow reuses the trusted manual dataset instead of breaking the public site.
+If a scheduled Apify fetch fails, the workflow keeps the public site on the last committed dataset instead of flipping the status back to manual refresh.
 
 Once GitHub Pages is enabled for the repo, GitHub will give you a public URL that you can share with the customer.
 
