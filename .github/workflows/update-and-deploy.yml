@@ -104,7 +104,7 @@ jobs:
 
       - name: Refresh reviews with capped Apify incremental sync
         id: apify_refresh
-        if: ${{ env.APIFY_API_TOKEN != '' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'apify_incremental')) }}
+        if: ${{ env.APIFY_API_TOKEN != '' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'apify_incremental') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[refresh reviews]'))) }}
         continue-on-error: ${{ github.event_name == 'schedule' }}
         env:
           APIFY_SYNC_MODE: scheduled
