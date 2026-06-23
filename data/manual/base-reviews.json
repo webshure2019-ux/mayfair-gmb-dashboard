@@ -1,10 +1,10 @@
 {
   "meta": {
     "mode": "live",
-    "generatedAt": "2026-06-23T08:14:35.482327+00:00",
+    "generatedAt": "2026-06-23T23:08:52.383852+00:00",
     "timezone": "Africa/Johannesburg",
     "source": "Apify incremental sync",
-    "reviewCount": 957,
+    "reviewCount": 958,
     "manualReviewCount": 63,
     "manualBranchCounts": {
       "jhb-auto": 18,
@@ -19,15 +19,15 @@
     "baseGeneratedAt": "2026-05-14T12:19:36.665698+00:00",
     "baseSource": "Apify incremental sync",
     "actorId": "compass/google-maps-reviews-scraper",
-    "actorRunId": "P9eKJRKKv8JCIgTzC",
+    "actorRunId": "fQHSxynm2sl1A6IVJ",
     "apifyMaxReviewsPerBranch": 20,
     "apifyScrapedReviewCount": 86,
     "apifyScrapedBranchCounts": {
+      "germiston-commercial": 20,
       "jhb-auto": 20,
-      "jhb-manual": 20,
       "pretoria-manual-auto": 20,
       "nelspruit-fleet-maintenance": 6,
-      "germiston-commercial": 20
+      "jhb-manual": 20
     },
     "apifyProjectedDailyReviews": 100,
     "apifyProjectedMonthlyReviews": 3100,
@@ -52,13 +52,13 @@
         "Mayfair Gearbox Automatic Gearbox Repair Centre Johannesburg",
         "Automatic Gearbox Repair Centre Johannesburg"
       ],
-      "currentReviewsCount": 247,
-      "currentRating": 4.3,
+      "currentReviewsCount": 248,
+      "currentRating": 4.4,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Automatic%20Gearbox%20Repair%20Centre%20Johannesburg&query_place_id=ChIJeYdnKrkOlR4R3c_MWW9rS1k",
       "fid": "0x1e950eb92a678779:0x594b6b6f59cccfdd",
       "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFD4KZa2qu_ONZH8hlI1rdWH_fsjxdmNmjgasO538-SYqGR91CWh53n9rxoIrDqDpRMwrV9Vc6wGXszm1l-Brmuc6vqBOhBSS_PhGTIcXE6sLNcwmKOZdXuO0lOzAusaAvqyE9wVQ=w408-h272-k-no",
       "googleLocationName": "",
-      "apifyReportedReviewsCount": 242,
+      "apifyReportedReviewsCount": 243,
       "apifyReportedRating": 4.4
     },
     {
@@ -109,7 +109,7 @@
       "currentRating": 4.5,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20%26%20Automatic%20Gearbox%20Repair%20Centre%20Pretoria&query_place_id=ChIJK8UdZP1flR4RxNimOgIMjfo",
       "fid": "0x1e955ffd641dc52b:0xfa8d0c023aa6d8c4",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGox3FBJZ-2uWg00eBlJqX2Rhmq6IsEbJktOvHX4vAIxM1GJuOH69wzb8pozaDYvm489ttb_r-JMErG_OQvMbiysbc80Uou_O0WkX9Jxn_luAfsT-y0w92ZP-v38p8ze5Nwf6g8=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGy7q8GjveWm6sr3nQYyqIcbTUve8yXxoq4f_pDu-3lZLPDgJlyJ-obOxYDKcCxixulOZQNmMatfRO4R_GxeaxMhWCZgt86aWD5XUi6Fr96ZXGpJXdD2CHJsKBJBqKY_bcb8xhJ=w600-h240-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 332,
       "apifyReportedRating": 4.5
@@ -168,6 +168,35 @@
   ],
   "reviews": [
     {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2xGUk1XNXlPVEJUUWxnNE1tSXlZbU5MYkVwb1JYYxAB",
+      "branchId": "jhb-auto",
+      "branchName": "Mayfair Gearbox - Automatic Gearbox Repair Centre Johannesburg",
+      "reviewerName": "Gloria Mphatsoe",
+      "reviewerUrl": "https://www.google.com/maps/contrib/116805179714956027767/reviews?hl=en-US",
+      "reviewerReviewCount": 63,
+      "isLocalGuide": true,
+      "rating": 5,
+      "comment": "I am a happy customer!<br>What a wonder and excellent experience I had by Mayfair Gearbox, Selby, Johannesburg.  Bernice Mphephu deserves a reward  \ud83d\udc4f.  From the time my car was handed to MF GEARBOX until I collection, she kept me updated of the progress. It took only 3 working days and my car was totally repaired.<br><br>Thank you MF GEARBOX and Bernice Mphephu for wonderful experience \ud83d\ude4f \u2764 \ud83d\ude4c \ud83d\udc96",
+      "commentTranslated": "",
+      "publishedAt": "2026-06-23T14:36:29.006Z",
+      "updatedAt": "2026-06-23T14:36:29.006Z",
+      "publishedLabel": "8 hours ago",
+      "reviewUrl": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2xGUk1XNXlPVEJUUWxnNE1tSXlZbU5MYkVwb1JYYxAB!2m1!1s0x0:0x594b6b6f59cccfdd!3m1!1s2@1:CAIQACodChtycF9oOlFRMW5yOTBTQlg4MmIyYmNLbEpoRXc%7C%7C?hl=en",
+      "reviewSource": "Google",
+      "ownerResponseText": "Thank you for the wonderful review, Gloria. We\u2019re thrilled Bernice and the team at Mayfair Gearbox in Selby provided clear communication and completed your repairs in just three working days. We will share your kind words with Bernice\u2014she\u2019ll be delighted to know her efforts made a difference. Thank you for choosing MF GEARBOX and for taking the time to share your experience.<br><br>Regards The Mayfair Gearbox team",
+      "ownerResponseDate": null,
+      "ownerResponseUpdatedAt": null,
+      "reviewImageUrls": [],
+      "language": "en",
+      "translatedLanguage": "en",
+      "scrapedAt": "2026-06-23T23:08:16.698Z",
+      "placeId": "ChIJeYdnKrkOlR4R3c_MWW9rS1k",
+      "cid": "6434354618621022173",
+      "fid": "0x1e950eb92a678779:0x594b6b6f59cccfdd",
+      "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Automatic%20Gearbox%20Repair%20Centre%20Johannesburg&query_place_id=ChIJeYdnKrkOlR4R3c_MWW9rS1k",
+      "title": "Mayfair Gearbox - Automatic Gearbox Repair Centre Johannesburg"
+    },
+    {
       "id": "Ci9DQUlRQUNvZENodHljRjlvT2s5MlRHbzNXVWxsV0UxcmFtSktkRmRqYTI5b04zYxAB",
       "branchId": "jhb-auto",
       "branchName": "Mayfair Gearbox - Automatic Gearbox Repair Centre Johannesburg",
@@ -183,7 +212,7 @@
       "publishedLabel": "2 hours ago",
       "reviewUrl": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2s5MlRHbzNXVWxsV0UxcmFtSktkRmRqYTI5b04zYxAB!2m1!1s0x0:0x594b6b6f59cccfdd!3m1!1s2@1:CAIQACodChtycF9oOk92TGo3WUllWE1ramJKdFdja29oN3c%7C%7C?hl=en",
       "reviewSource": "Google",
-      "ownerResponseText": "",
+      "ownerResponseText": "Thank you for the kind review, Brandon. We\u2019re delighted our team provided excellent service and a friendly experience. If you need anything in the future, please contact us and we will be happy to help.<br><br>Regards The Mayfair Gearbox team",
       "ownerResponseDate": null,
       "ownerResponseUpdatedAt": null,
       "reviewImageUrls": [],
