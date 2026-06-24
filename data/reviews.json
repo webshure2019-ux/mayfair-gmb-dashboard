@@ -1,7 +1,7 @@
 {
   "meta": {
     "mode": "live",
-    "generatedAt": "2026-06-23T23:08:52.383852+00:00",
+    "generatedAt": "2026-06-24T23:03:04.102738+00:00",
     "timezone": "Africa/Johannesburg",
     "source": "Apify incremental sync",
     "reviewCount": 958,
@@ -19,15 +19,15 @@
     "baseGeneratedAt": "2026-05-14T12:19:36.665698+00:00",
     "baseSource": "Apify incremental sync",
     "actorId": "compass/google-maps-reviews-scraper",
-    "actorRunId": "fQHSxynm2sl1A6IVJ",
+    "actorRunId": "6Kg9DyWTMKwZ0qCRz",
     "apifyMaxReviewsPerBranch": 20,
     "apifyScrapedReviewCount": 86,
     "apifyScrapedBranchCounts": {
-      "germiston-commercial": 20,
       "jhb-auto": 20,
+      "germiston-commercial": 20,
+      "jhb-manual": 20,
       "pretoria-manual-auto": 20,
-      "nelspruit-fleet-maintenance": 6,
-      "jhb-manual": 20
+      "nelspruit-fleet-maintenance": 6
     },
     "apifyProjectedDailyReviews": 100,
     "apifyProjectedMonthlyReviews": 3100,
@@ -56,7 +56,7 @@
       "currentRating": 4.4,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Automatic%20Gearbox%20Repair%20Centre%20Johannesburg&query_place_id=ChIJeYdnKrkOlR4R3c_MWW9rS1k",
       "fid": "0x1e950eb92a678779:0x594b6b6f59cccfdd",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFD4KZa2qu_ONZH8hlI1rdWH_fsjxdmNmjgasO538-SYqGR91CWh53n9rxoIrDqDpRMwrV9Vc6wGXszm1l-Brmuc6vqBOhBSS_PhGTIcXE6sLNcwmKOZdXuO0lOzAusaAvqyE9wVQ=w408-h272-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHeaMSQUfGpJZwm5J82pNQbGNRuxRiDmntyrnWSPf1VOfirH2W_gY2JIl09uCcsLKTSu_DuoIsFe45DgeG1Fl-ZWsV3m-sUcborTsKPekSgLGOE-8DI3JYrwSpmgXitIynGqffNSg=w408-h272-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 243,
       "apifyReportedRating": 4.4
@@ -81,7 +81,7 @@
       "currentRating": 4.4,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Commercial%20Truck%20Gearbox%20Centre%20And%20Specialists%20-%20Germiston&query_place_id=ChIJmW_CQAcRlR4RuhIS_5oweBk",
       "fid": "0x1e95110740c26f99:0x1978309aff1212ba",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAF0gKi1GBY_tlKmd2wpoXJKnokNdYFM36i1WiiZ0G1gz7B_027yzCRXbGIEjt4b9MzrPCpV1K3tZLR-zGhs7eEX5c_1-jv5irist6-tSPM29U_wnPV7ntTtp8yrRbcoOlMQ36hy=w408-h306-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGHoyqaCKeopt389BycBbER8Sr71AfOi5z5CYECYvK7wvmaftHCvXygduZE5VOU5T0XGvOCobO2p4TwB8O4jvllpXJX40IUz9sufaAchxLW3Qe3s_NN5b9Rm5rCCwYZTJzN0Smg=w408-h306-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 186,
       "apifyReportedRating": 4.5
@@ -161,7 +161,7 @@
       "currentRating": 5.0,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20%26%20Fleet%20Maintenance%20Nelspruit&query_place_id=ChIJD2b337RL6B4RlRMWb9z-dHo",
       "fid": "0x1ee84bb4dff7660f:0x7a74fedc6f161395",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHfm8kon65UQHKDeGYOlxiHFQXBfrw6GmnOnvobnZsptKOTjBN-3kEOEHlg6DzmQvSnIDKojNQcTFOYVwrl--MlfxD-5aEk-M-bqwPvcnHXeETTfiLwmwiFzRlEOP70UPdS8RuW=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFlhS3VaHSyFGwmZzgdgLZ6_irJKwa3hz6QlQvUjn9rjiLGp-BJ0P6o7xIMUd5CyoZE4t02hvADqCIQKHoMibJ0yQ6O9dvk3v4zHUnVeuX3Uxvr0acucyOoK-WagFyHMxqVF71u=w600-h240-k-no",
       "apifyReportedReviewsCount": 6,
       "apifyReportedRating": 5.0
     }
