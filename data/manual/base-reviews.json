@@ -1,7 +1,7 @@
 {
   "meta": {
     "mode": "live",
-    "generatedAt": "2026-06-30T23:12:34.553596+00:00",
+    "generatedAt": "2026-07-01T23:15:34.438682+00:00",
     "timezone": "Africa/Johannesburg",
     "source": "Apify incremental sync",
     "reviewCount": 961,
@@ -19,15 +19,15 @@
     "baseGeneratedAt": "2026-05-14T12:19:36.665698+00:00",
     "baseSource": "Apify incremental sync",
     "actorId": "compass/google-maps-reviews-scraper",
-    "actorRunId": "qbWlWBdjbowZX5RfG",
+    "actorRunId": "gXNFhacVaSvYQ4bCf",
     "apifyMaxReviewsPerBranch": 20,
     "apifyScrapedReviewCount": 86,
     "apifyScrapedBranchCounts": {
       "jhb-auto": 20,
       "germiston-commercial": 20,
       "jhb-manual": 20,
-      "pretoria-manual-auto": 20,
-      "nelspruit-fleet-maintenance": 6
+      "nelspruit-fleet-maintenance": 6,
+      "pretoria-manual-auto": 20
     },
     "apifyProjectedDailyReviews": 100,
     "apifyProjectedMonthlyReviews": 3100,
@@ -109,7 +109,7 @@
       "currentRating": 4.5,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20%26%20Automatic%20Gearbox%20Repair%20Centre%20Pretoria&query_place_id=ChIJK8UdZP1flR4RxNimOgIMjfo",
       "fid": "0x1e955ffd641dc52b:0xfa8d0c023aa6d8c4",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGPdHWisXCFP-AjDepP31hQ4z0xAOOPN6yIucJn3ax4E5TRtRWdqfZMDzGr4YtWVf4KFmy3K44OpGQAjiwln3sx2KpbBnr6twtjFm7E3_QL3m0NVxcQonKX3zfVyl7tXqKqS4ry=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHq6GNCwxtKaXKJeTeqbnf91-3IyeAicNkLZ1wKgYOKg3_Ao5RLY-c860V6CagYynFwlybp2fHWTsZ1-VfVD5YkHk7Xz-j2q1mz_je8FXP8GNO04aBOybgSu5XrdyHtUF736qec=w600-h240-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 333,
       "apifyReportedRating": 4.5
@@ -134,7 +134,7 @@
       "currentRating": 4.5,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20Gearbox%20Repair%20Centre%20Johannesburg&query_place_id=ChIJCTGjuhoPlR4RMBxg_FwqAg8",
       "fid": "0x1e950f1abaa33109:0xf022a5cfc601c30",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFW9b8xOHr8ut3hROn85bWz0C0Nsj5oPYECfgqE3TEVPkZSJvR-QMKdj7xjPoGzY8JQR10lFb0SVLmEg-VqkYzYR2mJQa6lLKcnpDqPXgaF84gCBSijycQG6dTjPXq-5iZyddg=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAE0Iy9GQ6eaOCj4ZF_QN3QjInFIq6_dntPWr9PusDKXq7a6kqEK9XT-4u9Yy98I472vfJPw0iDa2fqfgXE20UfjncN2gh6sn7hRYZuw0VbzHJwmw7UCpz8ocZFLZ4TY3qALqCI=w600-h240-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 181,
       "apifyReportedRating": 4.5
