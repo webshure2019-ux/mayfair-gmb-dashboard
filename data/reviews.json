@@ -1,7 +1,7 @@
 {
   "meta": {
     "mode": "live",
-    "generatedAt": "2026-07-03T23:03:13.573164+00:00",
+    "generatedAt": "2026-07-04T22:57:13.028064+00:00",
     "timezone": "Africa/Johannesburg",
     "source": "Apify incremental sync",
     "reviewCount": 964,
@@ -19,7 +19,7 @@
     "baseGeneratedAt": "2026-05-14T12:19:36.665698+00:00",
     "baseSource": "Apify incremental sync",
     "actorId": "compass/google-maps-reviews-scraper",
-    "actorRunId": "6oOCOpTKasEeCGOfB",
+    "actorRunId": "z0mEHugmIykc27MS6",
     "apifyMaxReviewsPerBranch": 20,
     "apifyScrapedReviewCount": 86,
     "apifyScrapedBranchCounts": {
@@ -56,7 +56,7 @@
       "currentRating": 4.4,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Automatic%20Gearbox%20Repair%20Centre%20Johannesburg&query_place_id=ChIJeYdnKrkOlR4R3c_MWW9rS1k",
       "fid": "0x1e950eb92a678779:0x594b6b6f59cccfdd",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFFf-5zTL3pcAu3rc_RITTBM8qljdAoEwMnyat-sKF-bDQu_C28zdujJlQehj6BbLIs0yo-4x3Nux-Fm5dYWDNWyvjfS1yVipqy2Pdqmdg62HHKlfhClv4Om598N3eSvvXbPu1TEw=w408-h272-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGDWZH7qLZhjhKSASOQnugRokkY25ryrDI1ieQ1FMzhd6uKS2PW66bEnsGUA5HUbnddLSOJvhm9E220ylLZh1k2HnPNHVQBOTzaHO7L6zhIJFmKpaYiNwm1DLEotUc6LYZn0BBtxA=w408-h272-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 246,
       "apifyReportedRating": 4.4
@@ -81,7 +81,7 @@
       "currentRating": 4.5,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Commercial%20Truck%20Gearbox%20Centre%20And%20Specialists%20-%20Germiston&query_place_id=ChIJmW_CQAcRlR4RuhIS_5oweBk",
       "fid": "0x1e95110740c26f99:0x1978309aff1212ba",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFtFz954RU1dARqrb6TiNYVyGnpUu0rlVpxnpwZ37SJUw_ayq7Onp3Qw4IVEbi8KrpA03z9OWHlX3d7YCcPgQzhO648Ihs-lQdhZf42l8S8QD998Y5kkNfa8PZjNil-pOsPrAXu=w408-h306-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHGSVeajdccDHrudZh0jzVubXNP2iKmHe7Lg_wkhUW4BoAhpS9rxP5sevaIVshFD4PfkSywQQUi-m5SgmQwMlQ50hLUIZX_MlgRinmzSx3vNvl4NqHCDWtWQbQmF5KWXBYmnu7A=w408-h306-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 188,
       "apifyReportedRating": 4.5
@@ -161,7 +161,7 @@
       "currentRating": 5.0,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20%26%20Fleet%20Maintenance%20Nelspruit&query_place_id=ChIJD2b337RL6B4RlRMWb9z-dHo",
       "fid": "0x1ee84bb4dff7660f:0x7a74fedc6f161395",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHkrXNAVqIIoG4MZMyXy4Qx8YQINFa4VSLbsA6Mos9-PltQqxOswaJ-hCU6wGeBrE78qnadSfcF71YIS-TGv_PaMTl-DR5xHDWzKZX0Gj1Ywpv8kT_nOKgzL0uHay__R4ZbQkPN=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFON02MBzndEpFww78c0LxbSffKPqJQlMiJrZsah_m6F55PgfcCazKeReplWVr5cgcZeH3Zypp0z_28d_i0fgfsxoHtPzPZ4LwB4n8MgP4Gbv_P4cW3NkyCxMjKMiBxqZlMHn2M=w600-h240-k-no",
       "apifyReportedReviewsCount": 6,
       "apifyReportedRating": 5.0
     }
@@ -183,9 +183,9 @@
       "publishedLabel": "17 hours ago",
       "reviewUrl": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT25SZk0xOTNhVGx3Y1ZkaWIzb3dRMmR0UTJwa1ZsRRAB!2m1!1s0x0:0x594b6b6f59cccfdd!3m1!1s2@1:CAIQACodChtycF9oOnRfM193aTlwcVdib3owQ2dtQ2pkVlE%7C%7C?hl=en",
       "reviewSource": "Google",
-      "ownerResponseText": "",
-      "ownerResponseDate": null,
-      "ownerResponseUpdatedAt": null,
+      "ownerResponseText": "Thank you, Linda, for your wonderful review. We're delighted Bernice provided friendly, timely updates and exceptional service. We'll share your appreciation with Bernice and the team. If you need any further assistance, please contact us.\n\nRegards The Mayfair Gearbox team",
+      "ownerResponseDate": "2026-07-04T19:38:21.000Z",
+      "ownerResponseUpdatedAt": "2026-07-04T19:38:21.000Z",
       "reviewImageUrls": [],
       "language": "en",
       "translatedLanguage": null,
