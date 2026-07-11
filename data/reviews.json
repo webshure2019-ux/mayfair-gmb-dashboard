@@ -1,10 +1,10 @@
 {
   "meta": {
     "mode": "live",
-    "generatedAt": "2026-07-10T22:58:39.344929+00:00",
+    "generatedAt": "2026-07-11T22:47:49.273678+00:00",
     "timezone": "Africa/Johannesburg",
     "source": "Apify incremental sync",
-    "reviewCount": 969,
+    "reviewCount": 970,
     "manualReviewCount": 63,
     "manualBranchCounts": {
       "jhb-auto": 18,
@@ -19,7 +19,7 @@
     "baseGeneratedAt": "2026-05-14T12:19:36.665698+00:00",
     "baseSource": "Apify incremental sync",
     "actorId": "compass/google-maps-reviews-scraper",
-    "actorRunId": "Xh0MxWZBVOq7YW3Lt",
+    "actorRunId": "qY6sjSKyKJHOgzl5z",
     "apifyMaxReviewsPerBranch": 20,
     "apifyScrapedReviewCount": 86,
     "apifyScrapedBranchCounts": {
@@ -77,13 +77,13 @@
         "Mayfair Gearbox Commercial Truck Gearbox Centre And Specialists Germiston",
         "Commercial Truck Gearbox Centre And Specialists Germiston"
       ],
-      "currentReviewsCount": 189,
+      "currentReviewsCount": 190,
       "currentRating": 4.5,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Commercial%20Truck%20Gearbox%20Centre%20And%20Specialists%20-%20Germiston&query_place_id=ChIJmW_CQAcRlR4RuhIS_5oweBk",
       "fid": "0x1e95110740c26f99:0x1978309aff1212ba",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAF7pEkeYKDvVQF0S9WBt-C5FcKi7zBX4E6K3s6wCLBz6MFCS6TpmTBX7vfmmq24BOR8saO-V7gIV4CXS6mrPZx0AuD446YGpeaDcIHeFZZ9S6mwrd-0ddAtC0emn21G-Doxu6SL=w408-h306-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnNHMF747Dy_OeAjoSkJs_qYcEzHyOvqhGYwv6fJnAkHRgFatzCqd-5oVspzXJ0jAV1q4YFgHc1gJ6K0HIKqneh5cdjGb7_H0WPqkEXh9t8j3hfDeN-g4kDE-oSEF6U-Natf8a_=w408-h306-k-no",
       "googleLocationName": "",
-      "apifyReportedReviewsCount": 188,
+      "apifyReportedReviewsCount": 189,
       "apifyReportedRating": 4.5
     },
     {
@@ -109,7 +109,7 @@
       "currentRating": 4.5,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20%26%20Automatic%20Gearbox%20Repair%20Centre%20Pretoria&query_place_id=ChIJK8UdZP1flR4RxNimOgIMjfo",
       "fid": "0x1e955ffd641dc52b:0xfa8d0c023aa6d8c4",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkzoGgzWc5cn8osB7OCQYixklYKR_e0CEYqLD6yJMotXxd86MoFWga04e90xnW5xGxbsmhk5SOO64KpaGtszOY8pY0RTv11NVJDzftq6d1cR3lblzqUe1JpVC1H54NXuwp9Mnb7=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGEhsOQRKny383eG1ucchx5q-Fys-1niKStOpxLWwyj1rci4S6JD8u2GyvzuVqtkUS2_cxAe8l27-KsCmmXR8anLwlscXtc7bD-y7ERQnQuf1XaV3HBm-0XNwjvQ39oCAvHziuB=w600-h240-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 334,
       "apifyReportedRating": 4.5
@@ -134,7 +134,7 @@
       "currentRating": 4.5,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20Gearbox%20Repair%20Centre%20Johannesburg&query_place_id=ChIJCTGjuhoPlR4RMBxg_FwqAg8",
       "fid": "0x1e950f1abaa33109:0xf022a5cfc601c30",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWl3UGy0tpdwF368GNkHCfmIeEsAk18eyTaXf4ISTIj9abw9BgkZBdNdYTJchBoSzre0q6nRNXTeuWGYh6B7xLPliiSUXX5PAMM5kPuJjBl32-KZpD7M_reM2p17WYJtK3VLTAY=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnQT_0EWN4QYnKvyat4XF1cYKqAUNCbh8FnrxE8rw_SSrNCKkrsBqyeQl9I0XnweOt7Saf6FuqrFkIA6EXpl5vp1xktTPOCIDI4Ku7naQ3f4fRndpspS1MzvPHRHAuGgHnmo1M=w600-h240-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 181,
       "apifyReportedRating": 4.5
@@ -167,6 +167,35 @@
     }
   ],
   "reviews": [
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2twTWFWUnlhMlJJV1hGNk9IQklZMnA2VEZsaWRVRRAB",
+      "branchId": "germiston-commercial",
+      "branchName": "Mayfair Gearbox - Commercial Truck Gearbox Centre And Specialists - Germiston",
+      "reviewerName": "Jonah Mpehla",
+      "reviewerUrl": "https://www.google.com/maps/contrib/103020708910988455740?hl=en",
+      "reviewerReviewCount": 1,
+      "isLocalGuide": false,
+      "rating": 5,
+      "comment": "",
+      "commentTranslated": "",
+      "publishedAt": "2026-07-11T09:36:42.863Z",
+      "updatedAt": "2026-07-11T09:36:42.863Z",
+      "publishedLabel": "13 hours ago",
+      "reviewUrl": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2twTWFWUnlhMlJJV1hGNk9IQklZMnA2VEZsaWRVRRAB!2m1!1s0x0:0x1978309aff1212ba!3m1!1s2@1:CAIQACodChtycF9oOkpMaVRya2RIWXF6OHBIY2p6TFlidUE%7C%7C?hl=en",
+      "reviewSource": "Google",
+      "ownerResponseText": "",
+      "ownerResponseDate": null,
+      "ownerResponseUpdatedAt": null,
+      "reviewImageUrls": [],
+      "language": "en",
+      "translatedLanguage": null,
+      "scrapedAt": "2026-07-11T22:47:35.833Z",
+      "placeId": "ChIJmW_CQAcRlR4RuhIS_5oweBk",
+      "cid": "1835270290415948474",
+      "fid": "0x1e95110740c26f99:0x1978309aff1212ba",
+      "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Commercial%20Truck%20Gearbox%20Centre%20And%20Specialists%20-%20Germiston&query_place_id=ChIJmW_CQAcRlR4RuhIS_5oweBk",
+      "title": "Mayfair Gearbox - Commercial Truck Gearbox Centre And Specialists - Germiston"
+    },
     {
       "id": "Ci9DQUlRQUNvZENodHljRjlvT2pGcVIwWm1WM2hQWm5sT2JUVm1YMFJaYVVsRWNsRRAB",
       "branchId": "pretoria-manual-auto",
