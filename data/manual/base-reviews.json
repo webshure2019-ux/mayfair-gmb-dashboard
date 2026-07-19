@@ -1,7 +1,7 @@
 {
   "meta": {
     "mode": "live",
-    "generatedAt": "2026-07-18T22:49:39.173060+00:00",
+    "generatedAt": "2026-07-19T22:51:17.374888+00:00",
     "timezone": "Africa/Johannesburg",
     "source": "Apify incremental sync",
     "reviewCount": 1024,
@@ -19,7 +19,7 @@
     "baseGeneratedAt": "2026-05-14T12:19:36.665698+00:00",
     "baseSource": "Apify incremental sync",
     "actorId": "compass/google-maps-reviews-scraper",
-    "actorRunId": "cguwh07TcadDNc0dp",
+    "actorRunId": "4IE4PCHqykasxYGyc",
     "apifyMaxReviewsPerBranch": 20,
     "apifyScrapedReviewCount": 86,
     "apifyScrapedBranchCounts": {
@@ -109,7 +109,7 @@
       "currentRating": 4.5,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20%26%20Automatic%20Gearbox%20Repair%20Centre%20Pretoria&query_place_id=ChIJK8UdZP1flR4RxNimOgIMjfo",
       "fid": "0x1e955ffd641dc52b:0xfa8d0c023aa6d8c4",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmZkjUITEmu0s83ZO6XGshE2oLrEFUmmqQn3g962PE7MNjCt8p1qo8NLoyN31x1nD7o-jGy1orAUT7rPTeOEYm3KO1i8MejQW9jVqJiL2a4cnoR10FBIJNzqVzUXCK9ehnmHxtz=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWn-PTsvbjCLxapgDZWusZ6yrciJihR78wiVDTfhekpupg9bVy3fg5EaBIwqlsYljLZ-djPhImNodoeX7f0Hz3uUNqHFx_yQhjTyhfEAnsGLc8fDXkT819mEgLW9EZHMvQa1Jrch=w600-h240-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 349,
       "apifyReportedRating": 4.5
@@ -134,7 +134,7 @@
       "currentRating": 4.5,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20Gearbox%20Repair%20Centre%20Johannesburg&query_place_id=ChIJCTGjuhoPlR4RMBxg_FwqAg8",
       "fid": "0x1e950f1abaa33109:0xf022a5cfc601c30",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkbmchc6R1RiR1GU2Smfmwy7AD_AByCD6KYI0eVaw8PX45iRWVz_IYbDLkgkoFmBtz5t2HrIbLoxiRdxDSCqLkYDOZa78loaqRBC2efIXzEhA3n2UMoMhSPdpZ0FqYnJnFokRo=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWm13-JL8s1q36x_J5KZxAUewTltIHIMUqP8-MVdTI5lq4SMvjlgHEd5RR5fdb4sgNDAsD7Rwo1JuP7p4JjKsJo4xynmlxm5G88VGsJLlUZBASlS9g-_VmFID2zVljcLT1-Ux2w=w600-h240-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 197,
       "apifyReportedRating": 4.5
