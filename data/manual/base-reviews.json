@@ -1,10 +1,10 @@
 {
   "meta": {
     "mode": "live",
-    "generatedAt": "2026-07-24T23:00:33.715922+00:00",
+    "generatedAt": "2026-07-25T22:55:48.753713+00:00",
     "timezone": "Africa/Johannesburg",
     "source": "Apify incremental sync",
-    "reviewCount": 1040,
+    "reviewCount": 1041,
     "manualReviewCount": 63,
     "manualBranchCounts": {
       "jhb-auto": 18,
@@ -19,7 +19,7 @@
     "baseGeneratedAt": "2026-05-14T12:19:36.665698+00:00",
     "baseSource": "Apify incremental sync",
     "actorId": "compass/google-maps-reviews-scraper",
-    "actorRunId": "xBnELKanpTp27Rzc8",
+    "actorRunId": "G5DqHBTt03TU8Dver",
     "apifyMaxReviewsPerBranch": 20,
     "apifyScrapedReviewCount": 90,
     "apifyScrapedBranchCounts": {
@@ -105,13 +105,13 @@
         "Mayfair Gearbox Manual and Automatic Gearbox Repair Centre Pretoria",
         "Manual & Automatic Gearbox Repair Centre Pretoria"
       ],
-      "currentReviewsCount": 361,
+      "currentReviewsCount": 362,
       "currentRating": 4.5,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20%26%20Automatic%20Gearbox%20Repair%20Centre%20Pretoria&query_place_id=ChIJK8UdZP1flR4RxNimOgIMjfo",
       "fid": "0x1e955ffd641dc52b:0xfa8d0c023aa6d8c4",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmQ_tASzBfx-ll1QYYJBkjiMTGc7LtvQDKKCqqj7NocY3P2ybN9zb8foNE3g1r8LigZdCT6ugfDQBHCL6MdXGlHRkdPeoekFZjnH6KrDfJLG8Jh9WsdkaNrmmuIwhH2r7DB9Aq2=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkOIayNzhPPxHHqrB66OYFraU3CATDfltwl949JcuA4k7oiFT4lgC2Pq88qElEYcTMRbkpQZHT2Bzx2IlA33cUSTJtNWsVuy3jgT9xmn2LGjfKeqRzeO8sYZXTm4FWcNkNh5MBg=w600-h240-k-no",
       "googleLocationName": "",
-      "apifyReportedReviewsCount": 358,
+      "apifyReportedReviewsCount": 359,
       "apifyReportedRating": 4.5
     },
     {
@@ -134,7 +134,7 @@
       "currentRating": 4.5,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20Gearbox%20Repair%20Centre%20Johannesburg&query_place_id=ChIJCTGjuhoPlR4RMBxg_FwqAg8",
       "fid": "0x1e950f1abaa33109:0xf022a5cfc601c30",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnv9qPDLCDemAjuDK8Z3_IH2fcQF2k0Fsf5pbTpiRC8YA_HyX7PqWpP_b0CCDfBviDgUI-XYF-mJk_TOWxrRn_BqvGaNrS5b0f6G_g-_KL_SF7Al9Crde_rs4IAEn6qM1kp4Qo=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWn-68zLNzluwxBeknU3S8V31m0Imyc4FT8WBlrTZsjFGY84YZ7lqm8e9rFdfNZS9WSq0z6g1kxzO33ATe9ezEan_d3ZRzqZi1RE52vNW3wBee16YwELXk9Ffo4wol3PyfF6tfM=w600-h240-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 199,
       "apifyReportedRating": 4.5
@@ -167,6 +167,35 @@
     }
   ],
   "reviews": [
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2xNdFN6RmxOV05rVUhKS1pWOVRUR2hsZFROUE1tYxAB",
+      "branchId": "pretoria-manual-auto",
+      "branchName": "Mayfair Gearbox - Manual & Automatic Gearbox Repair Centre Pretoria",
+      "reviewerName": "Jan Le Roux",
+      "reviewerUrl": "https://www.google.com/maps/contrib/102331122459619840726?hl=en",
+      "reviewerReviewCount": 1,
+      "isLocalGuide": false,
+      "rating": 5,
+      "comment": "The service was professional and friendly and helpful from all personnel including the service adviser Melissa",
+      "commentTranslated": "",
+      "publishedAt": "2026-07-25T16:08:08.261Z",
+      "updatedAt": "2026-07-25T16:08:08.261Z",
+      "publishedLabel": "6 hours ago",
+      "reviewUrl": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2xNdFN6RmxOV05rVUhKS1pWOVRUR2hsZFROUE1tYxAB!2m1!1s0x0:0xfa8d0c023aa6d8c4!3m1!1s2@1:CAIQACodChtycF9oOlMtSzFlNWNkUHJKZV9TTGhldTNPMmc%7C%7C?hl=en",
+      "reviewSource": "Google",
+      "ownerResponseText": "",
+      "ownerResponseDate": null,
+      "ownerResponseUpdatedAt": null,
+      "reviewImageUrls": [],
+      "language": "en",
+      "translatedLanguage": null,
+      "scrapedAt": "2026-07-25T22:55:42.858Z",
+      "placeId": "ChIJK8UdZP1flR4RxNimOgIMjfo",
+      "cid": "18054099684911667396",
+      "fid": "0x1e955ffd641dc52b:0xfa8d0c023aa6d8c4",
+      "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20%26%20Automatic%20Gearbox%20Repair%20Centre%20Pretoria&query_place_id=ChIJK8UdZP1flR4RxNimOgIMjfo",
+      "title": "Mayfair Gearbox - Manual & Automatic Gearbox Repair Centre Pretoria"
+    },
     {
       "id": "Ci9DQUlRQUNvZENodHljRjlvT25NMFNFOWtZM1l5YzI1YVQydzFWMmMxTjNSV1FuYxAB",
       "branchId": "pretoria-manual-auto",
