@@ -1,7 +1,7 @@
 {
   "meta": {
     "mode": "live",
-    "generatedAt": "2026-08-03T22:59:15.445233+00:00",
+    "generatedAt": "2026-08-04T23:02:35.003594+00:00",
     "timezone": "Africa/Johannesburg",
     "source": "Apify incremental sync",
     "reviewCount": 1056,
@@ -19,15 +19,15 @@
     "baseGeneratedAt": "2026-05-14T12:19:36.665698+00:00",
     "baseSource": "Apify incremental sync",
     "actorId": "compass/google-maps-reviews-scraper",
-    "actorRunId": "TkC0DrDoWA0m0bWAi",
+    "actorRunId": "LhORRSfgFiRG1d4t7",
     "apifyMaxReviewsPerBranch": 20,
     "apifyScrapedReviewCount": 90,
     "apifyScrapedBranchCounts": {
       "jhb-auto": 20,
       "germiston-commercial": 20,
       "jhb-manual": 20,
-      "pretoria-manual-auto": 20,
-      "nelspruit-fleet-maintenance": 10
+      "nelspruit-fleet-maintenance": 10,
+      "pretoria-manual-auto": 20
     },
     "apifyProjectedDailyReviews": 100,
     "apifyProjectedMonthlyReviews": 3100,
@@ -58,7 +58,7 @@
       "fid": "0x1e950eb92a678779:0x594b6b6f59cccfdd",
       "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkdaN_ubkQg-6AQ4H8lI33VceLLVSih0oOVE_sMA-mjhVkw0gQjiz2T1vPHNEzSUMkXY8zlrFoTV096fZZT_nKHerNBO4aC5PcDBm04HqjZ9z-RGS-dkXQDbfZG9rz99UdkKHkcvQ=w408-h272-k-no",
       "googleLocationName": "",
-      "apifyReportedReviewsCount": 275,
+      "apifyReportedReviewsCount": 274,
       "apifyReportedRating": 4.4
     },
     {
@@ -109,7 +109,7 @@
       "currentRating": 4.5,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20%26%20Automatic%20Gearbox%20Repair%20Centre%20Pretoria&query_place_id=ChIJK8UdZP1flR4RxNimOgIMjfo",
       "fid": "0x1e955ffd641dc52b:0xfa8d0c023aa6d8c4",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkkcGqZCV8BdD3TQ6I2xa_XqpOnTRK676Mt4c9coqtNTER4BL10-DUgxTaWq4myJbVoCZ-R1iyQEiEEE-6kAvPl-PJwOovc6HfF0-cCmRMpLWmM6XzeqXYWw1FAePWF4hOLaf4f=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWn5IWcn23KOnOK3t9_iV6vD2qZLv7Rp1Ox2fuh4uXh2IU961IAe5PrkCTNA8P2frkS_Lvcd5XvDUeaOggM79CIPXEby_OIGOMjTESqe-FM6Wl9PHUWoc8ZyEiT9ykKXhG7QF__9=w600-h240-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 368,
       "apifyReportedRating": 4.5
@@ -134,7 +134,7 @@
       "currentRating": 4.5,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20Gearbox%20Repair%20Centre%20Johannesburg&query_place_id=ChIJCTGjuhoPlR4RMBxg_FwqAg8",
       "fid": "0x1e950f1abaa33109:0xf022a5cfc601c30",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlZSoHgCeI3wllvlVc8W5lOI1puP0ZBguujXGvP4ZIisHi-1Hfh_EyOGPg5pt59NobzuOij4_2gJhSkztC-Vv0E1vX7D7i-HvA8X_vqWuCs3rrUC6urAUI3fz8f2qBxusty6DE=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmfFl2AI5OaFJswZhfm0sjlS1BEeSdPBqD1cBZuyIee-Jxa1WcPJxXRwcGhcl9Pbaf4yCaBeExopajwCx1FHFOlo460I9Rfw7QZgzY_20f0SkEQBuYbDeYfMZFK0bLf4WwIGSE=w600-h240-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 200,
       "apifyReportedRating": 4.5
