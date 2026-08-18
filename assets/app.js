@@ -407,14 +407,25 @@ function resolveReviewBranch(review, branches) {
     return null;
   }
 
+  const allowed = branches.filter((branch) => !isBlockedTitle(reviewTitle, branch));
+
   return (
-    branches.find((branch) => getBranchMatchCandidates(branch).some((candidate) => candidate === reviewTitle)) ||
-    branches.find((branch) => getBranchMatchCandidates(branch).some((candidate) => (
+    allowed.find((branch) => getBranchMatchCandidates(branch).some((candidate) => candidate === reviewTitle)) ||
+    allowed.find((branch) => getBranchMatchCandidates(branch).some((candidate) => (
       candidate &&
       (reviewTitle.startsWith(candidate) || candidate.startsWith(reviewTitle))
     ))) ||
     null
   );
+}
+
+function isBlockedTitle(normalizedTitle, branch) {
+  if (!normalizedTitle) {
+    return false;
+  }
+  return (branch.blockedTitles || [])
+    .map(normalizeMatchText)
+    .some((blocked) => blocked && blocked === normalizedTitle);
 }
 
 function getBranchMatchCandidates(branch) {

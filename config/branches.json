@@ -42,13 +42,14 @@
     "location": "Pretoria",
     "color": "#3c79c3",
     "googleLocationName": "",
-    "cid": null,
-    "placeId": null,
+    "cid": "18054099684911667396",
+    "placeId": "ChIJK8UdZP1flR4RxNimOgIMjfo",
     "profileUrl": "https://business.google.com/n/3744862638621212617/profile?fid=18054099684911667396",
     "searchQuery": "Mayfair Gearbox Manual and Automatic Gearbox Repair Centre Pretoria",
     "mapsSearchUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20%26%20Automatic%20Gearbox%20Repair%20Centre%20Pretoria%20119%20Foundry%20St%20Silvertondale%20Pretoria",
     "blockedTitles": [
-      "Auto Box"
+      "Auto Box",
+      "Mayfair Gearbox- Manual & Automatic Gearbox Repair"
     ],
     "aliases": [
       "Mayfair Gearbox - Manual & Automatic Gearbox Repair Centre Pretoria",
@@ -81,8 +82,8 @@
     "location": "Nelspruit",
     "color": "#2b6fb4",
     "googleLocationName": "",
-    "cid": null,
-    "placeId": null,
+    "cid": "8823957792635622293",
+    "placeId": "ChIJD2b337RL6B4RlRMWb9z-dHo",
     "profileUrl": "https://share.google/wTy9kOE8hEdj4GVy7",
     "searchQuery": "Mayfair Gearbox & Fleet Maintenance Nelspruit",
     "mapsSearchUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20%26%20Fleet%20Maintenance%20Nelspruit%2014%20Unit%202%20Old%20Pretoria%20Rd%20West%20Acres%20Mbombela%201211",
@@ -91,6 +92,28 @@
       "Mayfair Gearbox and Fleet Maintenance Nelspruit",
       "Fleet Maintenance Nelspruit",
       "Nelspruit"
+    ]
+  },
+  {
+    "id": "cape-town-manual-auto",
+    "name": "Mayfair Gearbox- Manual & Automatic Gearbox Repair",
+    "shortName": "Cape Town",
+    "location": "Cape Town",
+    "color": "#5a93cc",
+    "googleLocationName": "",
+    "cid": "9296842727278657475",
+    "placeId": null,
+    "profileUrl": "https://www.google.com/maps?cid=9296842727278657475",
+    "searchQuery": "Mayfair Gearbox Manual and Automatic Gearbox Repair Montague Gardens Cape Town",
+    "mapsSearchUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20Manual%20%26%20Automatic%20Gearbox%20Repair%20Unit%201B%20Phumelela%20Park%20Montague%20Drive%20Montague%20Gardens%20Cape%20Town%207441",
+    "blockedTitles": [
+      "Mayfair Gearbox - Manual & Automatic Gearbox Repair Centre Pretoria"
+    ],
+    "aliases": [
+      "Mayfair Gearbox- Manual & Automatic Gearbox Repair",
+      "Mayfair Gearbox Manual & Automatic Gearbox Repair Cape Town",
+      "Mayfair Gearbox Manual and Automatic Gearbox Repair Cape Town",
+      "Manual & Automatic Gearbox Repair Montague Gardens"
     ]
   }
 ]

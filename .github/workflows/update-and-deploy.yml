@@ -123,7 +123,12 @@ jobs:
         if: ${{ env.APIFY_API_TOKEN != '' && github.event_name == 'workflow_dispatch' && github.event.inputs.run_mode == 'apify_branch_backfill' }}
         env:
           APIFY_SYNC_MODE: backfill
-          APIFY_MAX_REVIEWS: ${{ github.event.inputs.max_reviews || '10' }}
+          # Backfill is the one path allowed above the 20/branch scheduled cap: it
+          # refuses to run without explicit APIFY_BRANCH_IDS and rejects multi-branch
+          # selections, and the monthly warning/hard-stop projections still apply.
+          # Needed to seed a branch whose full history exceeds the cap (e.g. Cape Town, 106).
+          APIFY_ALLOW_HIGHER_LIMIT: "1"
+          APIFY_MAX_REVIEWS: ${{ github.event.inputs.max_reviews || '150' }}
         run: python3 scripts/fetch_apify_incremental.py
 
       - name: Refresh review data from Google Business Profile
