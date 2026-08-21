@@ -15,7 +15,8 @@
       "Mayfair Gearbox - Automatic Gearbox Repair Centre Johannesburg",
       "Mayfair Gearbox Automatic Gearbox Repair Centre Johannesburg",
       "Automatic Gearbox Repair Centre Johannesburg"
-    ]
+    ],
+    "group": "company"
   },
   {
     "id": "germiston-commercial",
@@ -33,7 +34,8 @@
       "Mayfair Gearbox - Commercial Truck Gearbox Centre And Specialists - Germiston",
       "Mayfair Gearbox Commercial Truck Gearbox Centre And Specialists Germiston",
       "Commercial Truck Gearbox Centre And Specialists Germiston"
-    ]
+    ],
+    "group": "company"
   },
   {
     "id": "pretoria-manual-auto",
@@ -55,7 +57,8 @@
       "Mayfair Gearbox - Manual & Automatic Gearbox Repair Centre Pretoria",
       "Mayfair Gearbox Manual and Automatic Gearbox Repair Centre Pretoria",
       "Manual & Automatic Gearbox Repair Centre Pretoria"
-    ]
+    ],
+    "group": "company"
   },
   {
     "id": "jhb-manual",
@@ -73,7 +76,8 @@
       "Mayfair Gearbox - Manual Gearbox Repair Centre Johannesburg",
       "Mayfair Gearbox Manual Gearbox Repair Centre Johannesburg",
       "Manual Gearbox Repair Centre Johannesburg"
-    ]
+    ],
+    "group": "company"
   },
   {
     "id": "nelspruit-fleet-maintenance",
@@ -92,7 +96,8 @@
       "Mayfair Gearbox and Fleet Maintenance Nelspruit",
       "Fleet Maintenance Nelspruit",
       "Nelspruit"
-    ]
+    ],
+    "group": "company"
   },
   {
     "id": "cape-town-manual-auto",
@@ -114,6 +119,105 @@
       "Mayfair Gearbox Manual & Automatic Gearbox Repair Cape Town",
       "Mayfair Gearbox Manual and Automatic Gearbox Repair Cape Town",
       "Manual & Automatic Gearbox Repair Montague Gardens"
+    ],
+    "group": "franchise"
+  },
+  {
+    "id": "empangeni-zululand",
+    "name": "Mayfair Gearbox - Zululand",
+    "shortName": "Empangeni",
+    "location": "Empangeni",
+    "color": "#08284f",
+    "group": "franchise",
+    "googleLocationName": "",
+    "cid": "8273625946593633115",
+    "placeId": null,
+    "profileUrl": "https://www.google.com/maps?cid=8273625946593633115",
+    "searchQuery": "Mayfair Gearbox - Zululand",
+    "mapsSearchUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Zululand%2021%20Ngwelezane%20Rd%2C%20Kuleka%2C%20Empangeni%2C%203880",
+    "blockedTitles": [],
+    "aliases": [
+      "Mayfair Gearbox - Zululand",
+      "Mayfair Gearbox Zululand",
+      "Mayfair Gearbox Empangeni",
+      "Zululand"
+    ]
+  },
+  {
+    "id": "pinetown-durban",
+    "name": "Mayfair Gearbox Durban - Gearbox Specialist and Transmission Repairs",
+    "shortName": "Pinetown",
+    "location": "Pinetown",
+    "color": "#17508f",
+    "group": "franchise",
+    "googleLocationName": "",
+    "cid": "14430945273470700840",
+    "placeId": null,
+    "profileUrl": "https://www.google.com/maps?cid=14430945273470700840",
+    "searchQuery": "Mayfair Gearbox Durban - Gearbox Specialist and Transmission Repairs",
+    "mapsSearchUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20Durban%20-%20Gearbox%20Specialist%20and%20Transmission%20Repairs%20Pinetown%2C%20Durban",
+    "blockedTitles": [],
+    "aliases": [
+      "Mayfair Gearbox Durban - Gearbox Specialist and Transmission Repairs",
+      "Mayfair Gearbox Durban",
+      "Mayfair Gearbox Pinetown"
+    ]
+  },
+  {
+    "id": "east-london",
+    "name": "Mayfair Gearbox - East London",
+    "shortName": "East London",
+    "location": "East London",
+    "color": "#87b9e8",
+    "group": "franchise",
+    "googleLocationName": "",
+    "cid": "11598031023440967315",
+    "placeId": null,
+    "profileUrl": "https://www.google.com/maps?cid=11598031023440967315",
+    "searchQuery": "Mayfair Gearbox - East London",
+    "mapsSearchUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20East%20London%20East%20London",
+    "blockedTitles": [],
+    "aliases": [
+      "Mayfair Gearbox - East London",
+      "Mayfair Gearbox East London"
+    ]
+  },
+  {
+    "id": "upington",
+    "name": "Mayfair Gearbox Upington",
+    "shortName": "Upington",
+    "location": "Upington",
+    "color": "#9fcaf0",
+    "group": "franchise",
+    "googleLocationName": "",
+    "cid": "16926628177514892837",
+    "placeId": null,
+    "profileUrl": "https://www.google.com/maps?cid=16926628177514892837",
+    "searchQuery": "Mayfair Gearbox Upington",
+    "mapsSearchUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20Upington%20Upington",
+    "blockedTitles": [],
+    "aliases": [
+      "Mayfair Gearbox Upington"
+    ]
+  },
+  {
+    "id": "bloemfontein-pros",
+    "name": "Mayfair Gearbox Pro's",
+    "shortName": "Bloemfontein",
+    "location": "Bloemfontein",
+    "color": "#b5d8f6",
+    "group": "franchise",
+    "googleLocationName": "",
+    "cid": "18125320026310021075",
+    "placeId": null,
+    "profileUrl": "https://www.google.com/maps?cid=18125320026310021075",
+    "searchQuery": "Mayfair Gearbox Pro's",
+    "mapsSearchUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20Pro%27s%20Hilton%2C%20Bloemfontein%2C%209301",
+    "blockedTitles": [],
+    "aliases": [
+      "Mayfair Gearbox Pro's",
+      "Mayfair Gearbox Pros",
+      "Mayfair Gearbox Bloemfontein"
     ]
   }
 ]

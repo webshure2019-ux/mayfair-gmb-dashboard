@@ -101,9 +101,20 @@
             <p class="section-kicker">Overview</p>
             <h2>Portfolio performance snapshot</h2>
           </div>
-          <p class="section-note">A high-level view of total review volume, rating strength, and response quality across all branches.</p>
+          <p class="section-note">A high-level view of total review volume, rating strength, and response quality across the company-owned branches.</p>
         </div>
         <div class="summary-grid" id="summaryCards" aria-label="Summary metrics"></div>
+      </section>
+
+      <section class="section-block summary-section" data-franchise-section hidden>
+        <div class="section-heading compact">
+          <div>
+            <p class="section-kicker">Franchises</p>
+            <h2>Franchise performance snapshot</h2>
+          </div>
+          <p class="section-note">The same high-level view for the franchise branches, reported separately from the company-owned figures above.</p>
+        </div>
+        <div class="summary-grid" id="franchiseSummaryCards" aria-label="Franchise summary metrics"></div>
       </section>
 
       <section class="section-block">
@@ -115,6 +126,17 @@
           <p class="section-note">Each card gives a compact branch summary so you can compare review volume, rating quality, and rating-lift potential side by side. Click a card to update the trend views below.</p>
         </div>
         <div class="branch-grid" id="branchCards"></div>
+      </section>
+
+      <section class="section-block" data-franchise-section hidden>
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Franchises</p>
+            <h2>Franchise branch performance</h2>
+          </div>
+          <p class="section-note">The same branch summary for each franchise. Clicking a card updates the trend views below, exactly as the company-owned cards do.</p>
+        </div>
+        <div class="branch-grid" id="franchiseBranchCards"></div>
       </section>
 
       <section class="section-block analytics-grid">

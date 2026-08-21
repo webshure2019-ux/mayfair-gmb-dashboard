@@ -325,8 +325,9 @@ function renderDashboard() {
   state.computed = computed;
   populateHeader(data, timezone);
   populateBranchControls(computed.branches);
-  renderSummaryCards(computed);
-  renderBranchCards(computed.branches);
+  renderSummaryCards(computed.groups.company, "summaryCards");
+  renderFranchiseSection(computed);
+  renderBranchCards(computed);
   renderTrendPanels(computed);
   renderLeaderboard(computed);
   renderDistributionTable(computed);
@@ -439,6 +440,57 @@ function getBranchMatchCandidates(branch) {
     .filter(Boolean);
 }
 
+function isFranchiseBranch(branch) {
+  return String(branch?.group || "").toLowerCase() === "franchise";
+}
+
+/**
+ * Aggregate stats for a set of branches and the reviews belonging to them.
+ *
+ * Extracted so the company group, the franchise group, and the combined
+ * portfolio are all computed by the same code path and cannot drift apart.
+ */
+function computeGroupStats(branches, reviews, data) {
+  const fromBranches = branches.reduce(
+    (accumulator, branch) => {
+      const reviewCount = Number(branch.currentReviewsCount) || 0;
+      const rating = Number(branch.currentRating) || 0;
+      accumulator.reviewCount += reviewCount;
+      accumulator.weightedRating += rating * reviewCount;
+      return accumulator;
+    },
+    { reviewCount: 0, weightedRating: 0 }
+  );
+
+  const stats = {
+    branchCount: branches.length,
+    totalReviews: fromBranches.reviewCount || reviews.length,
+    currentRating: fromBranches.reviewCount
+      ? fromBranches.weightedRating / fromBranches.reviewCount
+      : average(reviews.map((review) => review.rating)),
+    starCounts: computeStarCounts(reviews),
+    reviewsLast30Days: countSince(reviews, 30),
+    reviewsLast7Days: countSince(reviews, 7),
+    latestReviewAt: reviews[0]?.publishedAt || data.meta?.generatedAt || null,
+    trackedReviewCount: reviews.length,
+    ownerResponseCount: reviews.filter(hasOwnerResponse).length,
+    ownerResponseRate: percentage(reviews.filter(hasOwnerResponse).length, reviews.length),
+    commentCount: reviews.filter(hasWrittenComment).length,
+    commentRate: percentage(reviews.filter(hasWrittenComment).length, reviews.length),
+    localGuideCount: reviews.filter((review) => Boolean(review.isLocalGuide)).length,
+    localGuideShare: percentage(reviews.filter((review) => Boolean(review.isLocalGuide)).length, reviews.length),
+    lowStarCount: reviews.filter((review) => review.rating <= 2).length,
+    lowStarShare: percentage(reviews.filter((review) => review.rating <= 2).length, reviews.length),
+    positiveCount: reviews.filter((review) => review.rating >= 4).length,
+    positiveShare: percentage(reviews.filter((review) => review.rating >= 4).length, reviews.length),
+    last30Stats: periodStats(reviews, 0, 30),
+    previous30Stats: periodStats(reviews, 30, 30),
+  };
+  stats.ratingDelta30 = stats.last30Stats.averageRating - stats.previous30Stats.averageRating;
+  stats.volumeDelta30 = stats.last30Stats.count - stats.previous30Stats.count;
+  return stats;
+}
+
 function buildComputedModel(data, timezone) {
   const branches = (data.branches || []).map((branch) => ({
     ...branch,
@@ -503,42 +555,27 @@ function buildComputedModel(data, timezone) {
     branch.shareOfPortfolio = percentage(branch.currentReviewsCount, 0);
   });
 
-  const overallFromBranches = branches.reduce(
-    (accumulator, branch) => {
-      const reviewCount = Number(branch.currentReviewsCount) || 0;
-      const rating = Number(branch.currentRating) || 0;
-      accumulator.reviewCount += reviewCount;
-      accumulator.weightedRating += rating * reviewCount;
-      return accumulator;
-    },
-    { reviewCount: 0, weightedRating: 0 }
-  );
+  const overall = computeGroupStats(branches, reviews, data);
 
-  const overall = {
-    totalReviews: overallFromBranches.reviewCount || reviews.length,
-    currentRating: overallFromBranches.reviewCount
-      ? overallFromBranches.weightedRating / overallFromBranches.reviewCount
-      : average(reviews.map((review) => review.rating)),
-    starCounts: computeStarCounts(reviews),
-    reviewsLast30Days: countSince(reviews, 30),
-    reviewsLast7Days: countSince(reviews, 7),
-    latestReviewAt: reviews[0]?.publishedAt || data.meta?.generatedAt || null,
-    trackedReviewCount: reviews.length,
-    ownerResponseCount: reviews.filter(hasOwnerResponse).length,
-    ownerResponseRate: percentage(reviews.filter(hasOwnerResponse).length, reviews.length),
-    commentCount: reviews.filter(hasWrittenComment).length,
-    commentRate: percentage(reviews.filter(hasWrittenComment).length, reviews.length),
-    localGuideCount: reviews.filter((review) => Boolean(review.isLocalGuide)).length,
-    localGuideShare: percentage(reviews.filter((review) => Boolean(review.isLocalGuide)).length, reviews.length),
-    lowStarCount: reviews.filter((review) => review.rating <= 2).length,
-    lowStarShare: percentage(reviews.filter((review) => review.rating <= 2).length, reviews.length),
-    positiveCount: reviews.filter((review) => review.rating >= 4).length,
-    positiveShare: percentage(reviews.filter((review) => review.rating >= 4).length, reviews.length),
-    last30Stats: periodStats(reviews, 0, 30),
-    previous30Stats: periodStats(reviews, 30, 30),
+  // Franchise branches are reported separately from company-owned ones. A branch
+  // with no `group` counts as company-owned, so a dataset published before the
+  // field existed still renders exactly as it did before.
+  const franchiseBranches = branches.filter(isFranchiseBranch);
+  const companyBranches = branches.filter((branch) => !isFranchiseBranch(branch));
+  const franchiseIds = new Set(franchiseBranches.map((branch) => branch.id));
+  const groups = {
+    company: computeGroupStats(
+      companyBranches,
+      reviews.filter((review) => !franchiseIds.has(review.branchId)),
+      data
+    ),
+    franchise: computeGroupStats(
+      franchiseBranches,
+      reviews.filter((review) => franchiseIds.has(review.branchId)),
+      data
+    ),
   };
-  overall.ratingDelta30 = overall.last30Stats.averageRating - overall.previous30Stats.averageRating;
-  overall.volumeDelta30 = overall.last30Stats.count - overall.previous30Stats.count;
+
 
   const weeklyColumns = buildPeriodColumns("week", timezone, WEEK_COLUMNS);
   const monthlyColumns = buildPeriodColumns("month", timezone, MONTH_COLUMNS);
@@ -560,8 +597,11 @@ function buildComputedModel(data, timezone) {
   return {
     timezone,
     branches,
+    companyBranches,
+    franchiseBranches,
     reviews,
     overall,
+    groups,
     weeklyColumns,
     monthlyColumns,
     weeklyTotals,
@@ -638,39 +678,39 @@ function renderTrendPanels(model) {
   renderTrendChart(document.getElementById("monthlyTrend"), branch.monthlyBuckets);
 }
 
-function renderSummaryCards(model) {
+function renderSummaryCards(stats, containerId) {
   const cards = [
     {
       label: "Total GBP reviews",
-      value: formatInteger(model.overall.totalReviews),
+      value: formatInteger(stats.totalReviews),
     },
     {
       label: "Average rating",
-      value: formatRating(model.overall.currentRating),
+      value: formatRating(stats.currentRating),
     },
     {
       label: "Reviews in past 30 days",
-      value: formatInteger(model.overall.reviewsLast30Days),
+      value: formatInteger(stats.reviewsLast30Days),
     },
     {
       label: "Past 30-day rating",
-      value: formatRating(model.overall.last30Stats.averageRating),
+      value: formatRating(stats.last30Stats.averageRating),
     },
     {
       label: "Response rate",
-      value: formatPercent(model.overall.ownerResponseRate),
+      value: formatPercent(stats.ownerResponseRate),
     },
     {
       label: "Comment rate",
-      value: formatPercent(model.overall.commentRate),
+      value: formatPercent(stats.commentRate),
     },
     {
       label: "Local Guide share",
-      value: formatPercent(model.overall.localGuideShare),
+      value: formatPercent(stats.localGuideShare),
     },
   ];
 
-  document.getElementById("summaryCards").innerHTML = cards
+  document.getElementById(containerId).innerHTML = cards
     .map(
       (card) => `
         <article class="summary-card">
@@ -682,8 +722,32 @@ function renderSummaryCards(model) {
     .join("");
 }
 
-function renderBranchCards(branches) {
-  const container = document.getElementById("branchCards");
+function renderBranchCards(model) {
+  renderBranchCardGroup(model.companyBranches, "branchCards");
+  renderBranchCardGroup(model.franchiseBranches, "franchiseBranchCards");
+}
+
+/**
+ * Show or hide the whole franchise block. A dataset published before the
+ * `group` field existed has no franchise branches, so the section stays hidden
+ * and the page renders exactly as it did before rather than showing empty cards.
+ */
+function renderFranchiseSection(model) {
+  const hasFranchises = model.franchiseBranches.length > 0;
+  document.querySelectorAll("[data-franchise-section]").forEach((node) => {
+    node.hidden = !hasFranchises;
+  });
+  if (hasFranchises) {
+    renderSummaryCards(model.groups.franchise, "franchiseSummaryCards");
+  }
+}
+
+function renderBranchCardGroup(branches, containerId) {
+  const container = document.getElementById(containerId);
+
+  if (!container) {
+    return;
+  }
 
   if (!branches.length) {
     container.innerHTML = getEmptyState();

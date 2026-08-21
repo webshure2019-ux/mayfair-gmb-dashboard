@@ -27,8 +27,12 @@ API_BASE = "https://api.apify.com/v2"
 DEFAULT_ACTOR = "compass/google-maps-reviews-scraper"
 DEFAULT_MAX_REVIEWS_PER_BRANCH = 20
 MAX_SCHEDULED_REVIEWS_PER_BRANCH = 20
-DEFAULT_MONTHLY_REVIEW_WARNING = 5000
-DEFAULT_MONTHLY_REVIEW_STOP = 6500
+# Recalibrated for 11 branches (Aug 2026). At 20/branch the projection is
+# 11 * 20 * 31 = 6,820 reviews/month, which tripped the previous 6,500 stop and
+# aborted the nightly run for every branch. These bound review VOLUME, not spend:
+# actual cost at that volume is about $2.05/month against the $5 free credit.
+DEFAULT_MONTHLY_REVIEW_WARNING = 7000
+DEFAULT_MONTHLY_REVIEW_STOP = 9000
 DEFAULT_BILLING_DAYS = 31
 FREE_PLAN_REVIEW_PRICE_PER_1000 = 0.60
 TERMINAL_STATUSES = {"SUCCEEDED", "FAILED", "TIMED-OUT", "ABORTED"}
