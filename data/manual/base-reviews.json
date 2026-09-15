@@ -1,10 +1,10 @@
 {
   "meta": {
     "mode": "live",
-    "generatedAt": "2026-09-13T23:54:28.036574+00:00",
+    "generatedAt": "2026-09-15T00:19:54.769591+00:00",
     "timezone": "Africa/Johannesburg",
     "source": "Apify incremental sync",
-    "reviewCount": 1495,
+    "reviewCount": 1496,
     "manualReviewCount": 63,
     "manualBranchCounts": {
       "jhb-auto": 18,
@@ -19,7 +19,7 @@
     "baseGeneratedAt": "2026-05-14T12:19:36.665698+00:00",
     "baseSource": "Apify incremental sync",
     "actorId": "compass/google-maps-reviews-scraper",
-    "actorRunId": "doE9ZzhbN53fJTtUZ",
+    "actorRunId": "NRbEd1eW6r9ZbsrNX",
     "apifyMaxReviewsPerBranch": 20,
     "apifyScrapedReviewCount": 210,
     "apifyScrapedBranchCounts": {
@@ -27,12 +27,12 @@
       "jhb-auto": 20,
       "jhb-manual": 20,
       "pretoria-manual-auto": 20,
+      "cape-town-manual-auto": 20,
       "nelspruit-fleet-maintenance": 10,
       "empangeni-zululand": 20,
-      "cape-town-manual-auto": 20,
-      "pinetown-durban": 20,
       "east-london": 20,
       "upington": 20,
+      "pinetown-durban": 20,
       "bloemfontein-pros": 20
     },
     "apifyProjectedDailyReviews": 220,
@@ -58,13 +58,13 @@
         "Mayfair Gearbox Automatic Gearbox Repair Centre Johannesburg",
         "Automatic Gearbox Repair Centre Johannesburg"
       ],
-      "currentReviewsCount": 306,
+      "currentReviewsCount": 307,
       "currentRating": 4.4,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Automatic%20Gearbox%20Repair%20Centre%20Johannesburg&query_place_id=ChIJeYdnKrkOlR4R3c_MWW9rS1k",
       "fid": "0x1e950eb92a678779:0x594b6b6f59cccfdd",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnzx4FMtKJaFgEzLJqxmJwmn6fDKF4Va_6YZLoMn7Ztf6xSDBqCA820R0d9awXc0v0b5ck4FOJ_WFC6sWbxmuEbYTqKFX3Ip599AzbGafJhFCTlj2THKzFXp0orlHWnDkSC2RK-bQ=w408-h272-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkwXcS-ikTQguzoqgPKgTEDSGUVunlcJMoMIX8wKWiyWKc8vUjN6O7v3E9oKIAgGkOTR_Hk8hr6LuXZmtwuuNAOo4Txqp9IWuEGe6mRO2GXvNlJNhA9REBdluKRr-QO1kZY1kuOkQ=w408-h272-k-no",
       "googleLocationName": "",
-      "apifyReportedReviewsCount": 298,
+      "apifyReportedReviewsCount": 299,
       "apifyReportedRating": 4.5,
       "group": "company"
     },
@@ -88,9 +88,9 @@
       "currentRating": 4.5,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Commercial%20Truck%20Gearbox%20Centre%20And%20Specialists%20-%20Germiston&query_place_id=ChIJmW_CQAcRlR4RuhIS_5oweBk",
       "fid": "0x1e95110740c26f99:0x1978309aff1212ba",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlze-mVoqdrmsA4pZcXMpknwIM6rmQu67jjDwZ_j88Lyp-RTDX3nE54wopDuZBQt8ugjb0rCOYpcSs8q4uyShp3tv90n6ZRPOySqaYGpW_hRYz2C8ah9D9ggEMgJz9MM6PgmX3t=w408-h306-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkW0EpmTcSfk0GHQUK9leRCFpDU-IhSNYzxbI18Pj3yIXj3jUeBMDKUCA-3nOX4vYopItMQZBpocZFO27EKj00rCGCDkvmWdQkoIA0KJg3ia7q-mRR-tKKNWxWgbTq5rR49Rhls=w408-h306-k-no",
       "googleLocationName": "",
-      "apifyReportedReviewsCount": 194,
+      "apifyReportedReviewsCount": 193,
       "apifyReportedRating": 4.5,
       "group": "company"
     },
@@ -172,7 +172,7 @@
       "currentRating": 5.0,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20%26%20Fleet%20Maintenance%20Nelspruit&query_place_id=ChIJD2b337RL6B4RlRMWb9z-dHo",
       "fid": "0x1ee84bb4dff7660f:0x7a74fedc6f161395",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkkI15mzXzV7u_z_R3ACt4R02WvSINi_S16-NVsWfr9DKZ6d7bVs5QjLrXQohuFXg_aBBfvB5E8-SjGZ2plnSGIT4T8YFoGU8K8Q7cASBCYo_SNpvgHYs49VaDfmMBvZO7PxKjP=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlJTBoioqaZJQFDYnsB-njWo-qtCLjmkTUK-Uv76ta2xHkH1fwBSItsjej8jOjpOd6yVZC4lwyQGwkXeyiDCVxguWOvRtQ_l063wwOmcXIUZ6VmxzaQeUqRTtbvwab0qnTOcRmD=w600-h240-k-no",
       "apifyReportedReviewsCount": 10,
       "apifyReportedRating": 5.0,
       "group": "company"
@@ -202,7 +202,7 @@
       "currentRating": 4.2,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox-%20Manual%20%26%20Automatic%20Gearbox%20Repair&query_place_id=ChIJUbDyM0VRzB0Rwz8eJDQFBYE",
       "fid": "0x1dcc514533f2b051:0x81050534241e3fc3",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWllfohrWNwYxUuAdv0oB1HSVO4_LKXcsOBUzc89hTToAEvrWAoA4QsmlPKFFvZWkYgp8kdw41OKdcVr9gQ9c5T3RN87WwZ7y7KNKfz2Ir4V4wvqUGaQnChlMHSQypvUoI7dLnTcxQ=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmmuT_EaV_QpXxZuO5BPIcGiurRi44jgjSPVbxaoIIebD9oGn0eRfrHXONZCD2iR7pZYXCl3Jdh-0i5GWkwClQYKNR8qcQ1h00ERFjjcs96JtdfY1E_e_u8uh6s5uKgh3Y9qaCK3g=w600-h240-k-no",
       "apifyReportedReviewsCount": 106,
       "apifyReportedRating": 4.1,
       "group": "franchise"
@@ -231,7 +231,7 @@
       "currentRating": 3.9,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Zululand&query_place_id=ChIJgRzt26kQ-h4RWyMrf_bS0XI",
       "fid": "0x1efa10a9dbed1c81:0x72d1d2f67f2b235b",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlTZginXgxBOqjOL_oWLLQ3hsXQP-2g8XHSBZYH59OgDZ60CmsGuRE9Bg1smRlH_47X7UJXH5KDIAdul-OvMj_lJFoo_cJID5N_O8JnsQFToHP3ybzg1vO6D-3DsRl-6UemyzLxex2j1uV-=w512-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnxsXvpCpjDyJtriHnJ4gloiXycq4tTrxQrm4vjHZieL2M-2QOAwHf1kZu6P3LANQNCzoS1d9aKb7_I-Quv62R9NBvThhpLCEALXN42PvvbMRMbqKhb9_2pUHT5426hbiQ7yuwqQL0ioGii=w512-h240-k-no",
       "apifyReportedReviewsCount": 70,
       "apifyReportedRating": 3.9
     },
@@ -258,7 +258,7 @@
       "currentRating": 4.1,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20Durban%20-%20Gearbox%20Specialist%20and%20Transmission%20Repairs&query_place_id=ChIJ4-R4aBf_9h4RKM1SjkQERcg",
       "fid": "0x1ef6ff176878e4e3:0xc84504448e52cd28",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWl7qdb2Vd4oImu2m_YBus5DDHT3jDgM9FAPW--F57cJvVPm9aa6dFGmDzw6zEPInSw2rs9C1-7HfGjcOwUDgPWMsRZVXDh1RLIMtjDL-6RqlF6BMmCBjoiZHI1NbOS4TVK5AtUZZw=w408-h306-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkyp-ZedhJ9fQii3pyAZZAEl8_CSSHugn8LWWY1FBFwwkVilGWlrginRYxutZEnofRq2nAoE59NrDW89FCNhH92Z2nKb0QprD9JLWQXnzX-n-Oi0Io35JLrB1VzCRi0mXnRgcNReA=w408-h306-k-no",
       "apifyReportedReviewsCount": 38,
       "apifyReportedRating": 4.0
     },
@@ -342,6 +342,35 @@
     }
   ],
   "reviews": [
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2s5VmFuVm5lbTkyT0RSblprWTVXRVZTVFZVME5sRRAB",
+      "branchId": "jhb-auto",
+      "branchName": "Mayfair Gearbox - Automatic Gearbox Repair Centre Johannesburg",
+      "reviewerName": "Sean van der Walt",
+      "reviewerUrl": "https://www.google.com/maps/contrib/109541875038524157473?hl=en",
+      "reviewerReviewCount": 25,
+      "isLocalGuide": true,
+      "rating": 5,
+      "comment": "Highly recommended!  These are the go-to guys for most dealerships.  They have RMI, AA and SABS approvals.  These are people you can trust with your car.  Staff are friendly, helpful and knowledgeable.  Warranties supplied for work done.  A sure choice.",
+      "commentTranslated": "",
+      "publishedAt": "2026-09-14T19:59:20.837Z",
+      "updatedAt": "2026-09-14T19:59:20.837Z",
+      "publishedLabel": "4 hours ago",
+      "reviewUrl": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2s5VmFuVm5lbTkyT0RSblprWTVXRVZTVFZVME5sRRAB!2m1!1s0x0:0x594b6b6f59cccfdd!3m1!1s2@1:CAIQACodChtycF9oOk9VanVnem92ODRnZkY5WEVSTVU0NlE%7C%7C?hl=en",
+      "reviewSource": "Google",
+      "ownerResponseText": "",
+      "ownerResponseDate": null,
+      "ownerResponseUpdatedAt": null,
+      "reviewImageUrls": [],
+      "language": "en",
+      "translatedLanguage": null,
+      "scrapedAt": "2026-09-15T00:19:26.727Z",
+      "placeId": "ChIJeYdnKrkOlR4R3c_MWW9rS1k",
+      "cid": "6434354618621022173",
+      "fid": "0x1e950eb92a678779:0x594b6b6f59cccfdd",
+      "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Automatic%20Gearbox%20Repair%20Centre%20Johannesburg&query_place_id=ChIJeYdnKrkOlR4R3c_MWW9rS1k",
+      "title": "Mayfair Gearbox - Automatic Gearbox Repair Centre Johannesburg"
+    },
     {
       "id": "Ci9DQUlRQUNvZENodHljRjlvT25CdFkxWjNka2t6U1RaR05FaGhhM0Y0TTBSV2JIYxAB",
       "branchId": "jhb-manual",
