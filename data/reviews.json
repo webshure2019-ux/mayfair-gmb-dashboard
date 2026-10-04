@@ -1,7 +1,7 @@
 {
   "meta": {
     "mode": "live",
-    "generatedAt": "2026-10-03T00:57:27.936429+00:00",
+    "generatedAt": "2026-10-04T00:22:58.587538+00:00",
     "timezone": "Africa/Johannesburg",
     "source": "Apify incremental sync",
     "reviewCount": 1548,
@@ -19,7 +19,7 @@
     "baseGeneratedAt": "2026-05-14T12:19:36.665698+00:00",
     "baseSource": "Apify incremental sync",
     "actorId": "compass/google-maps-reviews-scraper",
-    "actorRunId": "sB87adUp7qMCxcrMY",
+    "actorRunId": "0ZOcawebGGS2L9H1c",
     "apifyMaxReviewsPerBranch": 20,
     "apifyScrapedReviewCount": 210,
     "apifyScrapedBranchCounts": {
@@ -27,13 +27,13 @@
       "jhb-auto": 20,
       "jhb-manual": 20,
       "pretoria-manual-auto": 20,
-      "cape-town-manual-auto": 20,
       "nelspruit-fleet-maintenance": 10,
+      "cape-town-manual-auto": 20,
       "empangeni-zululand": 20,
       "pinetown-durban": 20,
       "east-london": 20,
-      "bloemfontein-pros": 20,
-      "upington": 20
+      "upington": 20,
+      "bloemfontein-pros": 20
     },
     "apifyProjectedDailyReviews": 220,
     "apifyProjectedMonthlyReviews": 6820,
@@ -62,7 +62,7 @@
       "currentRating": 4.5,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Automatic%20Gearbox%20Repair%20Centre%20Johannesburg&query_place_id=ChIJeYdnKrkOlR4R3c_MWW9rS1k",
       "fid": "0x1e950eb92a678779:0x594b6b6f59cccfdd",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWknGrNxwItPR9gECAW33_F1nIRjr3r6usFpylkTPHWkgtb5rms6h1-bqW5Bi9t67ttQO7aOH-vAZ-u67OH8HiwCo9udWF9atfN-k5l1cTpMkZ8oEWYawRvynxTmoMf896LxDNC6fg=w408-h272-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/grass-cs/ACvplmO5XPasKACgk8LM4nIghqW2RQpDGIWhLhf42XsuS892zVLnq2OfkFDlLl1QsAGjJbNzHp88IxUMQgCDyEEN5gKHskITbfmwbmXFoN97MyJ9J-FAGmZSeyD2Rlu4HAfDsuBmjCTB8A=w408-h272-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 326,
       "apifyReportedRating": 4.5,
@@ -118,7 +118,7 @@
       "currentRating": 4.5,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20%26%20Automatic%20Gearbox%20Repair%20Centre%20Pretoria&query_place_id=ChIJK8UdZP1flR4RxNimOgIMjfo",
       "fid": "0x1e955ffd641dc52b:0xfa8d0c023aa6d8c4",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWm0kygXD4_DjMx-NXFe6HQtgHmENfQuE0KOfkvTY4h6jKIQoTo2iNE5zO7GGrmKa-tF21BknFFBd1pRGpuB5jVj6CxnCyq-Vay53YUhVU3jbeDqIQsdJEysw8fbkJMgDztAVliL=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmCoDK-NTBh-83AmtoeoZero4stmXHGWh4Wb2oeVQ1rUC6gNIqTy_G7guBV3aH2rrmPrgf8ROE1LWJEe--CyEo_BlZoZsItbE3vnakVXwrA7GOerFJuha6oSMamodETO6fieXA0=w600-h240-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 412,
       "apifyReportedRating": 4.5,
@@ -144,7 +144,7 @@
       "currentRating": 4.5,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20Gearbox%20Repair%20Centre%20Johannesburg&query_place_id=ChIJCTGjuhoPlR4RMBxg_FwqAg8",
       "fid": "0x1e950f1abaa33109:0xf022a5cfc601c30",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9R1-OyvpIe-o_J9m2J1Go2sRCFhogyiJDdAKY3OJwbp6Gc87rpPUT-HBuYxM9EJEB5bwqln_JOG5wxATtGm_UpQbAs1u5C5r6cdDcP5OA_l7EjleQbYYvv8gLQIupfMqyrUxGY=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/grass-cs/ACvplmODUm1YQcEoxNk0Bn3fe2UuP_c5TrFijZcILfjsDmg01bRze_K9vWP1tXTgl_GWn0qeMjS_LiJuJOWcxgXIMUClDIuxNM5Nb2hanlpgHBWWv5ccM4FhbSrCmKbxpSpe63hufjU=w600-h240-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 222,
       "apifyReportedRating": 4.6,
@@ -172,7 +172,7 @@
       "currentRating": 5.0,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20%26%20Fleet%20Maintenance%20Nelspruit&query_place_id=ChIJD2b337RL6B4RlRMWb9z-dHo",
       "fid": "0x1ee84bb4dff7660f:0x7a74fedc6f161395",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkHijpsdm04856VwJMcuto8lnCHURus3SF1afaPjfDU9WCsQ8AAYA_mDjTXpHE2SC4UPluJ7RpQmTb3hoKC8tfxIvJR1lSeMSrTN9-2bNyW-MkrvisGBO073ftpPoRTdp7MLQHy=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLej8k36FwdIoEvC1qNoVJT04vS2ZA8sFghioAxhqJ-Wfs5mQ6JK8DV-YiXneXEgmhp9SQuuXeMZRpXIBJCt6FKyxCgADrajAlWQtRrfSculeS1tgvSTX2QEynrX_-p8xBDG0ftg=w600-h240-k-no",
       "apifyReportedReviewsCount": 10,
       "apifyReportedRating": 5.0,
       "group": "company"
@@ -202,7 +202,7 @@
       "currentRating": 4.2,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox-%20Manual%20%26%20Automatic%20Gearbox%20Repair&query_place_id=ChIJUbDyM0VRzB0Rwz8eJDQFBYE",
       "fid": "0x1dcc514533f2b051:0x81050534241e3fc3",
-      "imageUrl": "https://lh3.googleusercontent.com/grass-cs/ACvplmPpXBG_zkzYDFHscdgn0yp9lFXvUrLFfoJ4O5aHgt5AFpf7Sg_yg_O5UAML5_3M1uXAqGTxaFzn8kCGZzX4THSrGZHfvE_7nEcyTxohgN6zsHwdLeJyOXo5vhXpVMaXKyB9U7nGZQ=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLeUOV6sdOmkOvwD4xNzrf5LgvQqq6SUSeO5HYyPK2HXiXc-Lwiu5K1XkJjJdzXBOLZMt1tnTzOQgY8p89n3EsoMGHY0YpF3ERUJKnH4CQ_vsKpMDuKIHbnbRbZFhrq66J4iUJSdjQ=w600-h240-k-no",
       "apifyReportedReviewsCount": 107,
       "apifyReportedRating": 4.1,
       "group": "franchise"
@@ -231,7 +231,7 @@
       "currentRating": 3.9,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Zululand&query_place_id=ChIJgRzt26kQ-h4RWyMrf_bS0XI",
       "fid": "0x1efa10a9dbed1c81:0x72d1d2f67f2b235b",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk8zFyMgmISvPTUVgxvpGtA5qS7hv5X80-ZZBMJxWW1bef3M2X6adF8l4ChN45l8WaJfXn-hjlVThv9blIYl274xRTKzPlFtMrcmwf8k7wj6ityIYhShVsTa846tX5cJHsI6urEBbs8K7Ky=w512-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/grass-cs/ACvplmMs-Vjznhfp2TQxcKZPnfgqt6I-CX3B5E5--YDvimxQhNbcm0Vjz4GWmmwnsaWYVa1yrPXwpG18MyIeQgcDOtx4BHglKxLAyw_PVpbQb7rzDXqWlU-tLmkHryqruFj3bA24ubNXKPIspq2F=w512-h240-k-no",
       "apifyReportedReviewsCount": 70,
       "apifyReportedRating": 3.9
     },
@@ -258,7 +258,7 @@
       "currentRating": 4.1,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20Durban%20-%20Gearbox%20Specialist%20and%20Transmission%20Repairs&query_place_id=ChIJ4-R4aBf_9h4RKM1SjkQERcg",
       "fid": "0x1ef6ff176878e4e3:0xc84504448e52cd28",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9TLh9d6yLELYPBtknPO6ngqH4w8T-lbXHkJYwgE3T_W8jJOkiGwp9j81ySZ6dzKrQ7FBjEkLzuh0z9gN8Cri2rUKjR09HqH4GZrSjDGVZEB1ND3PaVevgyQdSsaTAWYi458FAB37A=w408-h306-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLeofN7JWgJ8jYN-t8IUa_kYB2Ap0f3ofsiBWr723R5XY7QSGtmyCUUOF5VttOfAQP_qJEeCRTNxGwK4BPI4FcwxX5Mncd6ksoDosXMgCCmaDeJD5VB60bHIUAwlKvtefX1os5t9oA=w408-h306-k-no",
       "apifyReportedReviewsCount": 38,
       "apifyReportedRating": 4.0
     },
@@ -284,7 +284,7 @@
       "currentRating": 4.5,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20East%20London&query_place_id=ChIJ-YCwMcThZh4Rk7YoTsR79KA",
       "fid": "0x1e66e1c431b080f9:0xa0f47bc44e28b693",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlN1zKAtkIjGo8mnXwyas-sCk0pmTFqHSGJaphG47PVfYOF85NlxJcVXbqzJj9YWub27bF0AEnYdDorEAuoiXZ4poVsOeRqexiDztgINZcZ3CCz7LE2O-P3AnsgoM8gXxdx0UsY=w408-h276-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnRYY8z6Wo5oHrjtAKFS9fz4crmQjKHt5-9abwSeU3RDwVocOYHmn7w14pSuBdkKel2SdgMqzW2Z7SlzaLIhhuWJuPMnbeQvTB4BUZkNCe7LLBKDVncoiN4lm5Q7_6hZIvIKFPF=w408-h276-k-no",
       "apifyReportedReviewsCount": 62,
       "apifyReportedRating": 4.5
     },
@@ -309,7 +309,7 @@
       "currentRating": 3.9,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20Upington&query_place_id=ChIJNzPdONVSIRwRJY7kdaV25-o",
       "fid": "0x1c2152d538dd3337:0xeae776a575e48e25",
-      "imageUrl": "https://lh3.googleusercontent.com/grass-cs/ACvplmPq8abwxI6POR4HO3DS0lusIHlaJ6ZnT9Kxc3n2yy3EfJySxE_xfqJvv121aIUanGey6ks8HVBtYIYxfmvcKwQelFtDql7PItyplxt6sdYfd2SsL9U3-jFHeZa5xwKeqbgqU1YHcw=w573-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/grass-cs/ACvplmPEkjG2MP36ffy21vE4X0wdBp9L5T6xQn8rXCyt_SvidmPTamKDiiKhi41wvWvZK97_rxH3t0mGiVMfFeFJqnj68ovEXnMF-aPZYcnQq6MuzOgwY2JRyuEeXZVK8ar-UZLU21svcA=w573-h240-k-no",
       "apifyReportedReviewsCount": 40,
       "apifyReportedRating": 3.9
     },
@@ -336,8 +336,8 @@
       "currentRating": 3.7,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20Pro's&query_place_id=ChIJe5NZJPXPjx4R0497KIgSivs",
       "fid": "0x1e8fcff52459937b:0xfb8a1288287b8fd3",
-      "imageUrl": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlmQvxlGlbhECe_6rEYdsZ66ss_1vtPYowc3QO62svcztf5sD0ABDOr-zRtOMDmUiu-uCyz49J3twmNnmuTpFaFPEFAh4Pp_4GM8B75eUbmaDiYYyhaZLW4Fej36oxpBV_8Y5Ry=w426-h240-k-no",
-      "apifyReportedReviewsCount": 43,
+      "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLfohGSTLbIhAUvx6j6jeV-C-KT-G-YndnhC-W0I_eLOcOzM9jFQicK3xWWckJyiIG_vLPCT97gDxXbZ478miVA-AhZ_o-kfG7QLD9mPAsiMCQ8urcvBS0Kt_XRhbfExEj3_CXWr=w426-h240-k-no",
+      "apifyReportedReviewsCount": 42,
       "apifyReportedRating": 3.7
     }
   ],
