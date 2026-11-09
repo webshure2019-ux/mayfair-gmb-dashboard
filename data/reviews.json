@@ -1,7 +1,7 @@
 {
   "meta": {
     "mode": "live",
-    "generatedAt": "2026-11-08T01:06:36.056129+00:00",
+    "generatedAt": "2026-11-09T01:29:29.050717+00:00",
     "timezone": "Africa/Johannesburg",
     "source": "Apify incremental sync",
     "reviewCount": 1592,
@@ -19,21 +19,21 @@
     "baseGeneratedAt": "2026-05-14T12:19:36.665698+00:00",
     "baseSource": "Apify incremental sync",
     "actorId": "compass/google-maps-reviews-scraper",
-    "actorRunId": "WEUMT5C2ZfmHZECO0",
+    "actorRunId": "jq2Qc6rYcu3xVF5uv",
     "apifyMaxReviewsPerBranch": 20,
     "apifyScrapedReviewCount": 210,
     "apifyScrapedBranchCounts": {
       "jhb-auto": 20,
-      "germiston-commercial": 20,
-      "jhb-manual": 20,
       "pretoria-manual-auto": 20,
       "nelspruit-fleet-maintenance": 10,
       "cape-town-manual-auto": 20,
       "empangeni-zululand": 20,
       "east-london": 20,
+      "bloemfontein-pros": 20,
+      "jhb-manual": 20,
+      "germiston-commercial": 20,
       "pinetown-durban": 20,
-      "upington": 20,
-      "bloemfontein-pros": 20
+      "upington": 20
     },
     "apifyProjectedDailyReviews": 220,
     "apifyProjectedMonthlyReviews": 6820,
@@ -118,7 +118,7 @@
       "currentRating": 4.5,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20Manual%20%26%20Automatic%20Gearbox%20Repair%20Centre%20Pretoria&query_place_id=ChIJK8UdZP1flR4RxNimOgIMjfo",
       "fid": "0x1e955ffd641dc52b:0xfa8d0c023aa6d8c4",
-      "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLc0BZ5g0uRpxuvRP1-JbscpQM-bzRxctQaSld7JGQG0Tr4ev_AGTjBoPCy65hnPvBIQoQdYH-pFEcd_8-O5Lgi-5g0c8lQj_fjtq18HSBcl1D3m7fVrSQQmQb10Pyo_2PKRakg8=w600-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLcRIqXlUoL661CdnT3nhjGodYGBw_bmeQe-KeJwwEyMOpOuxn204q0SfD2tYWLOf2qYR9SkN5jG7prfvAN06Y14kIXc5JW4cfi5PW8hTmCmsE8mJmZto8Jr39fKeyZnbOysbC9A=w600-h240-k-no",
       "googleLocationName": "",
       "apifyReportedReviewsCount": 417,
       "apifyReportedRating": 4.5,
@@ -284,7 +284,7 @@
       "currentRating": 4.5,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20-%20East%20London&query_place_id=ChIJ-YCwMcThZh4Rk7YoTsR79KA",
       "fid": "0x1e66e1c431b080f9:0xa0f47bc44e28b693",
-      "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLesGQeCH7DqYyHYcDfSz5h9FtBY13J4SMqFDfAg3SWmxOj1fWMxOGHVAnzekBdU1_LxLrTBB_JbOS9LgPw-jKWDP7fSxhzw46S7ovOekwnl9C_6gvS1aYSBpccZprPtVN5BAS9D=w408-h276-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLeUtFwryFay2Xa-jOuj9p0yWq2XmIAfy5gbE0O-BrouWTZoVsvECJwHFSWxYmHQnV03U4jnXzEfMCbU-ZZXAkM_lBP4I1LV-oHl7pRulm3-ujSKZn4ohi8yx9HKwC0KTAvYkDfw=w408-h276-k-no",
       "apifyReportedReviewsCount": 62,
       "apifyReportedRating": 4.5
     },
@@ -309,7 +309,7 @@
       "currentRating": 3.9,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20Upington&query_place_id=ChIJNzPdONVSIRwRJY7kdaV25-o",
       "fid": "0x1c2152d538dd3337:0xeae776a575e48e25",
-      "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLfSYScpF4cgK4vf8dYZcldJi5ma9YezTP6W4U91PcGGjSzF4FpAGrHjvhqk_1hj3IVlrRT0oN6_hdjD4Gmo6SKdXYMfyejSG5bRXmKmnWGIEi6UbtEJL6vHRLbz1XtkKXVJ4P38QA=w573-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLeNPuB0HqfaHCyottUoe9NgP5Gn7wZHP5JF4qFnfftVO3slCU4HwcdCV5h7P-crDCRbc2JlOZhM1KHIFE_w1tCO0F9iZo4PiFzTBU3z0Adt6fP_VK2sDtgGsYI0flblpi37qeoVQQ=w573-h240-k-no",
       "apifyReportedReviewsCount": 41,
       "apifyReportedRating": 3.9
     },
@@ -336,7 +336,7 @@
       "currentRating": 3.9,
       "placeUrl": "https://www.google.com/maps/search/?api=1&query=Mayfair%20Gearbox%20Pro's&query_place_id=ChIJe5NZJPXPjx4R0497KIgSivs",
       "fid": "0x1e8fcff52459937b:0xfb8a1288287b8fd3",
-      "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLeQy_8dn9taToS4HzALyNq-CNiJi-vN5_6wzq3CBlDjn6GKW0QirTxaWQ9KKXGveiT-c-6Ul8kQVt9YlL8mB3bPHHRpWRurap5Pa0Dd597e_3JS01LueeRl7_IFOVuT_r3BhObL=w426-h240-k-no",
+      "imageUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLcPLSYelwVp44nv8_Sd5zuriVFvo7cY7GNFW-6G4KkGooTpdpXzYpqnn0NddPBJCO7jjmXsVEt5HZT7Umsf3pmEV3aRaSjPtWbI_aWrOPjv1yMUpRvSXi3jivbZeMNvp5gOL581=w426-h240-k-no",
       "apifyReportedReviewsCount": 45,
       "apifyReportedRating": 3.9
     }
